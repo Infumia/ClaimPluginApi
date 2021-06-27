@@ -1,46 +1,62 @@
 package tr.com.infumia.claimplugin.paper.api.permission;
 
-import lombok.AccessLevel;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
+import lombok.ToString;
 import org.jetbrains.annotations.NotNull;
 
 /**
  * an enum that contains control results.
  */
 @Getter
-@RequiredArgsConstructor(access = AccessLevel.PACKAGE)
-public enum ControlResult {
-  /**
-   * returns when players do a fight with any player in the claim which forbids pvp.
-   */
-  PVP_OFF,
-  /**
-   * returns when an entity has made a decision to explode or a block explodes.
-   */
-  EXPLOSIONS_OFF,
-  /**
-   * returns when an entity spawns or an entity is spawned by a spawner in the claim.
-   */
-  MOB_SPAWNING_OFF,
-  /**
-   * returns when
-   */
-  FIRE_SPREAD_OFF,
+@ToString
+@EqualsAndHashCode
+@RequiredArgsConstructor
+public final class ControlResult {
+
   /**
    * returns when the actor is null and global permissions of the claim are empty or member's permissions are empty.
    */
-  EMPTY_PERMISSION,
+  public static final ControlResult EMPTY_PERMISSION = new ControlResult("");
+
+  /**
+   * returns when an entity has made a decision to explode or a block explodes.
+   */
+  public static final ControlResult EXPLOSIONS_OFF = new ControlResult("");
+
+  /**
+   * returns when
+   */
+  public static final ControlResult FIRE_SPREAD_OFF = new ControlResult("");
+
+  /**
+   * returns when an entity spawns or an entity is spawned by a spawner in the claim.
+   */
+  public static final ControlResult MOB_SPAWNING_OFF = new ControlResult("");
+
   /**
    * returns when the actor is not null and no match member for the actor.
    * <p>
    * it means a non-member player interact to the claim.
    */
-  NONE,
+  public static final ControlResult NONE = new ControlResult("");
+
+  /**
+   * returns when players do a fight with any player in the claim which forbids pvp.
+   */
+  public static final ControlResult PVP_OFF = new ControlResult("pvp-off");
+
   /**
    * returns when the actor interact to the claim successfully.
    */
-  SUCCEED(true);
+  public static final ControlResult SUCCEED = new ControlResult("succeed", true);
+
+  /**
+   * the id.
+   */
+  @NotNull
+  private final String id;
 
   /**
    * the succeed.
@@ -49,9 +65,11 @@ public enum ControlResult {
 
   /**
    * ctor.
+   *
+   * @param id the id.
    */
-  ControlResult() {
-    this(false);
+  public ControlResult(@NotNull final String id) {
+    this(id, false);
   }
 
   /**
