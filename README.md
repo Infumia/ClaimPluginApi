@@ -1,5 +1,10 @@
 # Claim Plugin Api
 
+[![idea](https://www.elegantobjects.org/intellij-idea.svg)](https://www.jetbrains.com/idea/)
+
+![master](https://github.com/Infumia/ClaimPluginApi/workflows/build/badge.svg)
+[![Release](https://jitpack.io/v/Infumia/ClaimPluginApi.svg)](https://jitpack.io/#Infumia/ClaimPluginApi)
+
 ## Build your self
 
 `mvn clean install`
