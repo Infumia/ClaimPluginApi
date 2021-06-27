@@ -32,6 +32,11 @@ public final class Claims {
   private static final Set<Claim> CLAIMS_SET = new HashSet<>();
 
   /**
+   * the lock.
+   */
+  private static final Object LOCK = new Object();
+
+  /**
    * the claim serializer.
    */
   @Nullable
@@ -67,7 +72,7 @@ public final class Claims {
    * @return completable future for claim.
    */
   @NotNull
-  @Synchronized("CLAIMS")
+  @Synchronized("LOCK")
   static CompletableFuture<@Nullable Claim> load(@NotNull final UUID uniqueId) {
     if (Claims.CLAIMS.containsKey(uniqueId)) {
       return CompletableFuture.completedFuture(Claims.CLAIMS.get(uniqueId));
@@ -103,7 +108,7 @@ public final class Claims {
    *
    * @param claim the claim to save.
    */
-  @Synchronized("CLAIMS")
+  @Synchronized("LOCK")
   @NotNull
   static CompletableFuture<Void> save(@NotNull final Claim claim) {
     return Claims.supplyClaim(claim).whenComplete((none, throwable) -> {
