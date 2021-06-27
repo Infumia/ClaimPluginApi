@@ -85,6 +85,8 @@ public interface Claim extends Permissible {
    * saves the claim.
    *
    * @param claim the claim to save.
+   *
+   * @return completable future.
    */
   @NotNull
   static CompletableFuture<Void> save(@NotNull final Claim claim) {
@@ -256,6 +258,8 @@ public interface Claim extends Permissible {
 
   /**
    * saves the claim.
+   *
+   * @return completable future.
    */
   @NotNull
   default CompletableFuture<Void> save() {
