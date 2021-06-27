@@ -12,9 +12,21 @@ import org.jetbrains.annotations.NotNull;
 @RequiredArgsConstructor(access = AccessLevel.PACKAGE)
 public enum ControlResult {
   /**
-   * returns when the actor doing a fight with any player in a claim which forbids pvp.
+   * returns when players do a fight with any player in the claim which forbids pvp.
    */
   PVP_OFF,
+  /**
+   * returns when an entity has made a decision to explode or a block explodes.
+   */
+  EXPLOSIONS_OFF,
+  /**
+   * returns when an entity spawns or an entity is spawned by a spawner in the claim.
+   */
+  MOB_SPAWNING_OFF,
+  /**
+   * returns when
+   */
+  FIRE_SPREAD_OFF,
   /**
    * returns when the actor is null and global permissions of the claim are empty or member's permissions are empty.
    */
