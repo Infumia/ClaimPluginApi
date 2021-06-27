@@ -8,9 +8,11 @@ import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.entity.Player;
+import org.bukkit.event.Event;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import tr.com.infumia.claimplugin.paper.api.member.Member;
+import tr.com.infumia.claimplugin.paper.api.permission.ControlResult;
 import tr.com.infumia.claimplugin.paper.api.permission.Permissible;
 import tr.com.infumia.infumialib.paper.location.Cuboid;
 
@@ -34,6 +36,42 @@ public interface Claim extends Permissible {
   }
 
   /**
+   * gets claim of the player.
+   *
+   * @param uniqueId the unique id to get.
+   *
+   * @return claims of the player.
+   */
+  @NotNull
+  static Collection<Claim> getByOwner(@NotNull final UUID uniqueId) {
+    return Claims.getByOwner(uniqueId);
+  }
+
+  /**
+   * gets claim of the player.
+   *
+   * @param player the player to get.
+   *
+   * @return claims of the player.
+   */
+  @NotNull
+  static Collection<Claim> getByOwner(@NotNull final OfflinePlayer player) {
+    return Claim.getByOwner(player.getUniqueId());
+  }
+
+  /**
+   * gets claim of the player.
+   *
+   * @param player the player to get.
+   *
+   * @return claims of the player.
+   */
+  @NotNull
+  static Collection<Claim> getByOwner(@NotNull final Player player) {
+    return Claim.getByOwner(player.getUniqueId());
+  }
+
+  /**
    * loads claim via unique id.
    *
    * @param uniqueId the unique id to load.
@@ -43,42 +81,6 @@ public interface Claim extends Permissible {
   @NotNull
   static CompletableFuture<@Nullable Claim> load(@NotNull final UUID uniqueId) {
     return Claims.load(uniqueId);
-  }
-
-  /**
-   * gets claim of the player.
-   *
-   * @param uniqueId the unique id to get.
-   *
-   * @return claims of the player.
-   */
-  @NotNull
-  static Collection<Claim> of(@NotNull final UUID uniqueId) {
-    return Claims.of(uniqueId);
-  }
-
-  /**
-   * gets claim of the player.
-   *
-   * @param player the player to get.
-   *
-   * @return claims of the player.
-   */
-  @NotNull
-  static Collection<Claim> of(@NotNull final OfflinePlayer player) {
-    return Claim.of(player.getUniqueId());
-  }
-
-  /**
-   * gets claim of the player.
-   *
-   * @param player the player to get.
-   *
-   * @return claims of the player.
-   */
-  @NotNull
-  static Collection<Claim> of(@NotNull final Player player) {
-    return Claim.of(player.getUniqueId());
   }
 
   /**
@@ -124,6 +126,56 @@ public interface Claim extends Permissible {
   default boolean canExpire() {
     return this.getExpireTime() != -1;
   }
+
+  /**
+   * controls all the permissions.
+   *
+   * @param event the event to control.
+   *
+   * @return {@code true} if the event passes the control.
+   */
+  @NotNull
+  default ControlResult control(@NotNull final Event event) {
+    return this.control(event, true);
+  }
+
+  /**
+   * controls all the permissions.
+   *
+   * @param event the event to control.
+   * @param cancelIfReturnFalse the cancel if return false to control.
+   *
+   * @return {@code true} if the event passes the control.
+   */
+  @NotNull
+  default ControlResult control(@NotNull final Event event, final boolean cancelIfReturnFalse) {
+    return this.control(event, null, cancelIfReturnFalse);
+  }
+
+  /**
+   * controls all the permissions.
+   *
+   * @param event the event to control.
+   * @param actor the actor to control.
+   *
+   * @return {@code true} if the event passes the control.
+   */
+  @NotNull
+  default ControlResult control(@NotNull final Event event, @Nullable final Player actor) {
+    return this.control(event, actor, true);
+  }
+
+  /**
+   * controls all the permissions.
+   *
+   * @param event the event to control.
+   * @param actor the actor to control.
+   * @param cancelIfReturnFalse the cancel if return false to control.
+   *
+   * @return {@code true} if the event passes the control.
+   */
+  @NotNull
+  ControlResult control(@NotNull Event event, @Nullable Player actor, final boolean cancelIfReturnFalse);
 
   /**
    * obtains the cuboid.

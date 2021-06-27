@@ -1,11 +1,14 @@
 package tr.com.infumia.claimplugin.paper.api.member;
 
+import java.util.Objects;
 import java.util.UUID;
 import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.entity.Player;
+import org.bukkit.event.Event;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+import tr.com.infumia.claimplugin.paper.api.permission.ControlResult;
 import tr.com.infumia.claimplugin.paper.api.permission.Permissible;
 
 /**
@@ -50,6 +53,17 @@ public interface Member extends Permissible {
   }
 
   /**
+   * controls all the permissions.
+   *
+   * @param event the event to control.
+   * @param cancelIfReturnFalse the cancel if return false to control.
+   *
+   * @return {@code true} if the event passes the control.
+   */
+  @NotNull
+  ControlResult control(@NotNull Event event, final boolean cancelIfReturnFalse);
+
+  /**
    * obtains the member as offline player.
    *
    * @return member as offline player.
@@ -67,6 +81,16 @@ public interface Member extends Permissible {
   @Nullable
   default Player getAsPlayer() {
     return Bukkit.getPlayer(this.getUniqueId());
+  }
+
+  /**
+   * obtains the member as player.
+   *
+   * @return member as player.
+   */
+  @NotNull
+  default Player getAsPlayerOrThrow() {
+    return Objects.requireNonNull(this.getAsPlayer(), String.format("Player %s not found!", this.getUniqueId()));
   }
 
   /**
