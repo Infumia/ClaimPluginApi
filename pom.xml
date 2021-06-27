@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xmlns="http://maven.apache.org/POM/4.0.0"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <parent>
+    <groupId>io.github.parentpom</groupId>
+    <artifactId>ppom</artifactId>
+    <version>3.4.12</version>
+  </parent>
+  <groupId>tr.com.infumia</groupId>
+  <artifactId>ClaimPluginApi</artifactId>
+  <name>ClaimPluginApi</name>
+  <version>1.0.0</version>
+  <packaging>pom</packaging>
+  <description>Claim plugin for Minecraft servers.</description>
+  <properties>
+    <java.version>11</java.version>
+    <minimize.jar>false</minimize.jar>
+    <paper.version>1.16.5-R0.1-SNAPSHOT</paper.version>
+  </properties>
+  <build>
+    <finalName>${project.name}</finalName>
+  </build>
+  <repositories>
+    <repository>
+      <url>https://papermc.io/repo/repository/maven-public/</url>
+      <id>papermc</id>
+    </repository>
+  </repositories>
+  <dependencies>
+    <dependency>
+      <groupId>com.github.Infumia.InfumiaLib</groupId>
+      <artifactId>InfumiaPaper</artifactId>
+      <version>2.2.7</version>
+      <scope>provided</scope>
+    </dependency>
+    <dependency>
+      <groupId>com.destroystokyo.paper</groupId>
+      <artifactId>paper-api</artifactId>
+      <version>${paper.version}</version>
+      <scope>provided</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.jetbrains</groupId>
+      <artifactId>annotations</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.projectlombok</groupId>
+      <artifactId>lombok</artifactId>
+    </dependency>
+  </dependencies>
+</project>

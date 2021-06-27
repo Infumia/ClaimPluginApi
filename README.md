@@ -1,2 +1,5 @@
-# ClaimPluginApi
-Infumia claim plugin's Api classes.
+# Claim Plugin Api
+
+## Building
+
+`mvn clean install`
