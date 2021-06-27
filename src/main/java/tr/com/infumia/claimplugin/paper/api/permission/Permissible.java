@@ -1,6 +1,6 @@
 package tr.com.infumia.claimplugin.paper.api.permission;
 
-import java.util.Collection;
+import java.util.Map;
 import org.jetbrains.annotations.NotNull;
 
 /**
@@ -42,7 +42,7 @@ public interface Permissible {
    * @return permissions.
    */
   @NotNull
-  Collection<Permission> getPermissions();
+  Map<Permission, Permission.Status> getPermissions();
 
   /**
    * removes the permission.

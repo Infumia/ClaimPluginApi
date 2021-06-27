@@ -3,6 +3,7 @@ package tr.com.infumia.claimplugin.paper.api.permission;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
+import org.jetbrains.annotations.NotNull;
 
 /**
  * an enum that contains control results.
@@ -39,5 +40,16 @@ public enum ControlResult {
    */
   ControlResult() {
     this(false);
+  }
+
+  /**
+   * checks the status can pass the control.
+   *
+   * @param status the status to check.
+   *
+   * @return {@code true} if the status can pass the control.
+   */
+  public boolean check(@NotNull final Permission.Status status) {
+    return this.isSucceed() && status == Permission.Status.ENABLED;
   }
 }
