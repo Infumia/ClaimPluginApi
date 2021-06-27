@@ -24,7 +24,17 @@ public interface Permissible {
    *
    * @param permission the permission to add.
    */
-  void addPermission(@NotNull Permission permission);
+  default void addPermission(@NotNull final Permission permission) {
+    this.addPermission(permission, Permission.Status.ENABLED);
+  }
+
+  /**
+   * adds the permission.
+   *
+   * @param permission the permission to add.
+   * @param status the status to add.
+   */
+  void addPermission(@NotNull Permission permission, @NotNull Permission.Status status);
 
   /**
    * obtains permissions.

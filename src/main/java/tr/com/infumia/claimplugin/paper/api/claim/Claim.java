@@ -8,9 +8,11 @@ import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.entity.Player;
+import org.bukkit.event.Event;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import tr.com.infumia.claimplugin.paper.api.member.Member;
+import tr.com.infumia.claimplugin.paper.api.permission.ControlResult;
 import tr.com.infumia.claimplugin.paper.api.permission.Permissible;
 import tr.com.infumia.infumialib.paper.location.Cuboid;
 
@@ -31,18 +33,6 @@ public interface Claim extends Permissible {
   @NotNull
   static Optional<Claim> get(@NotNull final Location location) {
     return Claims.get(location);
-  }
-
-  /**
-   * loads claim via unique id.
-   *
-   * @param uniqueId the unique id to load.
-   *
-   * @return completable future for claim.
-   */
-  @NotNull
-  static CompletableFuture<@Nullable Claim> load(@NotNull final UUID uniqueId) {
-    return Claims.load(uniqueId);
   }
 
   /**
@@ -79,6 +69,18 @@ public interface Claim extends Permissible {
   @NotNull
   static Collection<Claim> getByOwner(@NotNull final Player player) {
     return Claim.getByOwner(player.getUniqueId());
+  }
+
+  /**
+   * loads claim via unique id.
+   *
+   * @param uniqueId the unique id to load.
+   *
+   * @return completable future for claim.
+   */
+  @NotNull
+  static CompletableFuture<@Nullable Claim> load(@NotNull final UUID uniqueId) {
+    return Claims.load(uniqueId);
   }
 
   /**
@@ -124,6 +126,56 @@ public interface Claim extends Permissible {
   default boolean canExpire() {
     return this.getExpireTime() != -1;
   }
+
+  /**
+   * controls all the permissions.
+   *
+   * @param event the event to control.
+   *
+   * @return {@code true} if the event passes the control.
+   */
+  @NotNull
+  default ControlResult control(@NotNull final Event event) {
+    return this.control(event, true);
+  }
+
+  /**
+   * controls all the permissions.
+   *
+   * @param event the event to control.
+   * @param cancelIfReturnFalse the cancel if return false to control.
+   *
+   * @return {@code true} if the event passes the control.
+   */
+  @NotNull
+  default ControlResult control(@NotNull final Event event, final boolean cancelIfReturnFalse) {
+    return this.control(event, null, cancelIfReturnFalse);
+  }
+
+  /**
+   * controls all the permissions.
+   *
+   * @param event the event to control.
+   * @param actor the actor to control.
+   *
+   * @return {@code true} if the event passes the control.
+   */
+  @NotNull
+  default ControlResult control(@NotNull final Event event, @Nullable final Player actor) {
+    return this.control(event, actor, true);
+  }
+
+  /**
+   * controls all the permissions.
+   *
+   * @param event the event to control.
+   * @param actor the actor to control.
+   * @param cancelIfReturnFalse the cancel if return false to control.
+   *
+   * @return {@code true} if the event passes the control.
+   */
+  @NotNull
+  ControlResult control(@NotNull Event event, @Nullable Player actor, final boolean cancelIfReturnFalse);
 
   /**
    * obtains the cuboid.

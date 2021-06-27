@@ -65,6 +65,20 @@ public final class Claims {
   }
 
   /**
+   * gets claim of the player.
+   *
+   * @param uniqueId the unique id to get.
+   *
+   * @return claims of the player.
+   */
+  @NotNull
+  static Collection<Claim> getByOwner(@NotNull final UUID uniqueId) {
+    return Claims.CLAIMS_SET.stream()
+      .filter(claim -> claim.getOwner().equals(uniqueId))
+      .collect(Collectors.toSet());
+  }
+
+  /**
    * gets claim via unique id.
    *
    * @param uniqueId the unique id to get.
@@ -87,20 +101,6 @@ public final class Claims {
           Claims.CLAIMS_SET.add(claim);
         }
       });
-  }
-
-  /**
-   * gets claim of the player.
-   *
-   * @param uniqueId the unique id to get.
-   *
-   * @return claims of the player.
-   */
-  @NotNull
-  static Collection<Claim> getByOwner(@NotNull final UUID uniqueId) {
-    return Claims.CLAIMS_SET.stream()
-      .filter(claim -> claim.getOwner().equals(uniqueId))
-      .collect(Collectors.toSet());
   }
 
   /**

@@ -31,25 +31,15 @@ public interface Permission {
   }
 
   /**
-   * controls the permission.
-   *
-   * @param event the event to control.
-   *
-   * @return {@code true} if the event passes the control.
-   */
-  default boolean controlSilently(@NotNull final Event event) {
-    return this.controlSilently(event, true);
-  }
-
-  /**
-   * controls the permission.
+   * controls all the permissions.
    *
    * @param event the event to control.
    * @param cancelIfReturnFalse the cancel if return false to control.
    *
    * @return {@code true} if the event passes the control.
    */
-  boolean controlSilently(@NotNull Event event, final boolean cancelIfReturnFalse);
+  @NotNull
+  ControlResult control(@NotNull Event event, final boolean cancelIfReturnFalse);
 
   /**
    * obtains the id.
@@ -71,5 +61,21 @@ public interface Permission {
    */
   default void register() {
     Permission.register(this);
+  }
+
+  /**
+   * an enum class that contains status of a permission.
+   *
+   * @todo #1:15m Add ROLE after adding a Role system for members. The ROLE status basically checks member's role.
+   */
+  enum Status {
+    /**
+     * the enabled.
+     */
+    ENABLED,
+    /**
+     * the disabled.
+     */
+    DISABLED
   }
 }
