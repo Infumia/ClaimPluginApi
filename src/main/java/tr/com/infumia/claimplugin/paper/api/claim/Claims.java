@@ -97,7 +97,7 @@ public final class Claims {
    * @return claims of the player.
    */
   @NotNull
-  static Collection<Claim> of(@NotNull final UUID uniqueId) {
+  static Collection<Claim> getByOwner(@NotNull final UUID uniqueId) {
     return Claims.CLAIMS_SET.stream()
       .filter(claim -> claim.getOwner().equals(uniqueId))
       .collect(Collectors.toSet());

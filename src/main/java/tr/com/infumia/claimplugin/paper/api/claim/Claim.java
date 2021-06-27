@@ -53,8 +53,8 @@ public interface Claim extends Permissible {
    * @return claims of the player.
    */
   @NotNull
-  static Collection<Claim> of(@NotNull final UUID uniqueId) {
-    return Claims.of(uniqueId);
+  static Collection<Claim> getByOwner(@NotNull final UUID uniqueId) {
+    return Claims.getByOwner(uniqueId);
   }
 
   /**
@@ -65,8 +65,8 @@ public interface Claim extends Permissible {
    * @return claims of the player.
    */
   @NotNull
-  static Collection<Claim> of(@NotNull final OfflinePlayer player) {
-    return Claim.of(player.getUniqueId());
+  static Collection<Claim> getByOwner(@NotNull final OfflinePlayer player) {
+    return Claim.getByOwner(player.getUniqueId());
   }
 
   /**
@@ -77,8 +77,8 @@ public interface Claim extends Permissible {
    * @return claims of the player.
    */
   @NotNull
-  static Collection<Claim> of(@NotNull final Player player) {
-    return Claim.of(player.getUniqueId());
+  static Collection<Claim> getByOwner(@NotNull final Player player) {
+    return Claim.getByOwner(player.getUniqueId());
   }
 
   /**
