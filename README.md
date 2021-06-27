@@ -6,6 +6,13 @@
 
 ## How to Use
 
+### Plugin.yml
+
+```yml
+depend:
+  - InfumiaClaimPlugin
+```
+
 ### Maven
 
 ```xml
