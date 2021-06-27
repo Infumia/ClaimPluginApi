@@ -1,6 +1,7 @@
 package tr.com.infumia.claimplugin.paper.api.permission;
 
 import java.util.Optional;
+import org.bukkit.event.Event;
 import org.jetbrains.annotations.NotNull;
 
 /**
@@ -28,6 +29,27 @@ public interface Permission {
   static void register(@NotNull final Permission permission) {
     Permissions.register(permission);
   }
+
+  /**
+   * controls the permission.
+   *
+   * @param event the event to control.
+   *
+   * @return {@code true} if the event passes the control.
+   */
+  default boolean controlSilently(@NotNull final Event event) {
+    return this.controlSilently(event, true);
+  }
+
+  /**
+   * controls the permission.
+   *
+   * @param event the event to control.
+   * @param cancelIfReturnFalse the cancel if return false to control.
+   *
+   * @return {@code true} if the event passes the control.
+   */
+  boolean controlSilently(@NotNull Event event, final boolean cancelIfReturnFalse);
 
   /**
    * obtains the id.
