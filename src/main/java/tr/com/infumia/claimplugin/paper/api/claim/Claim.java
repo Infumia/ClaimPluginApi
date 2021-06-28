@@ -119,9 +119,9 @@ public interface Claim extends Permissible {
   void addSubClaim(@NotNull Claim subClaim);
 
   /**
-   * checks if the chunk can expire.
+   * checks if the claim can expire.
    *
-   * @return {@code true} if the chunk can expire.
+   * @return {@code true} if the claim can expire.
    */
   default boolean canExpire() {
     return this.getExpireTime() != -1;
