@@ -104,8 +104,7 @@ public final class Claims {
     if (Claims.CLAIMS.containsKey(uniqueId)) {
       return CompletableFuture.completedFuture(Claims.CLAIMS.get(uniqueId));
     }
-    return Claims.provideClaim(uniqueId)
-      .whenComplete((claim, throwable) -> {
+    return Claims.provideClaim(uniqueId).whenComplete((claim, throwable) -> {
         if (throwable != null) {
           throwable.printStackTrace();
         }
@@ -128,8 +127,9 @@ public final class Claims {
       if (throwable != null) {
         throwable.printStackTrace();
       }
-      if (!Claims.CLAIMS.containsKey(claim.getUniqueId())) {
-        Claims.CLAIMS.put(claim.getUniqueId(), claim);
+      final var uniqueId = claim.getUniqueId();
+      if (!Claims.CLAIMS.containsKey(uniqueId)) {
+        Claims.CLAIMS.put(uniqueId, claim);
         Claims.CLAIMS_SET.add(claim);
       }
     });
