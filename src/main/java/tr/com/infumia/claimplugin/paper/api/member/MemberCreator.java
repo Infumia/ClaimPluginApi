@@ -5,9 +5,9 @@ import java.util.function.Function;
 import org.jetbrains.annotations.NotNull;
 
 /**
- * an interface to determine member providers.
+ * an interface to determine member creators.
  */
 @FunctionalInterface
-public interface MemberProvider extends Function<@NotNull UUID, @NotNull Member> {
+public interface MemberCreator extends Function<@NotNull UUID, @NotNull Member> {
 
 }

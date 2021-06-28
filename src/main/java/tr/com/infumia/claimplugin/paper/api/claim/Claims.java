@@ -1,6 +1,7 @@
 package tr.com.infumia.claimplugin.paper.api.claim;
 
 import java.util.Collection;
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Objects;
@@ -50,13 +51,24 @@ public final class Claims {
   }
 
   /**
+   * gets all claims.
+   *
+   * @return all claims.
+   */
+  @Synchronized("LOCK")
+  @NotNull
+  static Collection<Claim> all() {
+    return Collections.unmodifiableSet(Claims.CLAIMS_SET);
+  }
+
+  /**
    * gets claim at the location.
    *
    * @param location the location to get.
    *
    * @return claim at location.
    */
-  @Synchronized("CLAIMS")
+  @Synchronized("LOCK")
   @NotNull
   static Optional<Claim> get(@NotNull final Location location) {
     return Claims.CLAIMS_SET.stream()
@@ -71,6 +83,7 @@ public final class Claims {
    *
    * @return claims of the player.
    */
+  @Synchronized("LOCK")
   @NotNull
   static Collection<Claim> getByOwner(@NotNull final UUID uniqueId) {
     return Claims.CLAIMS_SET.stream()
@@ -91,8 +104,7 @@ public final class Claims {
     if (Claims.CLAIMS.containsKey(uniqueId)) {
       return CompletableFuture.completedFuture(Claims.CLAIMS.get(uniqueId));
     }
-    return Claims.provideClaim(uniqueId)
-      .whenComplete((claim, throwable) -> {
+    return Claims.provideClaim(uniqueId).whenComplete((claim, throwable) -> {
         if (throwable != null) {
           throwable.printStackTrace();
         }
@@ -115,8 +127,9 @@ public final class Claims {
       if (throwable != null) {
         throwable.printStackTrace();
       }
-      if (!Claims.CLAIMS.containsKey(claim.getUniqueId())) {
-        Claims.CLAIMS.put(claim.getUniqueId(), claim);
+      final var uniqueId = claim.getUniqueId();
+      if (!Claims.CLAIMS.containsKey(uniqueId)) {
+        Claims.CLAIMS.put(uniqueId, claim);
         Claims.CLAIMS_SET.add(claim);
       }
     });

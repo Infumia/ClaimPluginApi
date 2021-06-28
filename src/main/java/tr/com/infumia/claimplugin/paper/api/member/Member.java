@@ -41,15 +41,15 @@ public interface Member extends Permissible {
   }
 
   /**
-   * creates a new member.
+   * creates the member via unique id.
    *
-   * @param uniqueId the unique id to create.
+   * @param uniqueId the unique id to get.
    *
-   * @return a newly created member.
+   * @return a newly created member instance.
    */
   @NotNull
   static Member of(@NotNull final UUID uniqueId) {
-    return Members.get(uniqueId);
+    return Members.create(uniqueId);
   }
 
   /**

@@ -13,13 +13,13 @@ import org.jetbrains.annotations.NotNull;
 @RequiredArgsConstructor(access = AccessLevel.PRIVATE)
 public enum ClaimType {
   /**
-   * the main chunk.
+   * the main claim.
    */
-  MAIN_CHUNK("main-chunk"),
+  MAIN("main"),
   /**
-   * the sub chunk.
+   * the sub claim.
    */
-  SUB_CHUNK("sub-chunk"),
+  SUB("sub"),
   /**
    * the protection.
    */

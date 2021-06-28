@@ -12,11 +12,11 @@ import org.jetbrains.annotations.Nullable;
 public final class Members {
 
   /**
-   * the member provider.
+   * the member creator.
    */
   @Nullable
   @Setter
-  private static MemberProvider memberProvider;
+  private static MemberCreator memberCreator;
 
   /**
    * ctor.
@@ -25,14 +25,14 @@ public final class Members {
   }
 
   /**
-   * gets or creates the member via unique id.
+   * creates the member via unique id.
    *
    * @param uniqueId the unique id to get.
    *
-   * @return member.
+   * @return a newly created member instance.
    */
   @NotNull
-  static Member get(@NotNull final UUID uniqueId) {
-    return Objects.requireNonNull(Members.memberProvider, "member provider").apply(uniqueId);
+  static Member create(@NotNull final UUID uniqueId) {
+    return Objects.requireNonNull(Members.memberCreator, "member provider").apply(uniqueId);
   }
 }
