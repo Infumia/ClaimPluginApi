@@ -1,6 +1,7 @@
 package tr.com.infumia.claimplugin.paper.api.claim;
 
 import java.util.Collection;
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Objects;
@@ -47,6 +48,17 @@ public final class Claims {
    * ctor.
    */
   private Claims() {
+  }
+
+  /**
+   * gets all claims.
+   *
+   * @return all claims.
+   */
+  @Synchronized("LOCK")
+  @NotNull
+  static Collection<Claim> all() {
+    return Collections.unmodifiableSet(Claims.CLAIMS_SET);
   }
 
   /**

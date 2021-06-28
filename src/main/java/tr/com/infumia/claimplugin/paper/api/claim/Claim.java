@@ -24,6 +24,16 @@ import tr.com.infumia.infumialib.paper.location.Cuboid;
 public interface Claim extends Permissible {
 
   /**
+   * gets all claims.
+   *
+   * @return all claims.
+   */
+  @NotNull
+  static Collection<Claim> all() {
+    return Claims.all();
+  }
+
+  /**
    * gets claim at the location.
    *
    * @param location the location to get.
