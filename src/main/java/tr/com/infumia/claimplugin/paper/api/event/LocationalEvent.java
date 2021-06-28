@@ -6,11 +6,20 @@ import lombok.RequiredArgsConstructor;
 import org.bukkit.Location;
 import org.bukkit.event.Event;
 import org.jetbrains.annotations.NotNull;
+import tr.com.infumia.claimplugin.paper.api.claim.Claim;
 
 /**
  * an interface to determine locational events.
  */
 public interface LocationalEvent {
+
+  /**
+   * obtains the claim.
+   *
+   * @return claim.
+   */
+  @NotNull
+  Claim getClaim();
 
   /**
    * obtains the event.
@@ -34,6 +43,12 @@ public interface LocationalEvent {
   @Getter
   @RequiredArgsConstructor(access = AccessLevel.PRIVATE)
   final class Impl implements LocationalEvent {
+
+    /**
+     * the claim.
+     */
+    @NotNull
+    private final Claim claim;
 
     /**
      * the event.
