@@ -8,6 +8,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.Event;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+import tr.com.infumia.claimplugin.paper.api.event.LocationalEvent;
 import tr.com.infumia.claimplugin.paper.api.permission.ControlResult;
 import tr.com.infumia.claimplugin.paper.api.permission.Permissible;
 
@@ -61,7 +62,7 @@ public interface Member extends Permissible {
    * @return {@code true} if the event passes the control.
    */
   @NotNull
-  ControlResult control(@NotNull Event event, final boolean cancelIfReturnFalse);
+  ControlResult control(@NotNull LocationalEvent event, final boolean cancelIfReturnFalse);
 
   /**
    * obtains the member as offline player.

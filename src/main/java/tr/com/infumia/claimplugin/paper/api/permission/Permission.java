@@ -7,6 +7,7 @@ import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import org.bukkit.event.Event;
 import org.jetbrains.annotations.NotNull;
+import tr.com.infumia.claimplugin.paper.api.event.LocationalEvent;
 
 /**
  * an interface to determine permissions.
@@ -43,7 +44,7 @@ public interface Permission {
    * @return {@code true} if the event passes the control.
    */
   @NotNull
-  ControlResult control(@NotNull Event event, final boolean cancelIfFailed);
+  ControlResult control(@NotNull LocationalEvent event, final boolean cancelIfFailed);
 
   /**
    * obtains the id.
