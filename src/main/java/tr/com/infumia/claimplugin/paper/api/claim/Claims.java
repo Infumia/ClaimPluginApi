@@ -56,7 +56,7 @@ public final class Claims {
    *
    * @return claim at location.
    */
-  @Synchronized("CLAIMS")
+  @Synchronized("LOCK")
   @NotNull
   static Optional<Claim> get(@NotNull final Location location) {
     return Claims.CLAIMS_SET.stream()
@@ -71,6 +71,7 @@ public final class Claims {
    *
    * @return claims of the player.
    */
+  @Synchronized("LOCK")
   @NotNull
   static Collection<Claim> getByOwner(@NotNull final UUID uniqueId) {
     return Claims.CLAIMS_SET.stream()
