@@ -8,9 +8,9 @@ import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.entity.Player;
-import org.bukkit.event.Event;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+import tr.com.infumia.claimplugin.paper.api.event.LocationalEvent;
 import tr.com.infumia.claimplugin.paper.api.member.Member;
 import tr.com.infumia.claimplugin.paper.api.permission.ControlResult;
 import tr.com.infumia.claimplugin.paper.api.permission.Permissible;
@@ -145,7 +145,7 @@ public interface Claim extends Permissible {
    * @return {@code true} if the event passes the control.
    */
   @NotNull
-  default ControlResult control(@NotNull final Event event) {
+  default ControlResult control(@NotNull final LocationalEvent event) {
     return this.control(event, true);
   }
 
@@ -158,7 +158,7 @@ public interface Claim extends Permissible {
    * @return {@code true} if the event passes the control.
    */
   @NotNull
-  default ControlResult control(@NotNull final Event event, final boolean cancelIfReturnFalse) {
+  default ControlResult control(@NotNull final LocationalEvent event, final boolean cancelIfReturnFalse) {
     return this.control(event, null, cancelIfReturnFalse);
   }
 
@@ -171,7 +171,7 @@ public interface Claim extends Permissible {
    * @return {@code true} if the event passes the control.
    */
   @NotNull
-  default ControlResult control(@NotNull final Event event, @Nullable final Player actor) {
+  default ControlResult control(@NotNull final LocationalEvent event, @Nullable final Player actor) {
     return this.control(event, actor, true);
   }
 
@@ -185,7 +185,7 @@ public interface Claim extends Permissible {
    * @return {@code true} if the event passes the control.
    */
   @NotNull
-  ControlResult control(@NotNull Event event, @Nullable Player actor, final boolean cancelIfReturnFalse);
+  ControlResult control(@NotNull LocationalEvent event, @Nullable Player actor, final boolean cancelIfReturnFalse);
 
   /**
    * obtains the cuboid.

@@ -105,14 +105,14 @@ public final class Claims {
       return CompletableFuture.completedFuture(Claims.CLAIMS.get(uniqueId));
     }
     return Claims.provideClaim(uniqueId).whenComplete((claim, throwable) -> {
-        if (throwable != null) {
-          throwable.printStackTrace();
-        }
-        if (claim != null) {
-          Claims.CLAIMS.put(claim.getUniqueId(), claim);
-          Claims.CLAIMS_SET.add(claim);
-        }
-      });
+      if (throwable != null) {
+        throwable.printStackTrace();
+      }
+      if (claim != null) {
+        Claims.CLAIMS.put(claim.getUniqueId(), claim);
+        Claims.CLAIMS_SET.add(claim);
+      }
+    });
   }
 
   /**

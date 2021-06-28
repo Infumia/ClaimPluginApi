@@ -16,36 +16,46 @@ import org.jetbrains.annotations.NotNull;
 public final class ControlResult {
 
   /**
+   * returns when someone interact with the anvil.
+   */
+  public static final ControlResult ANVIL_ACCESS = new ControlResult("anvil-access");
+
+  /**
    * returns when the actor is null and global permissions of the claim are empty or member's permissions are empty.
    */
-  public static final ControlResult EMPTY_PERMISSION = new ControlResult("");
+  public static final ControlResult EMPTY_PERMISSION = new ControlResult("empty-permission");
 
   /**
    * returns when an entity has made a decision to explode or a block explodes.
    */
-  public static final ControlResult EXPLOSIONS_OFF = new ControlResult("");
+  public static final ControlResult EXPLOSIONS = new ControlResult("explosions");
 
   /**
-   * returns when
+   * returns when fire spreads to a block.
    */
-  public static final ControlResult FIRE_SPREAD_OFF = new ControlResult("");
+  public static final ControlResult FIRE_SPREAD = new ControlResult("fire-spread");
 
   /**
    * returns when an entity spawns or an entity is spawned by a spawner in the claim.
    */
-  public static final ControlResult MOB_SPAWNING_OFF = new ControlResult("");
+  public static final ControlResult MOB_SPAWNING = new ControlResult("mob-spawning");
 
   /**
    * returns when the actor is not null and no match member for the actor.
    * <p>
    * it means a non-member player interact to the claim.
    */
-  public static final ControlResult NONE = new ControlResult("");
+  public static final ControlResult NONE = new ControlResult("none");
+
+  /**
+   * returns when any events happen in a protection claim.
+   */
+  public static final ControlResult PROTECTION_CLAIM = new ControlResult("protection-claim");
 
   /**
    * returns when players do a fight with any player in the claim which forbids pvp.
    */
-  public static final ControlResult PVP_OFF = new ControlResult("pvp-off");
+  public static final ControlResult PVP = new ControlResult("pvp");
 
   /**
    * returns when the actor interact to the claim successfully.
