@@ -21,7 +21,7 @@ public final class ControlResult {
   public static final ControlResult ANVIL_ACCESS = new ControlResult("anvil-access");
 
   /**
-   * returns when the actor is null and global permissions of the claim are empty or member's permissions are empty.
+   * returns when global permissions of the claim are empty or.
    */
   public static final ControlResult EMPTY_PERMISSION = new ControlResult("empty-permission");
 
@@ -80,16 +80,5 @@ public final class ControlResult {
    */
   public ControlResult(@NotNull final String id) {
     this(id, false);
-  }
-
-  /**
-   * checks the status can pass the control.
-   *
-   * @param status the status to check.
-   *
-   * @return {@code true} if the status can pass the control.
-   */
-  public boolean check(@NotNull final Permission.Status status) {
-    return this.isSucceed() && status == Permission.Status.ENABLED;
   }
 }
