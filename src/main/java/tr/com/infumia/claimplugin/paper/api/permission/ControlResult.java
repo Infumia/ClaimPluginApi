@@ -21,7 +21,7 @@ public final class ControlResult {
   public static final ControlResult ANVIL_ACCESS = new ControlResult("anvil-access");
 
   /**
-   * returns when the actor is null and global permissions of the claim are empty or member's permissions are empty.
+   * returns when global permissions of the claim are empty or.
    */
   public static final ControlResult EMPTY_PERMISSION = new ControlResult("empty-permission");
 
@@ -34,6 +34,11 @@ public final class ControlResult {
    * returns when fire spreads to a block.
    */
   public static final ControlResult FIRE_SPREAD = new ControlResult("fire-spread");
+
+  /**
+   * returns when the control isn't related to the event.
+   */
+  public static final ControlResult INVALID = new ControlResult("invalid", true);
 
   /**
    * returns when an entity spawns or an entity is spawned by a spawner in the claim.
@@ -80,16 +85,5 @@ public final class ControlResult {
    */
   public ControlResult(@NotNull final String id) {
     this(id, false);
-  }
-
-  /**
-   * checks the status can pass the control.
-   *
-   * @param status the status to check.
-   *
-   * @return {@code true} if the status can pass the control.
-   */
-  public boolean check(@NotNull final Permission.Status status) {
-    return this.isSucceed() && status == Permission.Status.ENABLED;
   }
 }
