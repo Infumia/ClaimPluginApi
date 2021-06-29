@@ -5,6 +5,7 @@ import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import org.bukkit.Location;
 import org.bukkit.event.Event;
+import org.bukkit.event.block.BlockBreakEvent;
 import org.jetbrains.annotations.NotNull;
 import tr.com.infumia.claimplugin.paper.api.claim.Claim;
 
@@ -12,6 +13,18 @@ import tr.com.infumia.claimplugin.paper.api.claim.Claim;
  * an interface to determine locational events.
  */
 public interface LocationalEvent {
+
+  /**
+   * creates a locational event from block break event.
+   *
+   * @param event the event to create.
+   *
+   * @return locational event.
+   */
+  @NotNull
+  static LocationalEvent of(@NotNull final Claim claim, @NotNull final BlockBreakEvent event) {
+    return new Impl(claim, event, event.getBlock().getLocation());
+  }
 
   /**
    * obtains the claim.
