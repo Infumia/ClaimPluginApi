@@ -243,6 +243,13 @@ public interface Claim extends Permissible {
   UUID getOwner();
 
   /**
+   * sets the owner.
+   *
+   * @param owner the owner to set.
+   */
+  void setOwner(@NotNull UUID owner);
+
+  /**
    * obtains the owner as offline player.
    *
    * @return owner as offline player.
