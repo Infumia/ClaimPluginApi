@@ -188,6 +188,11 @@ public interface Claim extends Permissible {
   ControlResult control(@NotNull LocationalEvent event, @Nullable Player actor, final boolean cancelIfReturnFalse);
 
   /**
+   * decreases the expire time.
+   */
+  void decreaseExpireTime();
+
+  /**
    * obtains the cuboid.
    *
    * @return cuboid.
