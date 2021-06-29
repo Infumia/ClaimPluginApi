@@ -21,11 +21,6 @@ public final class ControlResult {
   public static final ControlResult ANVIL_ACCESS = new ControlResult("anvil-access");
 
   /**
-   * returns when global permissions of the claim are empty or.
-   */
-  public static final ControlResult EMPTY_PERMISSION = new ControlResult("empty-permission");
-
-  /**
    * returns when an entity has made a decision to explode or a block explodes.
    */
   public static final ControlResult EXPLOSIONS = new ControlResult("explosions");
@@ -36,9 +31,19 @@ public final class ControlResult {
   public static final ControlResult FIRE_SPREAD = new ControlResult("fire-spread");
 
   /**
+   * returns when claim's global permissions are empty.
+   */
+  public static final ControlResult GLOBAL_EMPTY_PERMISSION = new ControlResult("global-empty-permission");
+
+  /**
    * returns when the control isn't related to the event.
    */
   public static final ControlResult INVALID = new ControlResult("invalid", true);
+
+  /**
+   * returns when member's permissions are empty.
+   */
+  public static final ControlResult MEMBER_EMPTY_PERMISSION = new ControlResult("member-empty-permission");
 
   /**
    * returns when an entity spawns or an entity is spawned by a spawner in the claim.
