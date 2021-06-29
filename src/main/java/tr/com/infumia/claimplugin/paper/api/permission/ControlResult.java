@@ -36,6 +36,11 @@ public final class ControlResult {
   public static final ControlResult FIRE_SPREAD = new ControlResult("fire-spread");
 
   /**
+   * returns when the control isn't related to the event.
+   */
+  public static final ControlResult INVALID = new ControlResult("invalid", true);
+
+  /**
    * returns when an entity spawns or an entity is spawned by a spawner in the claim.
    */
   public static final ControlResult MOB_SPAWNING = new ControlResult("mob-spawning");
