@@ -10,7 +10,6 @@ import java.util.Set;
 import java.util.UUID;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ConcurrentHashMap;
-import java.util.stream.Collectors;
 import lombok.Setter;
 import lombok.Synchronized;
 import org.bukkit.Location;
@@ -71,9 +70,12 @@ public final class Claims {
   @Synchronized("LOCK")
   @NotNull
   static Optional<Claim> get(@NotNull final Location location) {
-    return Claims.CLAIMS_SET.stream()
-      .filter(claim -> claim.isIn(location))
-      .findFirst();
+    for (final var claim : Claims.CLAIMS_SET) {
+      if (claim.isIn(location)) {
+        return Optional.of(claim);
+      }
+    }
+    return Optional.empty();
   }
 
   /**
@@ -86,9 +88,13 @@ public final class Claims {
   @Synchronized("LOCK")
   @NotNull
   static Collection<Claim> getByOwner(@NotNull final UUID uniqueId) {
-    return Claims.CLAIMS_SET.stream()
-      .filter(claim -> claim.getOwner().equals(uniqueId))
-      .collect(Collectors.toSet());
+    final var set = new HashSet<Claim>();
+    for (final var claim : Claims.CLAIMS_SET) {
+      if (claim.getOwner().equals(uniqueId)) {
+        set.add(claim);
+      }
+    }
+    return set;
   }
 
   /**
