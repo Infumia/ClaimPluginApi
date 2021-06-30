@@ -309,6 +309,15 @@ public interface Claim extends Permissible {
   UUID getUniqueId();
 
   /**
+   * checks if block at the location is a claim block.
+   *
+   * @param location the location to check.
+   *
+   * @return {@code true} if block at the location is a claim block.
+   */
+  boolean isClaimBlock(@NotNull Location location);
+
+  /**
    * checks if the location is in the cuboid of the claim.
    *
    * @param location the location to check.
