@@ -21,6 +21,16 @@ public final class ControlResult {
   public static final ControlResult ANVIL_ACCESS = new ControlResult("anvil-access");
 
   /**
+   * returns when someone interact with the barrel.
+   */
+  public static final ControlResult BARREL_ACCESS = new ControlResult("barrel-access");
+
+  /**
+   * returns when someone interact with the chest.
+   */
+  public static final ControlResult CHEST_ACCESS = new ControlResult("chest-access");
+
+  /**
    * returns when an entity has made a decision to explode or a block explodes.
    */
   public static final ControlResult EXPLOSIONS = new ControlResult("explosions");

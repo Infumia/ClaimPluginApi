@@ -107,16 +107,42 @@ public final class Claims {
   @NotNull
   @Synchronized("LOCK")
   static CompletableFuture<@Nullable Claim> load(@NotNull final UUID uniqueId) {
-    if (Claims.CLAIMS.containsKey(uniqueId)) {
-      return CompletableFuture.completedFuture(Claims.CLAIMS.get(uniqueId));
+    synchronized (Claims.LOCK) {
+      if (Claims.CLAIMS.containsKey(uniqueId)) {
+        return CompletableFuture.completedFuture(Claims.CLAIMS.get(uniqueId));
+      }
     }
     return Claims.provideClaim(uniqueId).whenComplete((claim, throwable) -> {
       if (throwable != null) {
         throwable.printStackTrace();
       }
       if (claim != null) {
-        Claims.CLAIMS.put(claim.getUniqueId(), claim);
-        Claims.CLAIMS_SET.add(claim);
+        synchronized (Claims.LOCK) {
+          Claims.CLAIMS.put(claim.getUniqueId(), claim);
+          Claims.CLAIMS_SET.add(claim);
+        }
+      }
+    });
+  }
+
+  /**
+   * load all claims.
+   *
+   * @return all claims.
+   */
+  @NotNull
+  static CompletableFuture<Collection<Claim>> loadAll() {
+    return Claims.provideAllClaims().whenComplete((claims, throwable) -> {
+      if (throwable != null) {
+        throwable.printStackTrace();
+      }
+      if (claims != null) {
+        synchronized (Claims.LOCK) {
+          claims.forEach(claim -> {
+            Claims.CLAIMS.put(claim.getUniqueId(), claim);
+            Claims.CLAIMS_SET.add(claim);
+          });
+        }
       }
     });
   }
@@ -126,7 +152,6 @@ public final class Claims {
    *
    * @param claim the claim to save.
    */
-  @Synchronized("LOCK")
   @NotNull
   static CompletableFuture<Void> save(@NotNull final Claim claim) {
     return Claims.supplyClaim(claim).whenComplete((none, throwable) -> {
@@ -134,9 +159,11 @@ public final class Claims {
         throwable.printStackTrace();
       }
       final var uniqueId = claim.getUniqueId();
-      if (!Claims.CLAIMS.containsKey(uniqueId)) {
-        Claims.CLAIMS.put(uniqueId, claim);
-        Claims.CLAIMS_SET.add(claim);
+      synchronized (Claims.LOCK) {
+        if (!Claims.CLAIMS.containsKey(uniqueId)) {
+          Claims.CLAIMS.put(uniqueId, claim);
+          Claims.CLAIMS_SET.add(claim);
+        }
       }
     });
   }
@@ -151,6 +178,16 @@ public final class Claims {
   @NotNull
   private static ClaimSerializer getClaimSerializer() {
     return Objects.requireNonNull(Claims.claimSerializer, "claim serializer");
+  }
+
+  /**
+   * provides all claims from {@link #claimSerializer}.
+   *
+   * @return all claims.
+   */
+  @NotNull
+  private static CompletableFuture<Collection<Claim>> provideAllClaims() {
+    return CompletableFuture.supplyAsync(() -> Claims.getClaimSerializer().all());
   }
 
   /**
