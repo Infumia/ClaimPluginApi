@@ -118,7 +118,7 @@ public interface Claim extends Permissible {
    * @param uniqueId the unique id to add.
    */
   default void addMember(@NotNull final UUID uniqueId) {
-    this.addMember(Member.of(uniqueId));
+    this.addMember(Member.member(uniqueId));
   }
 
   /**
@@ -260,14 +260,14 @@ public interface Claim extends Permissible {
    * @return owner.
    */
   @NotNull
-  UUID getOwner();
+  Member getOwner();
 
   /**
    * sets the owner.
    *
    * @param owner the owner to set.
    */
-  void setOwner(@NotNull UUID owner);
+  void setOwner(@NotNull Member owner);
 
   /**
    * obtains the owner as offline player.
@@ -276,7 +276,7 @@ public interface Claim extends Permissible {
    */
   @NotNull
   default OfflinePlayer getOwnerAsOfflinePlayer() {
-    return Bukkit.getOfflinePlayer(this.getOwner());
+    return Bukkit.getOfflinePlayer(this.getOwnerAsUniqueId());
   }
 
   /**
@@ -286,7 +286,17 @@ public interface Claim extends Permissible {
    */
   @Nullable
   default Player getOwnerAsPlayer() {
-    return Bukkit.getPlayer(this.getOwner());
+    return Bukkit.getPlayer(this.getOwnerAsUniqueId());
+  }
+
+  /**
+   * obtains the owner's unique id.
+   *
+   * @return owner's unique id.
+   */
+  @NotNull
+  default UUID getOwnerAsUniqueId() {
+    return this.getOwner().getUniqueId();
   }
 
   /**
@@ -337,7 +347,7 @@ public interface Claim extends Permissible {
    * @param uniqueId the unique id to remove.
    */
   default void removeMember(@NotNull final UUID uniqueId) {
-    this.removeMember(Member.of(uniqueId));
+    this.removeMember(Member.member(uniqueId));
   }
 
   /**

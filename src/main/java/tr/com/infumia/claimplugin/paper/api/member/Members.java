@@ -32,7 +32,24 @@ public final class Members {
    * @return a newly created member instance.
    */
   @NotNull
-  static Member create(@NotNull final UUID uniqueId) {
-    return Objects.requireNonNull(Members.memberCreator, "member provider").apply(uniqueId);
+  static Member createMember(@NotNull final UUID uniqueId) {
+    return Members.getMemberCreator().createMember(uniqueId);
+  }
+
+  /**
+   * creates the owner via unique id.
+   *
+   * @param uniqueId the unique id to get.
+   *
+   * @return a newly created member instance.
+   */
+  @NotNull
+  static Member createOwner(@NotNull final UUID uniqueId) {
+    return Members.getMemberCreator().createOwner(uniqueId);
+  }
+
+  @NotNull
+  private static MemberCreator getMemberCreator() {
+    return Objects.requireNonNull(Members.memberCreator, "member provider");
   }
 }

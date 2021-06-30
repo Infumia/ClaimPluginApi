@@ -24,8 +24,8 @@ public interface Member extends Permissible {
    * @return a newly created member.
    */
   @NotNull
-  static Member of(@NotNull final OfflinePlayer player) {
-    return Member.of(player.getUniqueId());
+  static Member member(@NotNull final OfflinePlayer player) {
+    return Member.member(player.getUniqueId());
   }
 
   /**
@@ -36,8 +36,8 @@ public interface Member extends Permissible {
    * @return a newly created member.
    */
   @NotNull
-  static Member of(@NotNull final Player player) {
-    return Member.of(player.getUniqueId());
+  static Member member(@NotNull final Player player) {
+    return Member.member(player.getUniqueId());
   }
 
   /**
@@ -48,8 +48,44 @@ public interface Member extends Permissible {
    * @return a newly created member instance.
    */
   @NotNull
-  static Member of(@NotNull final UUID uniqueId) {
-    return Members.create(uniqueId);
+  static Member member(@NotNull final UUID uniqueId) {
+    return Members.createMember(uniqueId);
+  }
+
+  /**
+   * creates a new owner.
+   *
+   * @param player the player to create.
+   *
+   * @return a newly created member.
+   */
+  @NotNull
+  static Member owner(@NotNull final OfflinePlayer player) {
+    return Member.owner(player.getUniqueId());
+  }
+
+  /**
+   * creates a new owner.
+   *
+   * @param player the player to create.
+   *
+   * @return a newly created member.
+   */
+  @NotNull
+  static Member owner(@NotNull final Player player) {
+    return Member.owner(player.getUniqueId());
+  }
+
+  /**
+   * creates the owner via unique id.
+   *
+   * @param uniqueId the unique id to get.
+   *
+   * @return a newly created member instance.
+   */
+  @NotNull
+  static Member owner(@NotNull final UUID uniqueId) {
+    return Members.createOwner(uniqueId);
   }
 
   /**
