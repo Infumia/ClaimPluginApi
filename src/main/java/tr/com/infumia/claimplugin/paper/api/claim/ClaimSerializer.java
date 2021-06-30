@@ -34,4 +34,11 @@ public interface ClaimSerializer {
    * @param claim the claim to save.
    */
   void save(@NotNull Claim claim);
+
+  /**
+   * saves all the claims.
+   *
+   * @param claims the claims to save.
+   */
+  void saveAll(@NotNull Collection<Claim> claims);
 }

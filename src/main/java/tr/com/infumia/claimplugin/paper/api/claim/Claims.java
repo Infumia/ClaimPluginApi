@@ -81,7 +81,7 @@ public final class Claims {
   static Collection<Claim> getByOwner(@NotNull final UUID uniqueId) {
     final var set = new HashSet<Claim>();
     for (final var claim : Claims.CLAIMS_SET) {
-      if (claim.getOwner().equals(uniqueId)) {
+      if (claim.getOwner().getUniqueId().equals(uniqueId)) {
         set.add(claim);
       }
     }
@@ -112,10 +112,13 @@ public final class Claims {
   }
 
   /**
-   * load all claims.
+   * loads all claims.
+   *
+   * @return all loaded claims.
    */
-  static void loadAll() {
-    Claims.provideAllClaims().whenComplete((claims, throwable) -> {
+  @NotNull
+  static CompletableFuture<Collection<Claim>> loadAll() {
+    return Claims.provideAllClaims().whenComplete((claims, throwable) -> {
       if (throwable != null) {
         throwable.printStackTrace();
       }
@@ -146,6 +149,16 @@ public final class Claims {
         Claims.CLAIMS_SET.add(claim);
       }
     });
+  }
+
+  /**
+   * saves all claims.
+   *
+   * @return completable future.
+   */
+  @NotNull
+  static CompletableFuture<Void> saveAll() {
+    return Claims.supplyAllClaims(Claims.CLAIMS_SET);
   }
 
   /**
@@ -180,6 +193,18 @@ public final class Claims {
   @NotNull
   private static CompletableFuture<@Nullable Claim> provideClaim(@NotNull final UUID uniqueId) {
     return CompletableFuture.supplyAsync(() -> Claims.getClaimSerializer().load(uniqueId));
+  }
+
+  /**
+   * supplies all the claims to {@link #claimSerializer}.
+   *
+   * @param claims the claims to supply.
+   *
+   * @return completable future.
+   */
+  @NotNull
+  private static CompletableFuture<Void> supplyAllClaims(@NotNull final Collection<Claim> claims) {
+    return CompletableFuture.runAsync(() -> Claims.getClaimSerializer().saveAll(claims));
   }
 
   /**
