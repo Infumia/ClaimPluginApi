@@ -2,7 +2,6 @@ package tr.com.infumia.claimplugin.paper.api.claim;
 
 import java.util.Collection;
 import java.util.UUID;
-import java.util.concurrent.CompletableFuture;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
