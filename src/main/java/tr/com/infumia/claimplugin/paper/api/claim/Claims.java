@@ -11,7 +11,6 @@ import java.util.UUID;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ConcurrentHashMap;
 import lombok.Setter;
-import lombok.Synchronized;
 import org.bukkit.Location;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -32,11 +31,6 @@ public final class Claims {
   private static final Set<Claim> CLAIMS_SET = new HashSet<>();
 
   /**
-   * the lock.
-   */
-  private static final Object LOCK = new Object();
-
-  /**
    * the claim serializer.
    */
   @Nullable
@@ -54,7 +48,6 @@ public final class Claims {
    *
    * @return all claims.
    */
-  @Synchronized("LOCK")
   @NotNull
   static Collection<Claim> all() {
     return Collections.unmodifiableSet(Claims.CLAIMS_SET);
@@ -67,7 +60,6 @@ public final class Claims {
    *
    * @return claim at location.
    */
-  @Synchronized("LOCK")
   @NotNull
   static Optional<Claim> get(@NotNull final Location location) {
     for (final var claim : Claims.CLAIMS_SET) {
@@ -85,7 +77,6 @@ public final class Claims {
    *
    * @return claims of the player.
    */
-  @Synchronized("LOCK")
   @NotNull
   static Collection<Claim> getByOwner(@NotNull final UUID uniqueId) {
     final var set = new HashSet<Claim>();
@@ -106,44 +97,32 @@ public final class Claims {
    */
   @NotNull
   static CompletableFuture<@Nullable Claim> load(@NotNull final UUID uniqueId) {
-    synchronized (Claims.LOCK) {
-      if (Claims.CLAIMS.containsKey(uniqueId)) {
-        return CompletableFuture.completedFuture(Claims.CLAIMS.get(uniqueId));
-      }
+    if (Claims.CLAIMS.containsKey(uniqueId)) {
+      return CompletableFuture.completedFuture(Claims.CLAIMS.get(uniqueId));
     }
     return Claims.provideClaim(uniqueId).whenComplete((claim, throwable) -> {
       if (throwable != null) {
         throwable.printStackTrace();
       }
       if (claim != null) {
-        synchronized (Claims.LOCK) {
-          Claims.CLAIMS.put(claim.getUniqueId(), claim);
-          Claims.CLAIMS_SET.add(claim);
-        }
+        Claims.CLAIMS.put(claim.getUniqueId(), claim);
+        Claims.CLAIMS_SET.add(claim);
       }
     });
   }
 
   /**
    * load all claims.
-   *
-   * @return all claims.
    */
-  @NotNull
-  static CompletableFuture<Collection<Claim>> loadAll() {
-    return Claims.provideAllClaims().whenComplete((claims, throwable) -> {
-      if (throwable != null) {
-        throwable.printStackTrace();
-      }
+  static void loadAll() {
+    Claims.provideAllClaims().thenAccept(claims -> {
       if (claims != null) {
-        synchronized (Claims.LOCK) {
-          claims.forEach(claim -> {
-            Claims.CLAIMS.put(claim.getUniqueId(), claim);
-            Claims.CLAIMS_SET.add(claim);
-          });
-        }
+        claims.forEach(claim -> {
+          Claims.CLAIMS.put(claim.getUniqueId(), claim);
+          Claims.CLAIMS_SET.add(claim);
+        });
       }
-    });
+    }).join();
   }
 
   /**
@@ -158,11 +137,9 @@ public final class Claims {
         throwable.printStackTrace();
       }
       final var uniqueId = claim.getUniqueId();
-      synchronized (Claims.LOCK) {
-        if (!Claims.CLAIMS.containsKey(uniqueId)) {
-          Claims.CLAIMS.put(uniqueId, claim);
-          Claims.CLAIMS_SET.add(claim);
-        }
+      if (!Claims.CLAIMS.containsKey(uniqueId)) {
+        Claims.CLAIMS.put(uniqueId, claim);
+        Claims.CLAIMS_SET.add(claim);
       }
     });
   }
