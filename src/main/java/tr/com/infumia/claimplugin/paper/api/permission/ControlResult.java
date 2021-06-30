@@ -76,11 +76,6 @@ public final class ControlResult {
   public static final ControlResult FURNACE_ACCESS = new ControlResult("furnace-access");
 
   /**
-   * returns when claim's global permissions are empty.
-   */
-  public static final ControlResult GLOBAL_EMPTY_PERMISSION = new ControlResult("global-empty-permission");
-
-  /**
    * returns when the control isn't related to the event.
    */
   public static final ControlResult INVALID = new ControlResult("invalid", true);
