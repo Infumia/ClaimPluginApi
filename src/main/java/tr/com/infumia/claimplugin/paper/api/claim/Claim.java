@@ -358,4 +358,9 @@ public interface Claim extends Permissible {
   default CompletableFuture<Void> save() {
     return Claim.save(this);
   }
+
+  /**
+   * updates if the claim block not exist.
+   */
+  void updateClaimBlock();
 }
