@@ -119,11 +119,14 @@ public final class Claims {
       if (throwable != null) {
         throwable.printStackTrace();
       }
-      claims.forEach(claim -> {
+      for (final var claim : claims) {
+        if (Claims.CLAIMS.containsKey(claim.getUniqueId())) {
+          continue;
+        }
         Claims.CLAIMS.put(claim.getUniqueId(), claim);
         Claims.CLAIMS_SET.add(claim);
-      });
-    }).join();
+      }
+    });
   }
 
   /**
