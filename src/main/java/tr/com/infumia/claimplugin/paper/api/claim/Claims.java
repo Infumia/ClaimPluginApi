@@ -115,13 +115,14 @@ public final class Claims {
    * load all claims.
    */
   static void loadAll() {
-    Claims.provideAllClaims().thenAccept(claims -> {
-      if (claims != null) {
-        claims.forEach(claim -> {
-          Claims.CLAIMS.put(claim.getUniqueId(), claim);
-          Claims.CLAIMS_SET.add(claim);
-        });
+    Claims.provideAllClaims().whenComplete((claims, throwable) -> {
+      if (throwable != null) {
+        throwable.printStackTrace();
       }
+      claims.forEach(claim -> {
+        Claims.CLAIMS.put(claim.getUniqueId(), claim);
+        Claims.CLAIMS_SET.add(claim);
+      });
     }).join();
   }
 
