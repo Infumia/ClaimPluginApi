@@ -95,9 +95,12 @@ public interface Claim extends Permissible {
 
   /**
    * loads all claims.
+   *
+   * @return all loaded claims.
    */
-  static void loadAll() {
-    Claims.loadAll();
+  @NotNull
+  static CompletableFuture<Collection<Claim>> loadAll() {
+    return Claims.loadAll();
   }
 
   /**
@@ -110,6 +113,16 @@ public interface Claim extends Permissible {
   @NotNull
   static CompletableFuture<Void> save(@NotNull final Claim claim) {
     return Claims.save(claim);
+  }
+
+  /**
+   * saves all claims.
+   *
+   * @return completable future.
+   */
+  @NotNull
+  static CompletableFuture<Void> saveAll() {
+    return Claims.saveAll();
   }
 
   /**
