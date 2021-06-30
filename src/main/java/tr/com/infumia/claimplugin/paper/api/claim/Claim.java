@@ -95,12 +95,9 @@ public interface Claim extends Permissible {
 
   /**
    * loads all claims.
-   *
-   * @return all claims.
    */
-  @NotNull
-  static CompletableFuture<Collection<Claim>> loadAll() {
-    return Claims.loadAll();
+  static void loadAll() {
+    Claims.loadAll();
   }
 
   /**
