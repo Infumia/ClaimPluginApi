@@ -105,7 +105,6 @@ public final class Claims {
    * @return completable future for claim.
    */
   @NotNull
-  @Synchronized("LOCK")
   static CompletableFuture<@Nullable Claim> load(@NotNull final UUID uniqueId) {
     synchronized (Claims.LOCK) {
       if (Claims.CLAIMS.containsKey(uniqueId)) {
