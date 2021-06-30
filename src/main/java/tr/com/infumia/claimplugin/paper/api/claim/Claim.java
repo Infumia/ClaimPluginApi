@@ -203,6 +203,14 @@ public interface Claim extends Permissible {
   void decreaseExpireTime();
 
   /**
+   * obtains the claim block location.
+   *
+   * @return claim block location.
+   */
+  @NotNull
+  Location getClaimBlockLocation();
+
+  /**
    * obtains the cuboid.
    *
    * @return cuboid.
