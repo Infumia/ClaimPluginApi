@@ -108,6 +108,11 @@ public final class ControlResult {
   public static final ControlResult NONE = new ControlResult("none");
 
   /**
+   * returns when a non-member player interacts with the claim.
+   */
+  public static final ControlResult NOT_MEMBER = new ControlResult("not-member");
+
+  /**
    * returns when any events happen in a protection claim.
    */
   public static final ControlResult PROTECTION_CLAIM = new ControlResult("protection-claim");
