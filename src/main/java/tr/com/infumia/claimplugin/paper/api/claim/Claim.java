@@ -138,6 +138,32 @@ public interface Claim extends Permissible {
   }
 
   /**
+   * adds the home.
+   *
+   * @param location the location to add.
+   */
+  default void addHome(@NotNull final Location location) {
+    this.addHome(UUID.randomUUID().toString(), location);
+  }
+
+  /**
+   * adds the home.
+   *
+   * @param name the name to add.
+   * @param location the location to add.
+   */
+  default void addHome(@NotNull final String name, @NotNull final Location location) {
+    this.addHome(Home.of(name, location));
+  }
+
+  /**
+   * adds the home.
+   *
+   * @param home the home to add.
+   */
+  void addHome(@NotNull Home home);
+
+  /**
    * adds the member to the claim.
    *
    * @param uniqueId the unique id to add.
@@ -274,6 +300,14 @@ public interface Claim extends Permissible {
   void setExpireTime(long expireTime);
 
   /**
+   * obtains the homes.
+   *
+   * @return homes.
+   */
+  @NotNull
+  Collection<Home> getHomes();
+
+  /**
    * gets the member via unique id.
    *
    * @param uniqueId the unique id to get.
@@ -394,6 +428,13 @@ public interface Claim extends Permissible {
    * @return {@code true} if the location is in the cuboid of the claim.
    */
   boolean isIn(@NotNull Location location);
+
+  /**
+   * removes the home.
+   *
+   * @param home the home to remove.
+   */
+  void removeHome(@NotNull Home home);
 
   /**
    * removes the member from the claim.
