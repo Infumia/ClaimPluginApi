@@ -268,6 +268,23 @@ public interface Claim extends Permissible {
   Collection<Member> getMembers();
 
   /**
+   * obtains the name.
+   * <p>
+   * the name will use in management menu which include all claims of the player.
+   *
+   * @return name.
+   */
+  @NotNull
+  String getName();
+
+  /**
+   * sets the name.
+   *
+   * @param name the name to set.
+   */
+  void setName(@NotNull String name);
+
+  /**
    * obtains the owner.
    *
    * @return owner.
