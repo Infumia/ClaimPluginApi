@@ -63,7 +63,7 @@ public final class ControlResult {
   /**
    * returns when someone edits the permission of a claim.
    */
-  public static final ControlResult EDIT_PERMISSION = new ControlResult("edit-permission");
+  public static final ControlResult EDIT_PERM = new ControlResult("edit-perm");
 
   /**
    * returns when an entity has made a decision to explode or a block explodes.
