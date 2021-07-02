@@ -7,11 +7,9 @@ import org.jetbrains.annotations.NotNull;
 import tr.com.infumia.claimplugin.paper.api.claim.Claim;
 
 /**
- * a class that represents claim expire events that fire when a claim expired.
- * <p>
- * the event calls in async.
+ * a class that represents claim pre delete events that fire before the claim delete.
  */
-public final class ClaimExpireEvent extends ClaimEvent implements Cancellable {
+public final class ClaimPreDeleteEvent extends ClaimEvent implements Cancellable {
 
   /**
    * the cancelled.
@@ -25,7 +23,7 @@ public final class ClaimExpireEvent extends ClaimEvent implements Cancellable {
    *
    * @param claim the claim.
    */
-  public ClaimExpireEvent(@NotNull final Claim claim) {
-    super(true, claim);
+  public ClaimPreDeleteEvent(@NotNull final Claim claim) {
+    super(claim);
   }
 }

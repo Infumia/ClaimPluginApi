@@ -54,6 +54,20 @@ public final class Claims {
   }
 
   /**
+   * deletes the claim from cache and database.
+   *
+   * @param claim the claim to delete.
+   *
+   * @return completable future.
+   */
+  @NotNull
+  static CompletableFuture<Void> delete(@NotNull final Claim claim) {
+    Claims.CLAIMS_SET.remove(claim);
+    Claims.CLAIMS.remove(claim.getUniqueId());
+    return Claims.deleteClaim(claim);
+  }
+
+  /**
    * gets claim at the location.
    *
    * @param location the location to get.
@@ -159,6 +173,18 @@ public final class Claims {
   @NotNull
   static CompletableFuture<Void> saveAll() {
     return Claims.supplyAllClaims(Claims.CLAIMS_SET);
+  }
+
+  /**
+   * deletes the unique id.
+   *
+   * @param claim the claim to delete.
+   *
+   * @return completable future for delete.
+   */
+  @NotNull
+  private static CompletableFuture<Void> deleteClaim(@NotNull final Claim claim) {
+    return CompletableFuture.runAsync(() -> Claims.getClaimSerializer().delete(claim));
   }
 
   /**

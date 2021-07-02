@@ -34,6 +34,18 @@ public interface Claim extends Permissible {
   }
 
   /**
+   * deletes the claim from cache and database.
+   *
+   * @param claim the claim to delete.
+   *
+   * @return completable future.
+   */
+  @NotNull
+  static CompletableFuture<Void> delete(@NotNull final Claim claim) {
+    return Claims.delete(claim);
+  }
+
+  /**
    * gets claim at the location.
    *
    * @param location the location to get.
@@ -211,6 +223,11 @@ public interface Claim extends Permissible {
    * decreases the expire time.
    */
   void decreaseExpireTime();
+
+  /**
+   * deletes the claim.
+   */
+  void delete();
 
   /**
    * obtains the claim block location.
