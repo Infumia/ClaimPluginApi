@@ -1,6 +1,5 @@
 package tr.com.infumia.claimplugin.paper.api.event;
 
-import lombok.Getter;
 import org.bukkit.event.Event;
 import org.bukkit.event.HandlerList;
 import org.jetbrains.annotations.NotNull;
@@ -20,7 +19,6 @@ abstract class ClaimEvent extends Event {
    * the claim.
    */
   @NotNull
-  @Getter
   private final Claim claim;
 
   /**
@@ -50,6 +48,16 @@ abstract class ClaimEvent extends Event {
    */
   public static HandlerList getHandlerList() {
     return ClaimEvent.handlerList;
+  }
+
+  /**
+   * obtains the claim.
+   *
+   * @return claim.
+   */
+  @NotNull
+  public final Claim getClaim() {
+    return this.claim;
   }
 
   @NotNull
