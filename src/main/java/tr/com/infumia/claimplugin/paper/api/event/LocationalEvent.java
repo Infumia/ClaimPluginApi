@@ -16,6 +16,18 @@ public interface LocationalEvent {
   /**
    * creates a locational event.
    *
+   * @param event the event to create.
+   *
+   * @return locational event.
+   */
+  @NotNull
+  static LocationalEvent of(@NotNull final ClaimEvent event) {
+    return LocationalEvent.of(event.getClaim(), event);
+  }
+
+  /**
+   * creates a locational event.
+   *
    * @param claim the claim to create.
    * @param event the event to create.
    *
