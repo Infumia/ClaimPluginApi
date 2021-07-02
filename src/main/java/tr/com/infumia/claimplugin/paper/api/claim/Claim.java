@@ -221,6 +221,13 @@ public interface Claim extends Permissible {
   Location getClaimBlockLocation();
 
   /**
+   * sets the claim block location.
+   *
+   * @param location the location to set.
+   */
+  void setClaimBlockLocation(@NotNull Location location);
+
+  /**
    * obtains the cuboid.
    *
    * @return cuboid.
