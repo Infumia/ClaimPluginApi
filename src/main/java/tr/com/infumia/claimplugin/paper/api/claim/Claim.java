@@ -143,7 +143,8 @@ public interface Claim extends Permissible {
    * @param location the location to add.
    */
   default void addHome(@NotNull final Location location) {
-    this.addHome(UUID.randomUUID().toString(), location);
+    final var id = UUID.randomUUID();
+    this.addHome(id, id.toString(), location);
   }
 
   /**
@@ -153,7 +154,18 @@ public interface Claim extends Permissible {
    * @param location the location to add.
    */
   default void addHome(@NotNull final String name, @NotNull final Location location) {
-    this.addHome(Home.of(name, location));
+    this.addHome(UUID.randomUUID(), name, location);
+  }
+
+  /**
+   * adds the home.
+   *
+   * @param id the id to add.
+   * @param name the name to add.
+   * @param location the location to add.
+   */
+  default void addHome(@NotNull final UUID id, @NotNull final String name, @NotNull final Location location) {
+    this.addHome(Home.of(id, name, location));
   }
 
   /**
