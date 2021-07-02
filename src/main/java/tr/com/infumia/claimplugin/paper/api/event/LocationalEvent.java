@@ -14,7 +14,20 @@ import tr.com.infumia.claimplugin.paper.api.claim.Claim;
 public interface LocationalEvent {
 
   /**
-   * creates a locational event from block break event.
+   * creates a locational event.
+   *
+   * @param claim the claim to create.
+   * @param event the event to create.
+   *
+   * @return locational event.
+   */
+  @NotNull
+  static LocationalEvent of(@NotNull final Claim claim, @NotNull final Event event) {
+    return LocationalEvent.of(claim, event, claim.getClaimBlockLocation());
+  }
+
+  /**
+   * creates a locational event.
    *
    * @param claim the claim to create.
    * @param event the event to create.
