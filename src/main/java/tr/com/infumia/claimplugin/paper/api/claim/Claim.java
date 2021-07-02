@@ -154,7 +154,7 @@ public interface Claim extends Permissible {
    * @return {@code true} if the claim can expire.
    */
   default boolean canExpire() {
-    return this.getExpireTime() != -1;
+    return this.getExpireTime() >= 0;
   }
 
   /**
