@@ -34,6 +34,18 @@ public interface Claim extends Permissible {
   }
 
   /**
+   * deletes the claim from cache and database.
+   *
+   * @param claim the claim to delete.
+   *
+   * @return completable future.
+   */
+  @NotNull
+  static CompletableFuture<Void> delete(@NotNull final Claim claim) {
+    return Claims.delete(claim);
+  }
+
+  /**
    * gets claim at the location.
    *
    * @param location the location to get.
@@ -154,7 +166,7 @@ public interface Claim extends Permissible {
    * @return {@code true} if the claim can expire.
    */
   default boolean canExpire() {
-    return this.getExpireTime() != -1;
+    return this.getExpireTime() >= 0;
   }
 
   /**
@@ -213,12 +225,24 @@ public interface Claim extends Permissible {
   void decreaseExpireTime();
 
   /**
+   * deletes the claim.
+   */
+  void delete();
+
+  /**
    * obtains the claim block location.
    *
    * @return claim block location.
    */
   @NotNull
   Location getClaimBlockLocation();
+
+  /**
+   * sets the claim block location.
+   *
+   * @param location the location to set.
+   */
+  void setClaimBlockLocation(@NotNull Location location);
 
   /**
    * obtains the cuboid.
@@ -266,6 +290,23 @@ public interface Claim extends Permissible {
    */
   @NotNull
   Collection<Member> getMembers();
+
+  /**
+   * obtains the name.
+   * <p>
+   * the name will use in management menu which include all claims of the player.
+   *
+   * @return name.
+   */
+  @NotNull
+  String getName();
+
+  /**
+   * sets the name.
+   *
+   * @param name the name to set.
+   */
+  void setName(@NotNull String name);
 
   /**
    * obtains the owner.

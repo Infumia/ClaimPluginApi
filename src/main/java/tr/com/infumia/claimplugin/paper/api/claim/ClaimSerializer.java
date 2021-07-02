@@ -19,6 +19,13 @@ public interface ClaimSerializer {
   Collection<Claim> all();
 
   /**
+   * deletes the claim from database.
+   *
+   * @param claim claim to delete.
+   */
+  void delete(@NotNull Claim claim);
+
+  /**
    * loads claim from database.
    *
    * @param uniqueId the unique id to get.
