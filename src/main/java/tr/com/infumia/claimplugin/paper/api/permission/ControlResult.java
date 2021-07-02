@@ -61,6 +61,11 @@ public final class ControlResult {
   public static final ControlResult DRAGON_EGG_TOUCH = new ControlResult("dragon-egg-touch");
 
   /**
+   * returns when someone edits the permission of a claim.
+   */
+  public static final ControlResult EDIT_PERM = new ControlResult("edit-perm");
+
+  /**
    * returns when an entity has made a decision to explode or a block explodes.
    */
   public static final ControlResult EXPLOSIONS = new ControlResult("explosions");
