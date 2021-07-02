@@ -20,6 +20,7 @@ public interface Home {
    *
    * @return a newly created home instance.
    */
+  @NotNull
   static Home of(@NotNull final String name, @NotNull final Location location) {
     return new Impl(location, name);
   }
