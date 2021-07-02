@@ -1,9 +1,12 @@
 package tr.com.infumia.claimplugin.paper.api.claim;
 
+import java.util.UUID;
 import lombok.AccessLevel;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
+import lombok.ToString;
 import org.bukkit.Location;
 import org.jetbrains.annotations.NotNull;
 
@@ -15,14 +18,24 @@ public interface Home {
   /**
    * creates a simple home instance.
    *
+   * @param id the id to create.
    * @param name the name to create.
    * @param location the location to create.
    *
    * @return a newly created home instance.
    */
-  static Home of(@NotNull final String name, @NotNull final Location location) {
-    return new Impl(location, name);
+  @NotNull
+  static Home of(@NotNull final UUID id, @NotNull final String name, @NotNull final Location location) {
+    return new Impl(id, location, name);
   }
+
+  /**
+   * obtains the id.
+   *
+   * @return id.
+   */
+  @NotNull
+  UUID getId();
 
   /**
    * obtains the location.
@@ -59,8 +72,16 @@ public interface Home {
    */
   @Getter
   @Setter
+  @ToString
+  @EqualsAndHashCode
   @RequiredArgsConstructor(access = AccessLevel.PRIVATE)
   final class Impl implements Home {
+
+    /**
+     * the id.
+     */
+    @NotNull
+    private final UUID id;
 
     /**
      * the location.

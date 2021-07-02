@@ -1,6 +1,5 @@
 package tr.com.infumia.claimplugin.paper.api.event;
 
-import java.util.UUID;
 import lombok.Getter;
 import lombok.Setter;
 import org.bukkit.command.CommandSender;

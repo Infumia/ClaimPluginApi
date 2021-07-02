@@ -1,8 +1,5 @@
 package tr.com.infumia.claimplugin.paper.api.event;
 
-import lombok.Getter;
-import lombok.Setter;
-import org.bukkit.event.Cancellable;
 import org.jetbrains.annotations.NotNull;
 import tr.com.infumia.claimplugin.paper.api.claim.Claim;
 
