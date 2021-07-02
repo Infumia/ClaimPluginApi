@@ -8,7 +8,7 @@ import tr.com.infumia.claimplugin.paper.api.claim.Claim;
 /**
  * an abstract class that helps to create custom events.
  */
-abstract class ClaimEvent extends Event {
+public abstract class ClaimEvent extends Event {
 
   /**
    * the handler list.
