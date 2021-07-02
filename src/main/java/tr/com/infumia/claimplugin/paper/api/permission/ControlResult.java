@@ -81,6 +81,11 @@ public final class ControlResult {
   public static final ControlResult FURNACE_ACCESS = new ControlResult("furnace-access");
 
   /**
+   * returns when someone wants to teleport to claim via home.
+   */
+  public static final ControlResult HOME = new ControlResult("home");
+
+  /**
    * returns when the control isn't related to the event.
    */
   public static final ControlResult INVALID = new ControlResult("invalid", true);
