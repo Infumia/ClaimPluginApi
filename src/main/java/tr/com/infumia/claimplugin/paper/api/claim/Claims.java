@@ -10,6 +10,7 @@ import java.util.Set;
 import java.util.UUID;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.stream.Collectors;
 import lombok.Setter;
 import org.bukkit.Location;
 import org.jetbrains.annotations.NotNull;
@@ -74,14 +75,11 @@ public final class Claims {
    *
    * @return claim at location.
    */
-  @NotNull
-  static Optional<Claim> get(@NotNull final Location location) {
-    for (final var claim : Claims.CLAIMS_SET) {
-      if (claim.isIn(location)) {
-        return Optional.of(claim);
-      }
-    }
-    return Optional.empty();
+  @Nullable
+  static Claim get(@NotNull final Location location) {
+    return Claims.CLAIMS_SET.stream()
+      .filter(claim -> claim.isIn(location))
+      .findFirst().orElse(null);
   }
 
   /**
@@ -93,13 +91,20 @@ public final class Claims {
    */
   @NotNull
   static Collection<Claim> getByOwner(@NotNull final UUID uniqueId) {
-    final var set = new HashSet<Claim>();
-    for (final var claim : Claims.CLAIMS_SET) {
-      if (claim.getOwner().getUniqueId().equals(uniqueId)) {
-        set.add(claim);
-      }
-    }
-    return set;
+    return Claims.CLAIMS_SET.stream()
+      .filter(claim -> claim.getOwner().getUniqueId().equals(uniqueId))
+      .collect(Collectors.toCollection(HashSet::new));
+  }
+
+  /**
+   * checks if there is a chunk at the location.
+   *
+   * @param location the location to check.
+   *
+   * @return {@code true} if there is a chunk at the location.
+   */
+  static boolean hasClaim(@NotNull final Location location) {
+    return Claims.CLAIMS_SET.stream().anyMatch(claim -> claim.isIn(location));
   }
 
   /**

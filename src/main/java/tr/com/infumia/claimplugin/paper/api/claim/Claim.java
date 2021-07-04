@@ -54,7 +54,7 @@ public interface Claim extends Permissible {
    */
   @NotNull
   static Optional<Claim> get(@NotNull final Location location) {
-    return Claims.get(location);
+    return Optional.ofNullable(Claims.get(location));
   }
 
   /**
@@ -91,6 +91,17 @@ public interface Claim extends Permissible {
   @NotNull
   static Collection<Claim> getByOwner(@NotNull final Player player) {
     return Claim.getByOwner(player.getUniqueId());
+  }
+
+  /**
+   * checks if there is a chunk at the location.
+   *
+   * @param location the location to check.
+   *
+   * @return {@code true} if there is a chunk at the location.
+   */
+  static boolean hasClaim(@NotNull final Location location) {
+    return Claims.hasClaim(location);
   }
 
   /**
