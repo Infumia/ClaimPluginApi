@@ -75,11 +75,11 @@ public final class Claims {
    *
    * @return claim at location.
    */
-  @Nullable
-  static Claim get(@NotNull final Location location) {
+  @NotNull
+  static Optional<Claim> get(@NotNull final Location location) {
     return Claims.CLAIMS_SET.stream()
       .filter(claim -> claim.isIn(location))
-      .findFirst().orElse(null);
+      .findFirst();
   }
 
   /**

@@ -54,7 +54,7 @@ public interface Claim extends Permissible {
    */
   @NotNull
   static Optional<Claim> get(@NotNull final Location location) {
-    return Optional.ofNullable(Claims.get(location));
+    return Claims.get(location);
   }
 
   /**
