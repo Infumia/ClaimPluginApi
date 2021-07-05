@@ -158,16 +158,12 @@ public final class Claims {
    */
   @NotNull
   static CompletableFuture<Void> save(@NotNull final Claim claim) {
-    return Claims.supplyClaim(claim).whenComplete((none, throwable) -> {
-      if (throwable != null) {
-        throwable.printStackTrace();
-      }
-      final var uniqueId = claim.getUniqueId();
-      if (!Claims.CLAIMS.containsKey(uniqueId)) {
-        Claims.CLAIMS.put(uniqueId, claim);
-        Claims.CLAIMS_SET.add(claim);
-      }
-    });
+    final var uniqueId = claim.getUniqueId();
+    if (!Claims.CLAIMS.containsKey(uniqueId)) {
+      Claims.CLAIMS.put(uniqueId, claim);
+      Claims.CLAIMS_SET.add(claim);
+    }
+    return Claims.supplyClaim(claim);
   }
 
   /**
