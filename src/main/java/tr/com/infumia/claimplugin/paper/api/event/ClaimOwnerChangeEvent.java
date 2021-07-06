@@ -39,4 +39,11 @@ public final class ClaimOwnerChangeEvent extends ClaimEvent {
     this.oldOwner = oldOwner;
     this.newOwner = newOwner;
   }
+
+  /**
+   * changes the new owner with {@link #oldOwner}.
+   */
+  public void dontChangeOwner() {
+    this.setNewOwner(this.getOldOwner());
+  }
 }
