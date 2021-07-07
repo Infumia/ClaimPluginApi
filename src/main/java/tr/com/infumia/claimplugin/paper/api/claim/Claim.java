@@ -315,7 +315,7 @@ public interface Claim extends Permissible {
    * @return enter message.
    */
   @NotNull
-  SentTitle getEnterMessage();
+  String getEnterMessage();
 
   /**
    * sets enter message.
@@ -447,7 +447,7 @@ public interface Claim extends Permissible {
    * @return quit message.
    */
   @NotNull
-  SentTitle getQuitMessage();
+  String getQuitMessage();
 
   /**
    * sets quit message.
