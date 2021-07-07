@@ -310,6 +310,36 @@ public interface Claim extends Permissible {
   void setCuboid(@NotNull Cuboid cuboid);
 
   /**
+   * obtains the enter message.
+   *
+   * @return enter message.
+   */
+  @NotNull
+  String getEnterMessage();
+
+  /**
+   * sets enter message.
+   *
+   * @param message the message to set.
+   */
+  void setEnterMessage(@NotNull String message);
+
+  /**
+   * obtains the enter title.
+   *
+   * @return enter title.
+   */
+  @NotNull
+  SentTitle getEnterTitle();
+
+  /**
+   * sets enter title.
+   *
+   * @param title the title to set.
+   */
+  void setEnterTitle(@NotNull SentTitle title);
+
+  /**
    * obtains the expire time.
    *
    * @return expire time.
@@ -410,6 +440,36 @@ public interface Claim extends Permissible {
   default UUID getOwnerAsUniqueId() {
     return this.getOwner().getUniqueId();
   }
+
+  /**
+   * obtains the quit message.
+   *
+   * @return quit message.
+   */
+  @NotNull
+  String getQuitMessage();
+
+  /**
+   * sets quit message.
+   *
+   * @param message the message to set.
+   */
+  void setQuitMessage(@NotNull String message);
+
+  /**
+   * obtains the quit title.
+   *
+   * @return quit title.
+   */
+  @NotNull
+  SentTitle getQuitTitle();
+
+  /**
+   * sets quit title.
+   *
+   * @param title the title to set.
+   */
+  void setQuitTitle(@NotNull SentTitle title);
 
   /**
    * obtains the sub claims.
@@ -520,34 +580,6 @@ public interface Claim extends Permissible {
   default CompletableFuture<Void> save() {
     return Claim.save(this);
   }
-
-  /**
-   * sets enter message.
-   *
-   * @param message the message to set.
-   */
-  void setEnterMessage(@NotNull String message);
-
-  /**
-   * sets enter title.
-   *
-   * @param title the title to set.
-   */
-  void setEnterTitle(@NotNull SentTitle title);
-
-  /**
-   * sets quit message.
-   *
-   * @param message the message to set.
-   */
-  void setQuitMessage(@NotNull String message);
-
-  /**
-   * sets quit title.
-   *
-   * @param title the title to set.
-   */
-  void setQuitTitle(@NotNull SentTitle title);
 
   /**
    * updates if the claim block not exist.
