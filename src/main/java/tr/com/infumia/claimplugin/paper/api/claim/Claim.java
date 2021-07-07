@@ -15,6 +15,7 @@ import tr.com.infumia.claimplugin.paper.api.member.Member;
 import tr.com.infumia.claimplugin.paper.api.permission.ControlResult;
 import tr.com.infumia.claimplugin.paper.api.permission.Permissible;
 import tr.com.infumia.infumialib.paper.location.Cuboid;
+import tr.com.infumia.infumialib.paper.transformer.serializers.SentTitle;
 
 /**
  * an interface to determine claims.
@@ -444,6 +445,34 @@ public interface Claim extends Permissible {
   boolean isClaimBlock(@NotNull Location location);
 
   /**
+   * obtains enter quit message enabled.
+   *
+   * @return enter quit message enabled.
+   */
+  boolean isEnterQuitMessageEnabled();
+
+  /**
+   * sets enter quit message enabled.
+   *
+   * @param enterQuitMessageEnabled the enter quit title message to set.
+   */
+  void setEnterQuitMessageEnabled(boolean enterQuitMessageEnabled);
+
+  /**
+   * obtains enter quit title enabled.
+   *
+   * @return enter quit title enabled.
+   */
+  boolean isEnterQuitTitleEnabled();
+
+  /**
+   * sets enter quit title enabled.
+   *
+   * @param enterQuitTitleEnabled the enter quit title enabled to set.
+   */
+  void setEnterQuitTitleEnabled(boolean enterQuitTitleEnabled);
+
+  /**
    * checks if the location is in the cuboid of the claim.
    *
    * @param location the location to check.
@@ -491,6 +520,34 @@ public interface Claim extends Permissible {
   default CompletableFuture<Void> save() {
     return Claim.save(this);
   }
+
+  /**
+   * sets enter message.
+   *
+   * @param message the message to set.
+   */
+  void setEnterMessage(@NotNull String message);
+
+  /**
+   * sets enter title.
+   *
+   * @param title the title to set.
+   */
+  void setEnterTitle(@NotNull SentTitle title);
+
+  /**
+   * sets quit message.
+   *
+   * @param message the message to set.
+   */
+  void setQuitMessage(@NotNull String message);
+
+  /**
+   * sets quit title.
+   *
+   * @param title the title to set.
+   */
+  void setQuitTitle(@NotNull SentTitle title);
 
   /**
    * updates if the claim block not exist.
