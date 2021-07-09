@@ -6,7 +6,7 @@ import lombok.RequiredArgsConstructor;
 import org.bukkit.Location;
 import org.bukkit.event.Event;
 import org.jetbrains.annotations.NotNull;
-import tr.com.infumia.claimplugin.paper.api.claim.Claim;
+import tr.com.infumia.claimplugin.paper.api.claim.ParentClaim;
 
 /**
  * an interface to determine locational events.
@@ -34,7 +34,7 @@ public interface LocationalEvent {
    * @return locational event.
    */
   @NotNull
-  static LocationalEvent of(@NotNull final Claim claim, @NotNull final Event event) {
+  static LocationalEvent of(@NotNull final ParentClaim claim, @NotNull final Event event) {
     return LocationalEvent.of(claim, event, claim.getClaimBlockLocation());
   }
 
@@ -48,7 +48,8 @@ public interface LocationalEvent {
    * @return locational event.
    */
   @NotNull
-  static LocationalEvent of(@NotNull final Claim claim, @NotNull final Event event, @NotNull final Location location) {
+  static LocationalEvent of(@NotNull final ParentClaim claim, @NotNull final Event event,
+                            @NotNull final Location location) {
     return new Impl(claim, event, location);
   }
 
@@ -58,7 +59,7 @@ public interface LocationalEvent {
    * @return claim.
    */
   @NotNull
-  Claim getClaim();
+  ParentClaim getClaim();
 
   /**
    * obtains the event.
@@ -87,7 +88,7 @@ public interface LocationalEvent {
      * the claim.
      */
     @NotNull
-    private final Claim claim;
+    private final ParentClaim claim;
 
     /**
      * the event.

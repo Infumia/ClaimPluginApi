@@ -4,7 +4,7 @@ import lombok.Getter;
 import lombok.Setter;
 import org.bukkit.event.Cancellable;
 import org.jetbrains.annotations.NotNull;
-import tr.com.infumia.claimplugin.paper.api.claim.Claim;
+import tr.com.infumia.claimplugin.paper.api.claim.ParentClaim;
 
 /**
  * a class that represents claim pre delete events that fire before the claim delete.
@@ -23,7 +23,7 @@ public final class ClaimPreDeleteEvent extends ClaimEvent implements Cancellable
    *
    * @param claim the claim.
    */
-  public ClaimPreDeleteEvent(@NotNull final Claim claim) {
+  public ClaimPreDeleteEvent(@NotNull final ParentClaim claim) {
     this(false, claim);
   }
 
@@ -33,7 +33,7 @@ public final class ClaimPreDeleteEvent extends ClaimEvent implements Cancellable
    * @param isAsync the is async.
    * @param claim the claim.
    */
-  public ClaimPreDeleteEvent(final boolean isAsync, final @NotNull Claim claim) {
+  public ClaimPreDeleteEvent(final boolean isAsync, @NotNull final ParentClaim claim) {
     super(isAsync, claim);
   }
 }

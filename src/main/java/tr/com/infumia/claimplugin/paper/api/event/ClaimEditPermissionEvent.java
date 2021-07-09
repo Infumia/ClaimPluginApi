@@ -5,7 +5,7 @@ import lombok.Setter;
 import org.bukkit.command.CommandSender;
 import org.bukkit.event.Cancellable;
 import org.jetbrains.annotations.NotNull;
-import tr.com.infumia.claimplugin.paper.api.claim.Claim;
+import tr.com.infumia.claimplugin.paper.api.claim.ParentClaim;
 import tr.com.infumia.claimplugin.paper.api.permission.Permission;
 
 /**
@@ -53,7 +53,7 @@ public final class ClaimEditPermissionEvent extends ClaimEvent implements Cancel
    * @param permission the permission.
    * @param status the status.
    */
-  public ClaimEditPermissionEvent(@NotNull final Claim claim, @NotNull final CommandSender editor,
+  public ClaimEditPermissionEvent(@NotNull final ParentClaim claim, @NotNull final CommandSender editor,
                                   @NotNull final Permission permission, @NotNull final Permission.Status status) {
     this(false, claim, editor, permission, status);
   }
@@ -67,7 +67,7 @@ public final class ClaimEditPermissionEvent extends ClaimEvent implements Cancel
    * @param permission the permission.
    * @param status the status.
    */
-  public ClaimEditPermissionEvent(final boolean isAsync, @NotNull final Claim claim,
+  public ClaimEditPermissionEvent(final boolean isAsync, @NotNull final ParentClaim claim,
                                   @NotNull final CommandSender editor, @NotNull final Permission permission,
                                   @NotNull final Permission.Status status) {
     super(isAsync, claim);

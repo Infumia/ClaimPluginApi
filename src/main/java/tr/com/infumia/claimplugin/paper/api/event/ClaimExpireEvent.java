@@ -4,7 +4,7 @@ import lombok.Getter;
 import lombok.Setter;
 import org.bukkit.event.Cancellable;
 import org.jetbrains.annotations.NotNull;
-import tr.com.infumia.claimplugin.paper.api.claim.Claim;
+import tr.com.infumia.claimplugin.paper.api.claim.ParentClaim;
 
 /**
  * a class that represents claim expire events that fire when a claim expired.
@@ -25,7 +25,7 @@ public final class ClaimExpireEvent extends ClaimEvent implements Cancellable {
    *
    * @param claim the claim.
    */
-  public ClaimExpireEvent(@NotNull final Claim claim) {
+  public ClaimExpireEvent(@NotNull final ParentClaim claim) {
     super(true, claim);
   }
 }
