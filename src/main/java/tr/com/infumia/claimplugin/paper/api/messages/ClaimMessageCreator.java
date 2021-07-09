@@ -3,6 +3,9 @@ package tr.com.infumia.claimplugin.paper.api.messages;
 import org.jetbrains.annotations.NotNull;
 import tr.com.infumia.infumialib.paper.transformer.serializers.SentTitle;
 
+/**
+ * an interface to determine claim message creator.
+ */
 public interface ClaimMessageCreator {
 
   /**

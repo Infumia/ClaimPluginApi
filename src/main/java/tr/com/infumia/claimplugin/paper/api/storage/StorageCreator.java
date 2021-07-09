@@ -21,6 +21,9 @@ public interface StorageCreator {
   /**
    * creates a new storage instance.
    *
+   * @param slotSize the slot size to create.
+   * @param items the items to create.
+   *
    * @return a newly created storage instance.
    */
   @NotNull

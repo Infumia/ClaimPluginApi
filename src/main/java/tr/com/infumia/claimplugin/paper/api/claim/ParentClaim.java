@@ -102,6 +102,13 @@ public interface ParentClaim extends Claim, Permissible {
   void delete();
 
   /**
+   * sends enter message/title to the player.
+   *
+   * @param player the player to send.
+   */
+  void enterClaim(Player player);
+
+  /**
    * obtains the claim block location.
    *
    * @return claim block location.
@@ -257,6 +264,13 @@ public interface ParentClaim extends Claim, Permissible {
    * @param player the player to open.
    */
   void openStorage(@NotNull Player player);
+
+  /**
+   * sends quit message/title to the player.
+   *
+   * @param player the player to send.
+   */
+  void quitClaim(Player player);
 
   /**
    * removes the home.

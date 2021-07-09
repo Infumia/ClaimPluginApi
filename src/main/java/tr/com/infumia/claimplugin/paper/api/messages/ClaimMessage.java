@@ -2,6 +2,7 @@ package tr.com.infumia.claimplugin.paper.api.messages;
 
 import org.jetbrains.annotations.NotNull;
 import tr.com.infumia.infumialib.paper.transformer.serializers.SentTitle;
+import tr.com.infumia.infumialib.replaceable.RpString;
 
 /**
  * an interface to determine claim messages.
@@ -44,14 +45,14 @@ public interface ClaimMessage {
    * @return enter message.
    */
   @NotNull
-  String getEnterMessage();
+  RpString getEnterMessage();
 
   /**
    * sets enter message.
    *
    * @param message the message to set.
    */
-  void setEnterMessage(@NotNull String message);
+  void setEnterMessage(@NotNull RpString message);
 
   /**
    * obtains the enter title.
@@ -74,14 +75,14 @@ public interface ClaimMessage {
    * @return quit message.
    */
   @NotNull
-  String getQuitMessage();
+  RpString getQuitMessage();
 
   /**
    * sets quit message.
    *
    * @param message the message to set.
    */
-  void setQuitMessage(@NotNull String message);
+  void setQuitMessage(@NotNull RpString message);
 
   /**
    * obtains the quit title.
