@@ -11,7 +11,7 @@ import tr.com.infumia.claimplugin.paper.api.claim.ParentClaim;
  * <p>
  * the event calls in async.
  */
-public final class ClaimExpireEvent extends ClaimEvent implements Cancellable {
+public final class ClaimExpiredEvent extends ClaimEvent implements Cancellable {
 
   /**
    * the cancelled.
@@ -25,7 +25,7 @@ public final class ClaimExpireEvent extends ClaimEvent implements Cancellable {
    *
    * @param claim the claim.
    */
-  public ClaimExpireEvent(@NotNull final ParentClaim claim) {
+  public ClaimExpiredEvent(@NotNull final ParentClaim claim) {
     super(true, claim);
   }
 }
