@@ -542,6 +542,13 @@ public interface Claim extends Permissible {
   boolean isIn(@NotNull Location location);
 
   /**
+   * tries to open storage.
+   *
+   * @param player the player to open.
+   */
+  void openStorage(@NotNull Player player);
+
+  /**
    * removes the home.
    *
    * @param home the home to remove.
