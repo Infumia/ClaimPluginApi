@@ -48,6 +48,11 @@ public final class Members {
     return Members.getMemberCreator().createOwner(uniqueId);
   }
 
+  /**
+   * obtains the member creator.
+   *
+   * @return member creator.
+   */
   @NotNull
   private static MemberCreator getMemberCreator() {
     return Objects.requireNonNull(Members.memberCreator, "member provider");
