@@ -1,11 +1,7 @@
-package tr.com.infumia.claimplugin.paper.api.claim;
+package tr.com.infumia.claimplugin.paper.api.storage;
 
-import java.util.Collections;
-import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
-import lombok.AccessLevel;
-import lombok.RequiredArgsConstructor;
 import org.bukkit.inventory.ItemStack;
 import org.jetbrains.annotations.NotNull;
 import tr.com.infumia.infumialib.paper.smartinventory.util.SlotPos;
@@ -22,19 +18,20 @@ public interface Storage {
    */
   @NotNull
   static Storage empty() {
-    return new Impl();
+    return Storages.empty();
   }
 
   /**
    * creates an empty storage instance.
    *
+   * @param slotSize the slot size to create.
    * @param items the items to create.
    *
    * @return storage instance.
    */
   @NotNull
-  static Storage of(@NotNull final Map<Integer, Map<SlotPos, ItemStack>> items) {
-    return new Impl(items);
+  static Storage of(final int slotSize, @NotNull final Map<Integer, Map<SlotPos, ItemStack>> items) {
+    return Storages.of(slotSize, items);
   }
 
   /**
@@ -80,6 +77,20 @@ public interface Storage {
   Optional<Map<SlotPos, ItemStack>> getPage(int page);
 
   /**
+   * obtains the slot size.
+   *
+   * @return slot size.
+   */
+  int getSlotSize();
+
+  /**
+   * sets the slot size.
+   *
+   * @param slotSize the slot size.
+   */
+  void setSlotSize(int slotSize);
+
+  /**
    * removes the item in page at position.
    *
    * @param page the page to remove.
@@ -95,41 +106,4 @@ public interface Storage {
    * @param page the page to remove.
    */
   void removePage(int page);
-
-  /**
-   * a simple implementation of {@link Storage}.
-   */
-  @RequiredArgsConstructor(access = AccessLevel.PRIVATE)
-  final class Impl implements Storage {
-
-    /**
-     * the items.
-     */
-    @NotNull
-    private final Map<Integer, Map<SlotPos, ItemStack>> items;
-
-    /**
-     * ctor.
-     */
-    private Impl() {
-      this(new HashMap<>());
-    }
-
-    @NotNull
-    @Override
-    public Map<Integer, Map<SlotPos, ItemStack>> getItems() {
-      return Collections.unmodifiableMap(this.items);
-    }
-
-    @NotNull
-    @Override
-    public Optional<Map<SlotPos, ItemStack>> getPage(final int page) {
-      return Optional.ofNullable(this.items.get(page));
-    }
-
-    @Override
-    public void removePage(final int page) {
-      this.items.remove(page);
-    }
-  }
 }

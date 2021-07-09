@@ -10,9 +10,11 @@ import org.bukkit.OfflinePlayer;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+import tr.com.infumia.claimplugin.paper.api.home.Home;
 import tr.com.infumia.claimplugin.paper.api.member.Member;
+import tr.com.infumia.claimplugin.paper.api.messages.ClaimMessage;
 import tr.com.infumia.claimplugin.paper.api.permission.Permissible;
-import tr.com.infumia.infumialib.paper.transformer.serializers.SentTitle;
+import tr.com.infumia.claimplugin.paper.api.storage.Storage;
 
 /**
  * an interface to determine parent claims.
@@ -115,34 +117,12 @@ public interface ParentClaim extends Claim, Permissible {
   void setClaimBlockLocation(@NotNull Location location);
 
   /**
-   * obtains the enter message.
+   * obtains the claim message.
    *
-   * @return enter message.
+   * @return claim message.
    */
   @NotNull
-  String getEnterMessage();
-
-  /**
-   * sets enter message.
-   *
-   * @param message the message to set.
-   */
-  void setEnterMessage(@NotNull String message);
-
-  /**
-   * obtains the enter title.
-   *
-   * @return enter title.
-   */
-  @NotNull
-  SentTitle getEnterTitle();
-
-  /**
-   * sets enter title.
-   *
-   * @param title the title to set.
-   */
-  void setEnterTitle(@NotNull SentTitle title);
+  ClaimMessage getClaimMessage();
 
   /**
    * obtains the expire time.
@@ -247,36 +227,6 @@ public interface ParentClaim extends Claim, Permissible {
   }
 
   /**
-   * obtains the quit message.
-   *
-   * @return quit message.
-   */
-  @NotNull
-  String getQuitMessage();
-
-  /**
-   * sets quit message.
-   *
-   * @param message the message to set.
-   */
-  void setQuitMessage(@NotNull String message);
-
-  /**
-   * obtains the quit title.
-   *
-   * @return quit title.
-   */
-  @NotNull
-  SentTitle getQuitTitle();
-
-  /**
-   * sets quit title.
-   *
-   * @param title the title to set.
-   */
-  void setQuitTitle(@NotNull SentTitle title);
-
-  /**
    * obtains the storage.
    *
    * @return storage.
@@ -300,34 +250,6 @@ public interface ParentClaim extends Claim, Permissible {
    * @return {@code true} if block at the location is a claim block.
    */
   boolean isClaimBlock(@NotNull Location location);
-
-  /**
-   * obtains enter quit message enabled.
-   *
-   * @return enter quit message enabled.
-   */
-  boolean isEnterQuitMessageEnabled();
-
-  /**
-   * sets enter quit message enabled.
-   *
-   * @param enterQuitMessageEnabled the enter quit title message to set.
-   */
-  void setEnterQuitMessageEnabled(boolean enterQuitMessageEnabled);
-
-  /**
-   * obtains enter quit title enabled.
-   *
-   * @return enter quit title enabled.
-   */
-  boolean isEnterQuitTitleEnabled();
-
-  /**
-   * sets enter quit title enabled.
-   *
-   * @param enterQuitTitleEnabled the enter quit title enabled to set.
-   */
-  void setEnterQuitTitleEnabled(boolean enterQuitTitleEnabled);
 
   /**
    * tries to open storage.

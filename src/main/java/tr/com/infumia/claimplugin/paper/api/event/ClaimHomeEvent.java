@@ -5,8 +5,8 @@ import lombok.Setter;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Cancellable;
 import org.jetbrains.annotations.NotNull;
-import tr.com.infumia.claimplugin.paper.api.claim.Home;
 import tr.com.infumia.claimplugin.paper.api.claim.ParentClaim;
+import tr.com.infumia.claimplugin.paper.api.home.Home;
 
 /**
  * a class that represents claim home events that fire when someone use home for teleporting to claims.
