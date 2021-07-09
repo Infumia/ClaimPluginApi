@@ -1,6 +1,7 @@
 package tr.com.infumia.claimplugin.paper.api.claim;
 
 import java.util.Collection;
+import java.util.Map;
 import java.util.Optional;
 import java.util.UUID;
 import java.util.concurrent.CompletableFuture;
@@ -19,6 +20,18 @@ import tr.com.infumia.infumialib.paper.location.Cuboid;
  * @todo #1:15m Add throws tag for each method if needed.
  */
 public interface Claim {
+
+  /**
+   * adds the id to invitation.
+   *
+   * @param id the id to add.
+   * @param player the player to add.
+   * @param claim the claim to add.
+   */
+  static void addInvitation(@NotNull final String id, @NotNull final UUID player,
+                            @NotNull final ParentClaim claim) {
+    Claims.addInvitation(id, player, claim);
+  }
 
   /**
    * gets all claims.
@@ -91,6 +104,18 @@ public interface Claim {
   }
 
   /**
+   * obtains the invited player.
+   *
+   * @param id the id to get.
+   *
+   * @return invited player's unique id.
+   */
+  @NotNull
+  static Optional<Map.Entry<UUID, ParentClaim>> getInvitation(@NotNull final String id) {
+    return Claims.getInvitation(id);
+  }
+
+  /**
    * checks if there is a chunk at the location.
    *
    * @param location the location to check.
@@ -121,6 +146,15 @@ public interface Claim {
   @NotNull
   static CompletableFuture<Collection<ParentClaim>> loadAll() {
     return Claims.loadAll();
+  }
+
+  /**
+   * removes the invitation.
+   *
+   * @param id the id to remove.
+   */
+  static void removeInvitation(@NotNull final String id) {
+    Claims.removeInvitation(id);
   }
 
   /**

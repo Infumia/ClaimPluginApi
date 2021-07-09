@@ -2,7 +2,6 @@ package tr.com.infumia.claimplugin.paper.api.storage;
 
 import java.util.Map;
 import java.util.Objects;
-import lombok.Setter;
 import org.bukkit.inventory.ItemStack;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -17,7 +16,6 @@ public final class Storages {
    * the storage creator.
    */
   @Nullable
-  @Setter
   private static StorageCreator storageCreator;
 
   /**
@@ -59,5 +57,16 @@ public final class Storages {
   @NotNull
   private static StorageCreator getStorageCreator() {
     return Objects.requireNonNull(Storages.storageCreator, "storage creator");
+  }
+
+  /**
+   * sets the storage creator if it's not set already.
+   *
+   * @param storageCreator the storage creator to set.
+   */
+  public static void setStorageCreator(@NotNull final StorageCreator storageCreator) {
+    if (Storages.storageCreator != null) {
+      Storages.storageCreator = storageCreator;
+    }
   }
 }

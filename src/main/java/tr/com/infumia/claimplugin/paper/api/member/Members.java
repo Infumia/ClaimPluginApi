@@ -2,7 +2,6 @@ package tr.com.infumia.claimplugin.paper.api.member;
 
 import java.util.Objects;
 import java.util.UUID;
-import lombok.Setter;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -15,7 +14,6 @@ public final class Members {
    * the member creator.
    */
   @Nullable
-  @Setter
   private static MemberCreator memberCreator;
 
   /**
@@ -56,5 +54,16 @@ public final class Members {
   @NotNull
   private static MemberCreator getMemberCreator() {
     return Objects.requireNonNull(Members.memberCreator, "member provider");
+  }
+
+  /**
+   * sets the member creator if it's not set already.
+   *
+   * @param memberCreator the member creator to set.
+   */
+  public static void setMemberCreator(@NotNull final MemberCreator memberCreator) {
+    if (Members.memberCreator != null) {
+      Members.memberCreator = memberCreator;
+    }
   }
 }

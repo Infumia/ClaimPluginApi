@@ -11,7 +11,6 @@ import java.util.UUID;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.stream.Collectors;
-import lombok.Setter;
 import org.bukkit.Location;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -32,16 +31,34 @@ public final class Claims {
   private static final Set<ParentClaim> CLAIMS_SET = new HashSet<>();
 
   /**
+   * the invitations.
+   * <p>
+   * id-player unique id,claim unique id.
+   */
+  private static final Map<String, Map.Entry<UUID, ParentClaim>> INVITATIONS = new ConcurrentHashMap<>();
+
+  /**
    * the claim serializer.
    */
   @Nullable
-  @Setter
   private static ClaimSerializer claimSerializer;
 
   /**
    * ctor.
    */
   private Claims() {
+  }
+
+  /**
+   * adds the id to invitation.
+   *
+   * @param id the id to add.
+   * @param player the player to add.
+   * @param claim the claim to add.
+   */
+  static void addInvitation(@NotNull final String id, @NotNull final UUID player,
+                            @NotNull final ParentClaim claim) {
+    Claims.INVITATIONS.put(id, Map.entry(player, claim));
   }
 
   /**
@@ -94,6 +111,18 @@ public final class Claims {
     return Claims.CLAIMS_SET.stream()
       .filter(claim -> claim.getOwner().getUniqueId().equals(uniqueId))
       .collect(Collectors.toCollection(HashSet::new));
+  }
+
+  /**
+   * obtains the invited player.
+   *
+   * @param id the id to get.
+   *
+   * @return invited player's unique id.
+   */
+  @NotNull
+  static Optional<Map.Entry<UUID, ParentClaim>> getInvitation(@NotNull final String id) {
+    return Optional.ofNullable(Claims.INVITATIONS.get(id));
   }
 
   /**
@@ -152,6 +181,15 @@ public final class Claims {
   }
 
   /**
+   * removes the invitation.
+   *
+   * @param id the id to remove.
+   */
+  static void removeInvitation(@NotNull final String id) {
+    Claims.INVITATIONS.remove(id);
+  }
+
+  /**
    * saves the claim.
    *
    * @param claim the claim to save.
@@ -198,6 +236,17 @@ public final class Claims {
   @NotNull
   private static ClaimSerializer getClaimSerializer() {
     return Objects.requireNonNull(Claims.claimSerializer, "claim serializer");
+  }
+
+  /**
+   * sets the claim serializer if it's not set already.
+   *
+   * @param claimSerializer the claim serializer to set.
+   */
+  public static void setClaimSerializer(@NotNull final ClaimSerializer claimSerializer) {
+    if (Claims.claimSerializer != null) {
+      Claims.claimSerializer = claimSerializer;
+    }
   }
 
   /**

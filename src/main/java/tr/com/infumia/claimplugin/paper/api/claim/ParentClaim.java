@@ -83,15 +83,6 @@ public interface ParentClaim extends Claim, Permissible {
   void addSubClaim(@NotNull Claim subClaim);
 
   /**
-   * checks if the claim can expire.
-   *
-   * @return {@code true} if the claim can expire.
-   */
-  default boolean canExpire() {
-    return this.getExpireTime() >= 0;
-  }
-
-  /**
    * decreases the expire time.
    */
   void decreaseExpireTime();
@@ -100,6 +91,13 @@ public interface ParentClaim extends Claim, Permissible {
    * deletes the claim.
    */
   void delete();
+
+  /**
+   * sends enter message/title to the player.
+   *
+   * @param player the player to send.
+   */
+  void enterClaim(Player player);
 
   /**
    * obtains the claim block location.
@@ -243,6 +241,13 @@ public interface ParentClaim extends Claim, Permissible {
   Collection<Claim> getSubClaims();
 
   /**
+   * invites the player to become a member of the claim.
+   *
+   * @param player the player to invite.
+   */
+  void invitePlayer(@NotNull Player player);
+
+  /**
    * checks if block at the location is a claim block.
    *
    * @param location the location to check.
@@ -257,6 +262,13 @@ public interface ParentClaim extends Claim, Permissible {
    * @param player the player to open.
    */
   void openStorage(@NotNull Player player);
+
+  /**
+   * sends quit message/title to the player.
+   *
+   * @param player the player to send.
+   */
+  void quitClaim(Player player);
 
   /**
    * removes the home.
