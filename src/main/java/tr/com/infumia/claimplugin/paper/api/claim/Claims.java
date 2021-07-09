@@ -11,7 +11,6 @@ import java.util.UUID;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.stream.Collectors;
-import lombok.Setter;
 import org.bukkit.Location;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -35,7 +34,6 @@ public final class Claims {
    * the claim serializer.
    */
   @Nullable
-  @Setter
   private static ClaimSerializer claimSerializer;
 
   /**
@@ -198,6 +196,17 @@ public final class Claims {
   @NotNull
   private static ClaimSerializer getClaimSerializer() {
     return Objects.requireNonNull(Claims.claimSerializer, "claim serializer");
+  }
+
+  /**
+   * sets the claim serializer if it's not set already.
+   *
+   * @param claimSerializer the claim serializer to set.
+   */
+  public static void setClaimSerializer(@NotNull final ClaimSerializer claimSerializer) {
+    if (Claims.claimSerializer != null) {
+      Claims.claimSerializer = claimSerializer;
+    }
   }
 
   /**
