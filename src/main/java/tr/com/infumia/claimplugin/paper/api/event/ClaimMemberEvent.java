@@ -22,17 +22,6 @@ public abstract class ClaimMemberEvent extends ClaimEvent {
   /**
    * ctor.
    *
-   * @param claim the claim.
-   * @param member the member.
-   */
-  ClaimMemberEvent(final @NotNull Claim claim, @NotNull final Member member) {
-    super(claim);
-    this.member = member;
-  }
-
-  /**
-   * ctor.
-   *
    * @param isAsync the is async.
    * @param claim the claim.
    * @param member the member.

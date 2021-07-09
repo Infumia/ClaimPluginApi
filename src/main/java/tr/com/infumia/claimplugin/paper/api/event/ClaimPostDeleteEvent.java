@@ -14,6 +14,16 @@ public final class ClaimPostDeleteEvent extends ClaimEvent {
    * @param claim the claim.
    */
   public ClaimPostDeleteEvent(@NotNull final Claim claim) {
-    super(claim);
+    this(false, claim);
+  }
+
+  /**
+   * ctor.
+   *
+   * @param isAsync the is async.
+   * @param claim the claim.
+   */
+  public ClaimPostDeleteEvent(final boolean isAsync, final @NotNull Claim claim) {
+    super(isAsync, claim);
   }
 }

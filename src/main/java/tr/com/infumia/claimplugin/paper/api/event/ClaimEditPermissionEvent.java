@@ -53,12 +53,9 @@ public final class ClaimEditPermissionEvent extends ClaimEvent implements Cancel
    * @param permission the permission.
    * @param status the status.
    */
-  public ClaimEditPermissionEvent(final @NotNull Claim claim, @NotNull final CommandSender editor,
+  public ClaimEditPermissionEvent(@NotNull final Claim claim, @NotNull final CommandSender editor,
                                   @NotNull final Permission permission, @NotNull final Permission.Status status) {
-    super(claim);
-    this.editor = editor;
-    this.permission = permission;
-    this.status = status;
+    this(false, claim, editor, permission, status);
   }
 
   /**

@@ -16,7 +16,7 @@ public final class ClaimRemoveMemberEvent extends ClaimMemberEvent {
    * @param member the member.
    */
   public ClaimRemoveMemberEvent(@NotNull final Claim claim, @NotNull final Member member) {
-    super(claim, member);
+    this(false, claim, member);
   }
 
   /**
