@@ -6,12 +6,11 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.Cancellable;
 import org.jetbrains.annotations.NotNull;
 import tr.com.infumia.claimplugin.paper.api.claim.Claim;
-import tr.com.infumia.claimplugin.paper.api.claim.Home;
 
 /**
- * a class that represents claim home events that fire when someone use home for teleporting to claims.
+ * a class that represents claim home events that fire when someone tries to open storage of the claims.
  */
-public final class ClaimHomeEvent extends ClaimEvent implements Cancellable {
+public final class ClaimOpenStorageEvent extends ClaimEvent implements Cancellable {
 
   /**
    * the player.
@@ -28,22 +27,13 @@ public final class ClaimHomeEvent extends ClaimEvent implements Cancellable {
   private boolean cancelled;
 
   /**
-   * the home.
-   */
-  @NotNull
-  @Getter
-  @Setter
-  private Home home;
-
-  /**
    * ctor.
    *
    * @param claim the claim.
    * @param player the player.
-   * @param home the home.
    */
-  public ClaimHomeEvent(@NotNull final Claim claim, @NotNull final Player player, @NotNull final Home home) {
-    this(false, claim, player, home);
+  public ClaimOpenStorageEvent(@NotNull final Claim claim, @NotNull final Player player) {
+    this(false, claim, player);
   }
 
   /**
@@ -52,12 +42,9 @@ public final class ClaimHomeEvent extends ClaimEvent implements Cancellable {
    * @param isAsync the is async.
    * @param claim the claim.
    * @param player the player.
-   * @param home the home.
    */
-  public ClaimHomeEvent(final boolean isAsync, @NotNull final Claim claim, @NotNull final Player player,
-                        @NotNull final Home home) {
+  public ClaimOpenStorageEvent(final boolean isAsync, @NotNull final Claim claim, @NotNull final Player player) {
     super(isAsync, claim);
     this.player = player;
-    this.home = home;
   }
 }
