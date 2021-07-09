@@ -277,6 +277,14 @@ public interface ParentClaim extends Claim, Permissible {
   void setQuitTitle(@NotNull SentTitle title);
 
   /**
+   * obtains the storage.
+   *
+   * @return storage.
+   */
+  @NotNull
+  Storage getStorage();
+
+  /**
    * obtains the sub claims.
    *
    * @return sub claims.
