@@ -12,6 +12,7 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import tr.com.infumia.claimplugin.paper.api.member.Member;
 import tr.com.infumia.claimplugin.paper.api.permission.Permissible;
+import tr.com.infumia.claimplugin.paper.api.storage.Storage;
 import tr.com.infumia.infumialib.paper.transformer.serializers.SentTitle;
 
 /**
