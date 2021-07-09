@@ -1,7 +1,7 @@
 package tr.com.infumia.claimplugin.paper.api.event;
 
 import org.jetbrains.annotations.NotNull;
-import tr.com.infumia.claimplugin.paper.api.claim.Claim;
+import tr.com.infumia.claimplugin.paper.api.claim.ParentClaim;
 import tr.com.infumia.claimplugin.paper.api.member.Member;
 
 /**
@@ -15,7 +15,7 @@ public final class ClaimAddMemberEvent extends ClaimMemberEvent {
    * @param claim the claim.
    * @param member the member.
    */
-  public ClaimAddMemberEvent(@NotNull final Claim claim, @NotNull final Member member) {
+  public ClaimAddMemberEvent(@NotNull final ParentClaim claim, @NotNull final Member member) {
     this(false, claim, member);
   }
 
@@ -26,7 +26,7 @@ public final class ClaimAddMemberEvent extends ClaimMemberEvent {
    * @param claim the claim.
    * @param member the member.
    */
-  public ClaimAddMemberEvent(final boolean isAsync, final @NotNull Claim claim, final @NotNull Member member) {
+  public ClaimAddMemberEvent(final boolean isAsync, @NotNull final ParentClaim claim, @NotNull final Member member) {
     super(isAsync, claim, member);
   }
 }

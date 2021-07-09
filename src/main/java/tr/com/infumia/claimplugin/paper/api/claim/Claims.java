@@ -24,12 +24,12 @@ public final class Claims {
   /**
    * the claims.
    */
-  private static final Map<UUID, Claim> CLAIMS = new ConcurrentHashMap<>();
+  private static final Map<UUID, ParentClaim> CLAIMS = new ConcurrentHashMap<>();
 
   /**
    * the claims.
    */
-  private static final Set<Claim> CLAIMS_SET = new HashSet<>();
+  private static final Set<ParentClaim> CLAIMS_SET = new HashSet<>();
 
   /**
    * the claim serializer.
@@ -50,7 +50,7 @@ public final class Claims {
    * @return all claims.
    */
   @NotNull
-  static Collection<Claim> all() {
+  static Collection<ParentClaim> all() {
     return Collections.unmodifiableSet(Claims.CLAIMS_SET);
   }
 
@@ -62,7 +62,7 @@ public final class Claims {
    * @return completable future.
    */
   @NotNull
-  static CompletableFuture<Void> delete(@NotNull final Claim claim) {
+  static CompletableFuture<Void> delete(@NotNull final ParentClaim claim) {
     Claims.CLAIMS_SET.remove(claim);
     Claims.CLAIMS.remove(claim.getUniqueId());
     return Claims.deleteClaim(claim);
@@ -76,7 +76,7 @@ public final class Claims {
    * @return claim at location.
    */
   @NotNull
-  static Optional<Claim> get(@NotNull final Location location) {
+  static Optional<ParentClaim> get(@NotNull final Location location) {
     return Claims.CLAIMS_SET.stream()
       .filter(claim -> claim.isIn(location))
       .findFirst();
@@ -90,7 +90,7 @@ public final class Claims {
    * @return claims of the player.
    */
   @NotNull
-  static Collection<Claim> getByOwner(@NotNull final UUID uniqueId) {
+  static Collection<ParentClaim> getByOwner(@NotNull final UUID uniqueId) {
     return Claims.CLAIMS_SET.stream()
       .filter(claim -> claim.getOwner().getUniqueId().equals(uniqueId))
       .collect(Collectors.toCollection(HashSet::new));
@@ -115,7 +115,7 @@ public final class Claims {
    * @return completable future for claim.
    */
   @NotNull
-  static CompletableFuture<@Nullable Claim> load(@NotNull final UUID uniqueId) {
+  static CompletableFuture<@Nullable ParentClaim> load(@NotNull final UUID uniqueId) {
     if (Claims.CLAIMS.containsKey(uniqueId)) {
       return CompletableFuture.completedFuture(Claims.CLAIMS.get(uniqueId));
     }
@@ -136,7 +136,7 @@ public final class Claims {
    * @return all loaded claims.
    */
   @NotNull
-  static CompletableFuture<Collection<Claim>> loadAll() {
+  static CompletableFuture<Collection<ParentClaim>> loadAll() {
     return Claims.provideAllClaims().whenComplete((claims, throwable) -> {
       if (throwable != null) {
         throwable.printStackTrace();
@@ -157,7 +157,7 @@ public final class Claims {
    * @param claim the claim to save.
    */
   @NotNull
-  static CompletableFuture<Void> save(@NotNull final Claim claim) {
+  static CompletableFuture<Void> save(@NotNull final ParentClaim claim) {
     final var uniqueId = claim.getUniqueId();
     if (!Claims.CLAIMS.containsKey(uniqueId)) {
       Claims.CLAIMS.put(uniqueId, claim);
@@ -184,7 +184,7 @@ public final class Claims {
    * @return completable future for delete.
    */
   @NotNull
-  private static CompletableFuture<Void> deleteClaim(@NotNull final Claim claim) {
+  private static CompletableFuture<Void> deleteClaim(@NotNull final ParentClaim claim) {
     return CompletableFuture.runAsync(() -> Claims.getClaimSerializer().delete(claim));
   }
 
@@ -206,7 +206,7 @@ public final class Claims {
    * @return all claims.
    */
   @NotNull
-  private static CompletableFuture<Collection<Claim>> provideAllClaims() {
+  private static CompletableFuture<Collection<ParentClaim>> provideAllClaims() {
     return CompletableFuture.supplyAsync(() -> Claims.getClaimSerializer().all());
   }
 
@@ -218,7 +218,7 @@ public final class Claims {
    * @return claim.
    */
   @NotNull
-  private static CompletableFuture<@Nullable Claim> provideClaim(@NotNull final UUID uniqueId) {
+  private static CompletableFuture<@Nullable ParentClaim> provideClaim(@NotNull final UUID uniqueId) {
     return CompletableFuture.supplyAsync(() -> Claims.getClaimSerializer().load(uniqueId));
   }
 
@@ -230,7 +230,7 @@ public final class Claims {
    * @return completable future.
    */
   @NotNull
-  private static CompletableFuture<Void> supplyAllClaims(@NotNull final Collection<Claim> claims) {
+  private static CompletableFuture<Void> supplyAllClaims(@NotNull final Collection<ParentClaim> claims) {
     return CompletableFuture.runAsync(() -> Claims.getClaimSerializer().saveAll(claims));
   }
 
@@ -242,7 +242,7 @@ public final class Claims {
    * @return completable future.
    */
   @NotNull
-  private static CompletableFuture<Void> supplyClaim(@NotNull final Claim claim) {
+  private static CompletableFuture<Void> supplyClaim(@NotNull final ParentClaim claim) {
     return CompletableFuture.runAsync(() -> Claims.getClaimSerializer().save(claim));
   }
 }

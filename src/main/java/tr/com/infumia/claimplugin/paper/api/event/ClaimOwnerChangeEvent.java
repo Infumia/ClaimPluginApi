@@ -3,7 +3,7 @@ package tr.com.infumia.claimplugin.paper.api.event;
 import lombok.Getter;
 import lombok.Setter;
 import org.jetbrains.annotations.NotNull;
-import tr.com.infumia.claimplugin.paper.api.claim.Claim;
+import tr.com.infumia.claimplugin.paper.api.claim.ParentClaim;
 import tr.com.infumia.claimplugin.paper.api.member.Member;
 
 /**
@@ -33,7 +33,7 @@ public final class ClaimOwnerChangeEvent extends ClaimEvent {
    * @param oldOwner the old owner.
    * @param newOwner the new owner.
    */
-  public ClaimOwnerChangeEvent(@NotNull final Claim claim, @NotNull final Member oldOwner,
+  public ClaimOwnerChangeEvent(@NotNull final ParentClaim claim, @NotNull final Member oldOwner,
                                @NotNull final Member newOwner) {
     this(false, claim, oldOwner, newOwner);
   }
@@ -46,7 +46,7 @@ public final class ClaimOwnerChangeEvent extends ClaimEvent {
    * @param oldOwner the old owner.
    * @param newOwner the new owner.
    */
-  public ClaimOwnerChangeEvent(final boolean isAsync, final @NotNull Claim claim, @NotNull final Member oldOwner,
+  public ClaimOwnerChangeEvent(final boolean isAsync, @NotNull final ParentClaim claim, @NotNull final Member oldOwner,
                                @NotNull final Member newOwner) {
     super(isAsync, claim);
     this.oldOwner = oldOwner;

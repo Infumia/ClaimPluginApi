@@ -3,7 +3,7 @@ package tr.com.infumia.claimplugin.paper.api.event;
 import org.bukkit.event.Event;
 import org.bukkit.event.HandlerList;
 import org.jetbrains.annotations.NotNull;
-import tr.com.infumia.claimplugin.paper.api.claim.Claim;
+import tr.com.infumia.claimplugin.paper.api.claim.ParentClaim;
 
 /**
  * an abstract class that helps to create custom events.
@@ -19,16 +19,7 @@ public abstract class ClaimEvent extends Event {
    * the claim.
    */
   @NotNull
-  private final Claim claim;
-
-  /**
-   * ctor.
-   *
-   * @param claim the claim.
-   */
-  ClaimEvent(@NotNull final Claim claim) {
-    this(false, claim);
-  }
+  private final ParentClaim claim;
 
   /**
    * ctor.
@@ -36,7 +27,7 @@ public abstract class ClaimEvent extends Event {
    * @param isAsync the is async.
    * @param claim the claim.
    */
-  ClaimEvent(final boolean isAsync, @NotNull final Claim claim) {
+  ClaimEvent(final boolean isAsync, @NotNull final ParentClaim claim) {
     super(isAsync);
     this.claim = claim;
   }
@@ -56,7 +47,7 @@ public abstract class ClaimEvent extends Event {
    * @return claim.
    */
   @NotNull
-  public final Claim getClaim() {
+  public final ParentClaim getClaim() {
     return this.claim;
   }
 

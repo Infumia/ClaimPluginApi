@@ -6,7 +6,7 @@ import org.bukkit.Location;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Cancellable;
 import org.jetbrains.annotations.NotNull;
-import tr.com.infumia.claimplugin.paper.api.claim.Claim;
+import tr.com.infumia.claimplugin.paper.api.claim.ParentClaim;
 
 /**
  * a class that represents claim home events that fire when someone tries to set home home.
@@ -41,7 +41,7 @@ public final class ClaimSetHomeEvent extends ClaimEvent implements Cancellable {
    * @param claim the claim.
    * @param player the player.
    */
-  public ClaimSetHomeEvent(@NotNull final Claim claim, @NotNull final Player player) {
+  public ClaimSetHomeEvent(@NotNull final ParentClaim claim, @NotNull final Player player) {
     this(false, claim, player);
   }
 
@@ -52,7 +52,7 @@ public final class ClaimSetHomeEvent extends ClaimEvent implements Cancellable {
    * @param claim the claim.
    * @param player the player.
    */
-  public ClaimSetHomeEvent(final boolean isAsync, @NotNull final Claim claim, @NotNull final Player player) {
+  public ClaimSetHomeEvent(final boolean isAsync, @NotNull final ParentClaim claim, @NotNull final Player player) {
     super(isAsync, claim);
     this.player = player;
     this.location = player.getLocation();

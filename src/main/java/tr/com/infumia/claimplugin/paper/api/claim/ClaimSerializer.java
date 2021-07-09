@@ -16,14 +16,14 @@ public interface ClaimSerializer {
    * @return all claims.
    */
   @NotNull
-  Collection<Claim> all();
+  Collection<ParentClaim> all();
 
   /**
    * deletes the claim from database.
    *
    * @param claim claim to delete.
    */
-  void delete(@NotNull Claim claim);
+  void delete(@NotNull ParentClaim claim);
 
   /**
    * loads claim from database.
@@ -33,19 +33,19 @@ public interface ClaimSerializer {
    * @return claim.
    */
   @Nullable
-  Claim load(@NotNull UUID uniqueId);
+  ParentClaim load(@NotNull UUID uniqueId);
 
   /**
    * saves the claim to database.
    *
    * @param claim the claim to save.
    */
-  void save(@NotNull Claim claim);
+  void save(@NotNull ParentClaim claim);
 
   /**
    * saves all the claims.
    *
    * @param claims the claims to save.
    */
-  void saveAll(@NotNull Collection<Claim> claims);
+  void saveAll(@NotNull Collection<ParentClaim> claims);
 }
