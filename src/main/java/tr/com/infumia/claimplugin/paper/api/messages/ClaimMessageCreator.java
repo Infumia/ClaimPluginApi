@@ -2,6 +2,7 @@ package tr.com.infumia.claimplugin.paper.api.messages;
 
 import org.jetbrains.annotations.NotNull;
 import tr.com.infumia.infumialib.paper.transformer.serializers.SentTitle;
+import tr.com.infumia.infumialib.replaceable.RpString;
 
 /**
  * an interface to determine claim message creator.
@@ -29,6 +30,6 @@ public interface ClaimMessageCreator {
    * @return a newly created claim message instance.
    */
   @NotNull
-  ClaimMessage of(@NotNull String enterMessage, boolean enterQuitMessageEnabled, boolean enterQuitTitleEnabled,
-                  @NotNull SentTitle enterTitle, @NotNull String quitMessage, @NotNull SentTitle quitTitle);
+  ClaimMessage of(@NotNull RpString enterMessage, boolean enterQuitMessageEnabled, boolean enterQuitTitleEnabled,
+                  @NotNull SentTitle enterTitle, @NotNull RpString quitMessage, @NotNull SentTitle quitTitle);
 }

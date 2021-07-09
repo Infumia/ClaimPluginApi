@@ -10,6 +10,11 @@ import tr.com.infumia.infumialib.replaceable.RpString;
 public interface ClaimMessage {
 
   /**
+   * a default claim message to parse values.
+   */
+  ClaimMessage EMPTY = ClaimMessage.empty();
+
+  /**
    * creates an empty claim message instance.
    *
    * @return a newly created claim message instance.
@@ -32,9 +37,9 @@ public interface ClaimMessage {
    * @return a newly created claim message instance.
    */
   @NotNull
-  static ClaimMessage of(@NotNull final String enterMessage, final boolean enterQuitMessageEnabled,
+  static ClaimMessage of(@NotNull final RpString enterMessage, final boolean enterQuitMessageEnabled,
                          final boolean enterQuitTitleEnabled, @NotNull final SentTitle enterTitle,
-                         @NotNull final String quitMessage, @NotNull final SentTitle quitTitle) {
+                         @NotNull final RpString quitMessage, @NotNull final SentTitle quitTitle) {
     return ClaimMessages.of(enterMessage, enterQuitMessageEnabled, enterQuitTitleEnabled, enterTitle, quitMessage,
       quitTitle);
   }

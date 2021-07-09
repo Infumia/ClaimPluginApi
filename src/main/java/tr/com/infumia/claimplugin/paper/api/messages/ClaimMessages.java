@@ -4,6 +4,7 @@ import java.util.Objects;
 import lombok.Setter;
 import org.jetbrains.annotations.NotNull;
 import tr.com.infumia.infumialib.paper.transformer.serializers.SentTitle;
+import tr.com.infumia.infumialib.replaceable.RpString;
 
 /**
  * a class that contains utility methods for {@link ClaimMessage}.
@@ -40,9 +41,9 @@ public final class ClaimMessages {
    * @return a newly created claim message instance.
    */
   @NotNull
-  static ClaimMessage of(@NotNull final String enterMessage, final boolean enterQuitMessageEnabled,
+  static ClaimMessage of(@NotNull final RpString enterMessage, final boolean enterQuitMessageEnabled,
                          final boolean enterQuitTitleEnabled, @NotNull final SentTitle enterTitle,
-                         @NotNull final String quitMessage, @NotNull final SentTitle quitTitle) {
+                         @NotNull final RpString quitMessage, @NotNull final SentTitle quitTitle) {
     return ClaimMessages.getClaimMessageCreator().of(enterMessage, enterQuitMessageEnabled, enterQuitTitleEnabled,
       enterTitle, quitMessage, quitTitle);
   }
