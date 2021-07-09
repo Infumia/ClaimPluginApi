@@ -1,4 +1,4 @@
-package tr.com.infumia.claimplugin.paper.api.claim;
+package tr.com.infumia.claimplugin.paper.api.home;
 
 import java.util.UUID;
 import lombok.AccessLevel;
