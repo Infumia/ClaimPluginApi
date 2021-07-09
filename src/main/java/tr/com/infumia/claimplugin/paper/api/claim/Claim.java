@@ -22,6 +22,18 @@ import tr.com.infumia.infumialib.paper.location.Cuboid;
 public interface Claim {
 
   /**
+   * adds the id to invitation.
+   *
+   * @param id the id to add.
+   * @param player the player to add.
+   * @param claim the claim to add.
+   */
+  static void addInvitation(@NotNull final String id, @NotNull final UUID player,
+                            @NotNull final ParentClaim claim) {
+    Claims.addInvitation(id, player, claim);
+  }
+
+  /**
    * gets all claims.
    *
    * @return all claims.

@@ -50,6 +50,18 @@ public final class Claims {
   }
 
   /**
+   * adds the id to invitation.
+   *
+   * @param id the id to add.
+   * @param player the player to add.
+   * @param claim the claim to add.
+   */
+  static void addInvitation(@NotNull final String id, @NotNull final UUID player,
+                            @NotNull final ParentClaim claim) {
+    Claims.INVITATIONS.put(id, Map.entry(player, claim));
+  }
+
+  /**
    * gets all claims.
    *
    * @return all claims.
