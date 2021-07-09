@@ -128,6 +128,11 @@ public final class ControlResult {
   public static final ControlResult PVP = new ControlResult("pvp");
 
   /**
+   * returns when someone tries to set home.
+   */
+  public static final ControlResult SET_HOME = new ControlResult("set-home");
+
+  /**
    * returns when someone interacts with shulkers.
    */
   public static final ControlResult SHULKER_ACCESS = new ControlResult("shulker-access");

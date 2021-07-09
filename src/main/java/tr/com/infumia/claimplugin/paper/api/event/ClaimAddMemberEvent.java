@@ -15,8 +15,8 @@ public final class ClaimAddMemberEvent extends ClaimMemberEvent {
    * @param claim the claim.
    * @param member the member.
    */
-  public ClaimAddMemberEvent(final @NotNull Claim claim, final @NotNull Member member) {
-    super(claim, member);
+  public ClaimAddMemberEvent(@NotNull final Claim claim, @NotNull final Member member) {
+    this(false, claim, member);
   }
 
   /**

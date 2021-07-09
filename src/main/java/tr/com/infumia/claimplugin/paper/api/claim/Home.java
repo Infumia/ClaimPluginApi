@@ -18,6 +18,19 @@ public interface Home {
   /**
    * creates a simple home instance.
    *
+   * @param location the location to create.
+   *
+   * @return a newly created home instance.
+   */
+  @NotNull
+  static Home of(@NotNull final Location location) {
+    final var id = UUID.randomUUID();
+    return Home.of(id, id.toString().substring(0, 7), location);
+  }
+
+  /**
+   * creates a simple home instance.
+   *
    * @param id the id to create.
    * @param name the name to create.
    * @param location the location to create.

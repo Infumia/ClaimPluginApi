@@ -582,6 +582,13 @@ public interface Claim extends Permissible {
   }
 
   /**
+   * tries to set home.
+   *
+   * @param player the player to set home.
+   */
+  void setHome(@NotNull Player player);
+
+  /**
    * updates if the claim block not exist.
    */
   void updateClaimBlock();

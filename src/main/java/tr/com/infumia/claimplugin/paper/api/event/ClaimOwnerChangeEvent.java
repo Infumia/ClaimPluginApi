@@ -33,9 +33,22 @@ public final class ClaimOwnerChangeEvent extends ClaimEvent {
    * @param oldOwner the old owner.
    * @param newOwner the new owner.
    */
-  public ClaimOwnerChangeEvent(@NotNull final Claim claim,
-                               @NotNull final Member oldOwner, @NotNull final Member newOwner) {
-    super(claim);
+  public ClaimOwnerChangeEvent(@NotNull final Claim claim, @NotNull final Member oldOwner,
+                               @NotNull final Member newOwner) {
+    this(false, claim, oldOwner, newOwner);
+  }
+
+  /**
+   * ctor.
+   *
+   * @param isAsync the is async.
+   * @param claim the claim.
+   * @param oldOwner the old owner.
+   * @param newOwner the new owner.
+   */
+  public ClaimOwnerChangeEvent(final boolean isAsync, final @NotNull Claim claim, @NotNull final Member oldOwner,
+                               @NotNull final Member newOwner) {
+    super(isAsync, claim);
     this.oldOwner = oldOwner;
     this.newOwner = newOwner;
   }

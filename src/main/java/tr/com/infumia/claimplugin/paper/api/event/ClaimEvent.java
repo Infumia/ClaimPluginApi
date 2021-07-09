@@ -27,7 +27,7 @@ public abstract class ClaimEvent extends Event {
    * @param claim the claim.
    */
   ClaimEvent(@NotNull final Claim claim) {
-    this.claim = claim;
+    this(false, claim);
   }
 
   /**
