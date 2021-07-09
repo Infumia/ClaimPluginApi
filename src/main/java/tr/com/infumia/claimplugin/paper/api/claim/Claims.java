@@ -31,6 +31,13 @@ public final class Claims {
   private static final Set<ParentClaim> CLAIMS_SET = new HashSet<>();
 
   /**
+   * the invitations.
+   * <p>
+   * id-player unique id,claim unique id.
+   */
+  private static final Map<String, Map.Entry<UUID, ParentClaim>> INVITATIONS = new ConcurrentHashMap<>();
+
+  /**
    * the claim serializer.
    */
   @Nullable
@@ -95,6 +102,18 @@ public final class Claims {
   }
 
   /**
+   * obtains the invited player.
+   *
+   * @param id the id to get.
+   *
+   * @return invited player's unique id.
+   */
+  @NotNull
+  static Optional<Map.Entry<UUID, ParentClaim>> getInvitation(@NotNull final String id) {
+    return Optional.ofNullable(Claims.INVITATIONS.get(id));
+  }
+
+  /**
    * checks if there is a chunk at the location.
    *
    * @param location the location to check.
@@ -147,6 +166,15 @@ public final class Claims {
         Claims.CLAIMS_SET.add(claim);
       }
     });
+  }
+
+  /**
+   * removes the invitation.
+   *
+   * @param id the id to remove.
+   */
+  static void removeInvitation(@NotNull final String id) {
+    Claims.INVITATIONS.remove(id);
   }
 
   /**

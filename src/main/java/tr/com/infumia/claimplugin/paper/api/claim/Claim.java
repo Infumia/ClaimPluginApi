@@ -1,6 +1,7 @@
 package tr.com.infumia.claimplugin.paper.api.claim;
 
 import java.util.Collection;
+import java.util.Map;
 import java.util.Optional;
 import java.util.UUID;
 import java.util.concurrent.CompletableFuture;
@@ -91,6 +92,18 @@ public interface Claim {
   }
 
   /**
+   * obtains the invited player.
+   *
+   * @param id the id to get.
+   *
+   * @return invited player's unique id.
+   */
+  @NotNull
+  static Optional<Map.Entry<UUID, ParentClaim>> getInvitation(@NotNull final String id) {
+    return Claims.getInvitation(id);
+  }
+
+  /**
    * checks if there is a chunk at the location.
    *
    * @param location the location to check.
@@ -121,6 +134,15 @@ public interface Claim {
   @NotNull
   static CompletableFuture<Collection<ParentClaim>> loadAll() {
     return Claims.loadAll();
+  }
+
+  /**
+   * removes the invitation.
+   *
+   * @param id the id to remove.
+   */
+  static void removeInvitation(@NotNull final String id) {
+    Claims.removeInvitation(id);
   }
 
   /**

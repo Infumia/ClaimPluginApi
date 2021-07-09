@@ -241,6 +241,13 @@ public interface ParentClaim extends Claim, Permissible {
   Collection<Claim> getSubClaims();
 
   /**
+   * invites the player to become a member of the claim.
+   *
+   * @param player the player to invite.
+   */
+  void invitePlayer(@NotNull Player player);
+
+  /**
    * checks if block at the location is a claim block.
    *
    * @param location the location to check.

@@ -91,6 +91,11 @@ public final class ControlResult {
   public static final ControlResult INVALID = new ControlResult("invalid", true);
 
   /**
+   * returns when claim owners or members tries to invite a player to their claims.
+   */
+  public static final ControlResult INVITE_MEMBER = new ControlResult("invite-member");
+
+  /**
    * returns when someone places lava.
    */
   public static final ControlResult LAVA_PLACEMENT = new ControlResult("lava-placement");
