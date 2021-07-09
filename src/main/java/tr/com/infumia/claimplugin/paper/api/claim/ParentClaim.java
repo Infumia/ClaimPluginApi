@@ -83,15 +83,6 @@ public interface ParentClaim extends Claim, Permissible {
   void addSubClaim(@NotNull Claim subClaim);
 
   /**
-   * checks if the claim can expire.
-   *
-   * @return {@code true} if the claim can expire.
-   */
-  default boolean canExpire() {
-    return this.getExpireTime() >= 0;
-  }
-
-  /**
    * decreases the expire time.
    */
   void decreaseExpireTime();
