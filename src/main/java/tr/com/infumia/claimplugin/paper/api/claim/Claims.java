@@ -244,7 +244,7 @@ public final class Claims {
    * @param claimSerializer the claim serializer to set.
    */
   public static void setClaimSerializer(@NotNull final ClaimSerializer claimSerializer) {
-    if (Claims.claimSerializer != null) {
+    if (Claims.claimSerializer == null) {
       Claims.claimSerializer = claimSerializer;
     }
   }

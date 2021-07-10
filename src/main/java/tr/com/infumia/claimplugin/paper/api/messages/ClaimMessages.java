@@ -65,7 +65,7 @@ public final class ClaimMessages {
    * @param claimMessageCreator the claim message creator to set.
    */
   public static void setClaimMessageCreator(@NotNull final ClaimMessageCreator claimMessageCreator) {
-    if (ClaimMessages.claimMessageCreator != null) {
+    if (ClaimMessages.claimMessageCreator == null) {
       ClaimMessages.claimMessageCreator = claimMessageCreator;
     }
   }

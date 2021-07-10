@@ -62,7 +62,7 @@ public final class Members {
    * @param memberCreator the member creator to set.
    */
   public static void setMemberCreator(@NotNull final MemberCreator memberCreator) {
-    if (Members.memberCreator != null) {
+    if (Members.memberCreator == null) {
       Members.memberCreator = memberCreator;
     }
   }
