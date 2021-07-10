@@ -65,7 +65,7 @@ public final class Storages {
    * @param storageCreator the storage creator to set.
    */
   public static void setStorageCreator(@NotNull final StorageCreator storageCreator) {
-    if (Storages.storageCreator != null) {
+    if (Storages.storageCreator == null) {
       Storages.storageCreator = storageCreator;
     }
   }
