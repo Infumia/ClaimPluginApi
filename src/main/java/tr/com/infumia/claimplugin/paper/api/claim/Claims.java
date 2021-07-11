@@ -109,7 +109,7 @@ public final class Claims {
   @NotNull
   static Collection<ParentClaim> getByOwner(@NotNull final UUID uniqueId) {
     return Claims.CLAIMS_SET.stream()
-      .filter(claim -> claim.getOwner().getUniqueId().equals(uniqueId))
+      .filter(claim -> claim.getOwnerAsUniqueId().equals(uniqueId))
       .collect(Collectors.toCollection(HashSet::new));
   }
 
