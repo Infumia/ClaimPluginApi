@@ -4,6 +4,7 @@ import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import org.bukkit.Location;
+import org.bukkit.event.Cancellable;
 import org.bukkit.event.Event;
 import org.jetbrains.annotations.NotNull;
 import tr.com.infumia.claimplugin.paper.api.claim.ParentClaim;
@@ -54,6 +55,11 @@ public interface LocationalEvent {
   }
 
   /**
+   * cancels the event, if {@link #getEvent()} is a {@link Cancellable}.
+   */
+  void cancelEvent();
+
+  /**
    * obtains the claim.
    *
    * @return claim.
@@ -101,5 +107,12 @@ public interface LocationalEvent {
      */
     @NotNull
     private final Location location;
+
+    @Override
+    public void cancelEvent() {
+      if (this.event instanceof Cancellable) {
+        ((Cancellable) this.event).setCancelled(true);
+      }
+    }
   }
 }
