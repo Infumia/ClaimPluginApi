@@ -28,7 +28,7 @@ public final class ControlResult {
   /**
    * returns when someone interacts with the armor stand.
    */
-  public static final ControlResult ARMOR_STAND_ACCESS = new ControlResult("armor-stand-acces");
+  public static final ControlResult ARMOR_STAND_ACCESS = new ControlResult("armor-stand-access");
 
   /**
    * returns when someone interacts with the barrel.
@@ -156,11 +156,15 @@ public final class ControlResult {
    * the id.
    */
   @NotNull
+  @ToString.Include
+  @EqualsAndHashCode.Include
   private final String id;
 
   /**
    * the succeed.
    */
+  @ToString.Include
+  @EqualsAndHashCode.Include
   private final boolean succeed;
 
   /**
