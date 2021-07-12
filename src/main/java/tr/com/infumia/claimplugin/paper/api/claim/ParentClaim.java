@@ -316,9 +316,4 @@ public interface ParentClaim extends Claim, Permissible {
    * @param player the player to set home.
    */
   void setHome(@NotNull Player player);
-
-  /**
-   * updates if the claim block not exist.
-   */
-  void updateClaimBlock();
 }
