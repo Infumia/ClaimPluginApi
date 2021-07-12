@@ -92,6 +92,7 @@ public interface Member extends Permissible {
    * controls all the permissions.
    *
    * @param event the event to control.
+   *
    * @return {@code true} if the event passes the control.
    */
   @NotNull
