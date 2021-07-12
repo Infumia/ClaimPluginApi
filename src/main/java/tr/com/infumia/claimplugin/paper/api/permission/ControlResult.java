@@ -66,14 +66,9 @@ public final class ControlResult {
   public static final ControlResult EDIT_PERM = new ControlResult("edit-perm");
 
   /**
-   * returns when an entity has made a decision to explode or a block explodes.
+   * returns when someone or something access to a block where is in a claim..
    */
-  public static final ControlResult EXPLOSIONS = new ControlResult("explosions");
-
-  /**
-   * returns when fire spreads to a block.
-   */
-  public static final ControlResult FIRE_SPREAD = new ControlResult("fire-spread");
+  public static final ControlResult BLOCK_PROTECTION = new ControlResult("block-protection");
 
   /**
    * returns when someone interacts with the furnace.
