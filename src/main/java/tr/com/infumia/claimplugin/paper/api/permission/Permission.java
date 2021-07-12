@@ -38,12 +38,10 @@ public interface Permission {
    * controls all the permissions.
    *
    * @param event the event to control.
-   * @param cancelIfFailed the cancel if failed to control.
-   *
    * @return {@code true} if the event passes the control.
    */
   @NotNull
-  ControlResult control(@NotNull LocationalEvent event, final boolean cancelIfFailed);
+  ControlResult control(@NotNull LocationalEvent event);
 
   /**
    * obtains the id.
