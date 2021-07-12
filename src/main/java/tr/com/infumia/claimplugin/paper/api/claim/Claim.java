@@ -184,6 +184,7 @@ public interface Claim {
    *
    * @param event the event to control.
    * @param actor the actor to control.
+   *
    * @return {@code true} if the event passes the control.
    */
   @NotNull
