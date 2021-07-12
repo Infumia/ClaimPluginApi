@@ -10,8 +10,8 @@ import org.jetbrains.annotations.NotNull;
  * an enum that contains control results.
  */
 @Getter
-@ToString
-@EqualsAndHashCode
+@ToString(onlyExplicitlyIncluded = true)
+@EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @RequiredArgsConstructor
 public final class ControlResult {
 
