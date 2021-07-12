@@ -183,51 +183,12 @@ public interface Claim {
    * controls all the permissions.
    *
    * @param event the event to control.
-   *
-   * @return {@code true} if the event passes the control.
-   */
-  @NotNull
-  default ControlResult control(@NotNull final LocationalEvent event) {
-    return this.control(event, true);
-  }
-
-  /**
-   * controls all the permissions.
-   *
-   * @param event the event to control.
-   * @param cancelIfReturnFalse the cancel if return false to control.
-   *
-   * @return {@code true} if the event passes the control.
-   */
-  @NotNull
-  default ControlResult control(@NotNull final LocationalEvent event, final boolean cancelIfReturnFalse) {
-    return this.control(event, null, cancelIfReturnFalse);
-  }
-
-  /**
-   * controls all the permissions.
-   *
-   * @param event the event to control.
    * @param actor the actor to control.
    *
    * @return {@code true} if the event passes the control.
    */
   @NotNull
-  default ControlResult control(@NotNull final LocationalEvent event, @Nullable final Player actor) {
-    return this.control(event, actor, true);
-  }
-
-  /**
-   * controls all the permissions.
-   *
-   * @param event the event to control.
-   * @param actor the actor to control.
-   * @param cancelIfReturnFalse the cancel if return false to control.
-   *
-   * @return {@code true} if the event passes the control.
-   */
-  @NotNull
-  ControlResult control(@NotNull LocationalEvent event, @Nullable Player actor, final boolean cancelIfReturnFalse);
+  ControlResult control(@NotNull LocationalEvent event, @Nullable Player actor);
 
   /**
    * obtains the cuboid.

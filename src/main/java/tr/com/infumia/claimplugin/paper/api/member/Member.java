@@ -92,12 +92,11 @@ public interface Member extends Permissible {
    * controls all the permissions.
    *
    * @param event the event to control.
-   * @param cancelIfReturnFalse the cancel if return false to control.
    *
    * @return {@code true} if the event passes the control.
    */
   @NotNull
-  ControlResult control(@NotNull LocationalEvent event, final boolean cancelIfReturnFalse);
+  ControlResult control(@NotNull LocationalEvent event);
 
   /**
    * obtains the member as offline player.

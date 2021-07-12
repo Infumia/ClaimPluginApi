@@ -10,7 +10,7 @@ import tr.com.infumia.claimplugin.paper.api.claim.ParentClaim;
 /**
  * a class that represents claim home events that fire when claim owners tries to invite someone to their claims.
  */
-public final class ClaimInviteEvent extends ClaimEvent implements Cancellable {
+public final class ClaimInviteMemberEvent extends ClaimEvent implements Cancellable {
 
   /**
    * the player.
@@ -41,7 +41,7 @@ public final class ClaimInviteEvent extends ClaimEvent implements Cancellable {
    * @param player the player.
    * @param id the id.
    */
-  public ClaimInviteEvent(@NotNull final ParentClaim claim, @NotNull final Player player, @NotNull final String id) {
+  public ClaimInviteMemberEvent(@NotNull final ParentClaim claim, @NotNull final Player player, @NotNull final String id) {
     this(false, claim, player, id
     );
   }
@@ -54,8 +54,8 @@ public final class ClaimInviteEvent extends ClaimEvent implements Cancellable {
    * @param player the player.
    * @param id the id.
    */
-  public ClaimInviteEvent(final boolean isAsync, @NotNull final ParentClaim claim, @NotNull final Player player,
-                          @NotNull final String id) {
+  public ClaimInviteMemberEvent(final boolean isAsync, @NotNull final ParentClaim claim, @NotNull final Player player,
+                                @NotNull final String id) {
     super(isAsync, claim);
     this.player = player;
     this.id = id;
