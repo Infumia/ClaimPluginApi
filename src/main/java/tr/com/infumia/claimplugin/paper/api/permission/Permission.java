@@ -21,8 +21,21 @@ public interface Permission {
    * @return permission.
    */
   @NotNull
-  static Optional<Permission> of(@NotNull final String id) {
+  static Optional<Permission> get(@NotNull final String id) {
     return Permissions.get(id);
+  }
+
+  /**
+   * gets permission via id.
+   *
+   * @param id the id to get.
+   *
+   * @return permission.
+   */
+  @NotNull
+  static Permission getOrThrow(@NotNull final String id) {
+    return Permission.get(id).orElseThrow(() ->
+      new IllegalStateException(String.format("Permission called %s not found!", id)));
   }
 
   /**
