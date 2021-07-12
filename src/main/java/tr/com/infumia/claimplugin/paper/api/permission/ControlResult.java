@@ -46,6 +46,11 @@ public final class ControlResult {
   public static final ControlResult BLOCK_PLACE = new ControlResult("block-place");
 
   /**
+   * returns when someone or something access to a block where is in a claim..
+   */
+  public static final ControlResult BLOCK_PROTECTION = new ControlResult("block-protection");
+
+  /**
    * returns when someone interacts with the brewing.
    */
   public static final ControlResult BREWING_ACCESS = new ControlResult("brewing-access");
@@ -64,11 +69,6 @@ public final class ControlResult {
    * returns when someone edits the permission of a claim.
    */
   public static final ControlResult EDIT_PERM = new ControlResult("edit-perm");
-
-  /**
-   * returns when someone or something access to a block where is in a claim..
-   */
-  public static final ControlResult BLOCK_PROTECTION = new ControlResult("block-protection");
 
   /**
    * returns when someone interacts with the furnace.
