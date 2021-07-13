@@ -1,8 +1,8 @@
 package tr.com.infumia.claimplugin.paper.api.claim;
 
-import com.google.common.collect.BiMap;
-import com.google.common.collect.HashBiMap;
-import com.google.common.collect.Maps;
+import it.unimi.dsi.fastutil.objects.Object2ObjectMap;
+import it.unimi.dsi.fastutil.objects.Object2ObjectMaps;
+import it.unimi.dsi.fastutil.objects.Object2ObjectOpenHashMap;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashSet;
@@ -37,7 +37,8 @@ public final class Claims {
   /**
    * the claim cache by location.
    */
-  private static final BiMap<Location, ParentClaim> CLAIM_CACHE = Maps.synchronizedBiMap(HashBiMap.create());
+  private static final Object2ObjectMap<Location, ParentClaim> CLAIM_CACHE = Object2ObjectMaps.synchronize(
+    new Object2ObjectOpenHashMap<>());
 
   /**
    * the invitations.
@@ -329,7 +330,7 @@ public final class Claims {
    * @param claim the claim to remove.
    */
   private static void removeCache(@NotNull final ParentClaim claim) {
-    Claims.CLAIM_CACHE.inverse().remove(claim);
+    Claims.CLAIM_CACHE.entrySet().removeIf(entry -> claim.equals(entry.getValue()));
   }
 
   /**
