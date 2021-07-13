@@ -26,17 +26,6 @@ public final class ClaimRemoveMemberEvent extends ClaimMemberEvent implements Ca
    * @param member the member.
    */
   public ClaimRemoveMemberEvent(@NotNull final ParentClaim claim, @NotNull final Member member) {
-    this(false, claim, member);
-  }
-
-  /**
-   * ctor.
-   *
-   * @param isAsync the is async.
-   * @param claim the claim.
-   * @param member the member.
-   */
-  public ClaimRemoveMemberEvent(final boolean isAsync, @NotNull final ParentClaim claim, @NotNull final Member member) {
-    super(isAsync, claim, member);
+    super(claim, member);
   }
 }

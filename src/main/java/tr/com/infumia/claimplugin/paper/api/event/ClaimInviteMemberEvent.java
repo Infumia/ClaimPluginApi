@@ -41,22 +41,9 @@ public final class ClaimInviteMemberEvent extends ClaimEvent implements Cancella
    * @param player the player.
    * @param id the id.
    */
-  public ClaimInviteMemberEvent(@NotNull final ParentClaim claim, @NotNull final Player player, @NotNull final String id) {
-    this(false, claim, player, id
-    );
-  }
-
-  /**
-   * ctor.
-   *
-   * @param isAsync the is async.
-   * @param claim the claim.
-   * @param player the player.
-   * @param id the id.
-   */
-  public ClaimInviteMemberEvent(final boolean isAsync, @NotNull final ParentClaim claim, @NotNull final Player player,
+  public ClaimInviteMemberEvent(@NotNull final ParentClaim claim, @NotNull final Player player,
                                 @NotNull final String id) {
-    super(isAsync, claim);
+    super(claim);
     this.player = player;
     this.id = id;
   }

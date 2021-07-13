@@ -26,17 +26,6 @@ public final class ClaimAddMemberEvent extends ClaimMemberEvent implements Cance
    * @param member the member.
    */
   public ClaimAddMemberEvent(@NotNull final ParentClaim claim, @NotNull final Member member) {
-    this(false, claim, member);
-  }
-
-  /**
-   * ctor.
-   *
-   * @param isAsync the is async.
-   * @param claim the claim.
-   * @param member the member.
-   */
-  public ClaimAddMemberEvent(final boolean isAsync, @NotNull final ParentClaim claim, @NotNull final Member member) {
-    super(isAsync, claim, member);
+    super(claim, member);
   }
 }
