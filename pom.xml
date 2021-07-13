@@ -16,6 +16,7 @@
   <properties>
     <java.version>11</java.version>
     <minimize.jar>false</minimize.jar>
+    <infumia.version>2.2.27</infumia.version>
     <paper.version>1.16.5-R0.1-SNAPSHOT</paper.version>
   </properties>
   <build>
@@ -31,7 +32,7 @@
     <dependency>
       <groupId>com.github.Infumia.InfumiaLib</groupId>
       <artifactId>InfumiaPaper</artifactId>
-      <version>2.2.24</version>
+      <version>${infumia.version}</version>
       <scope>provided</scope>
     </dependency>
     <dependency>

@@ -1,8 +1,10 @@
 package tr.com.infumia.claimplugin.paper.api.storage;
 
 import java.util.Map;
+import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 import tr.com.infumia.infumialib.paper.smartinventory.util.SlotPos;
 
 /**
@@ -13,10 +15,12 @@ public interface StorageCreator {
   /**
    * creates an empty storage instance.
    *
+   * @param player the player to create. this is for getting default slot count of the player.
+   *
    * @return empty storage instance.
    */
   @NotNull
-  Storage empty();
+  Storage empty(@Nullable Player player);
 
   /**
    * creates a new storage instance.

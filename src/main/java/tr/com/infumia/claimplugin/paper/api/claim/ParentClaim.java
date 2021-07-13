@@ -15,6 +15,7 @@ import tr.com.infumia.claimplugin.paper.api.member.Member;
 import tr.com.infumia.claimplugin.paper.api.messages.ClaimMessage;
 import tr.com.infumia.claimplugin.paper.api.permission.Permissible;
 import tr.com.infumia.claimplugin.paper.api.storage.Storage;
+import tr.com.infumia.infumialib.time.Times;
 
 /**
  * an interface to determine parent claims.
@@ -135,6 +136,60 @@ public interface ParentClaim extends Claim, Permissible {
    * @param expireTime expire time to set.
    */
   void setExpireTime(long expireTime);
+
+  /**
+   * obtains the expire time by day.
+   *
+   * @return expire time by day.
+   */
+  default long getExpireTimeByDay() {
+    return Times.byDay(this.getExpireTime());
+  }
+
+  /**
+   * obtains the expire time by hour.
+   *
+   * @return expire time by hour.
+   */
+  default long getExpireTimeByHour() {
+    return Times.byHour(this.getExpireTime());
+  }
+
+  /**
+   * obtains the expire time by minute.
+   *
+   * @return expire time by minute.
+   */
+  default long getExpireTimeByMinute() {
+    return Times.byMinute(this.getExpireTime());
+  }
+
+  /**
+   * obtains the expire time by month.
+   *
+   * @return expire time by month.
+   */
+  default long getExpireTimeByMonth() {
+    return Times.byMonth(this.getExpireTime());
+  }
+
+  /**
+   * obtains the expire time by second.
+   *
+   * @return expire time by second.
+   */
+  default long getExpireTimeBySecond() {
+    return Times.bySecond(this.getExpireTime());
+  }
+
+  /**
+   * obtains the expire time by year.
+   *
+   * @return expire time by year.
+   */
+  default long getExpireTimeByYear() {
+    return Times.byYear(this.getExpireTime());
+  }
 
   /**
    * obtains the homes.
@@ -309,13 +364,6 @@ public interface ParentClaim extends Claim, Permissible {
   default CompletableFuture<Void> save() {
     return Claim.save(this);
   }
-
-  /**
-   * tries to set home.
-   *
-   * @param player the player to set home.
-   */
-  void setHome(@NotNull Player player);
 
   /**
    * updates if the claim block not exist.
