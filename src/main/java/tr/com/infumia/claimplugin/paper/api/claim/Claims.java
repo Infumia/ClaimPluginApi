@@ -17,6 +17,7 @@ import java.util.concurrent.ConcurrentHashMap;
 import lombok.Getter;
 import lombok.Setter;
 import org.bukkit.Location;
+import org.bukkit.Material;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -107,6 +108,7 @@ public final class Claims {
     Claims.CLAIMS_SET.remove(claim);
     Claims.CLAIMS.remove(claim.getUniqueId());
     Claims.removeCache(claim);
+    claim.getClaimBlockLocation().getBlock().setType(Material.AIR);
     return Claims.deleteClaim(claim);
   }
 
@@ -153,7 +155,7 @@ public final class Claims {
     for (final var claim : Claims.CLAIMS_SET) {
       final var claimOwner = claim.getOwnerAsUniqueId();
       if (claimOwner.equals(uniqueId)) {
-        Claims.addCache(claimOwner, claim);
+        Claims.addCache(claim.getClaimBlockLocation(), claim);
         parentClaims.add(claim);
       }
     }
@@ -274,25 +276,6 @@ public final class Claims {
   }
 
   /**
-   * adds location and claim to {@link #CLAIM_CACHE_BY_OWNER}.
-   * <p>
-   * adds the cache only if the cache level equals to 1 or bigger.
-   *
-   * @param owner the owner to add.
-   * @param claim the claim to add.
-   */
-  private static void addCache(@NotNull final UUID owner, @NotNull final ParentClaim claim) {
-    if (Claims.cacheLevel >= 1) {
-      if (Claims.CLAIM_CACHE_BY_OWNER.computeIfPresent(owner, (uuid, parentClaims) -> {
-        parentClaims.add(claim);
-        return parentClaims;
-      }) == null) {
-        Claims.CLAIM_CACHE_BY_OWNER.put(owner, Arrays.asList(claim));
-      }
-    }
-  }
-
-  /**
    * adds location and claim to {@link #CLAIM_CACHE_BY_LOCATION}.
    * <p>
    * adds the cache only if the cache level equals to 1 or bigger.
@@ -302,7 +285,17 @@ public final class Claims {
    */
   private static void addCache(@NotNull final Location location, @NotNull final ParentClaim claim) {
     if (Claims.cacheLevel >= 1) {
-      Claims.CLAIM_CACHE_BY_LOCATION.put(location, claim);
+      Claims.CLAIM_CACHE_BY_LOCATION.putIfAbsent(location, claim);
+      final var owner = claim.getOwnerAsUniqueId();
+      Claims.CLAIM_CACHE_BY_OWNER.compute(owner, (uuid, parentClaims) -> {
+        if (parentClaims == null) {
+          return Arrays.asList(claim);
+        }
+        if (!parentClaims.contains(claim)) {
+          parentClaims.add(claim);
+        }
+        return parentClaims;
+      });
     }
   }
 

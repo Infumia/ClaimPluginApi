@@ -24,16 +24,6 @@ public final class ClaimPreDeleteEvent extends ClaimEvent implements Cancellable
    * @param claim the claim.
    */
   public ClaimPreDeleteEvent(@NotNull final ParentClaim claim) {
-    this(false, claim);
-  }
-
-  /**
-   * ctor.
-   *
-   * @param isAsync the is async.
-   * @param claim the claim.
-   */
-  public ClaimPreDeleteEvent(final boolean isAsync, @NotNull final ParentClaim claim) {
-    super(isAsync, claim);
+    super(true, claim);
   }
 }
