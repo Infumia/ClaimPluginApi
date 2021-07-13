@@ -96,11 +96,6 @@ public final class ControlResult {
   public static final ControlResult LAVA_PLACEMENT = new ControlResult("lava-placement");
 
   /**
-   * returns when member's permissions are empty.
-   */
-  public static final ControlResult MEMBER_EMPTY_PERMISSION = new ControlResult("member-empty-permission");
-
-  /**
    * returns when an entity spawns or an entity is spawned by a spawner in the claim.
    */
   public static final ControlResult MOB_SPAWNING = new ControlResult("mob-spawning");
