@@ -3,6 +3,7 @@ package tr.com.infumia.claimplugin.paper.api.claim;
 import it.unimi.dsi.fastutil.objects.Object2ObjectMap;
 import it.unimi.dsi.fastutil.objects.Object2ObjectMaps;
 import it.unimi.dsi.fastutil.objects.Object2ObjectOpenHashMap;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashSet;
@@ -25,7 +26,7 @@ import org.jetbrains.annotations.Nullable;
 public final class Claims {
 
   /**
-   * the claims.
+   * the claims by unique id.
    */
   private static final Map<UUID, ParentClaim> CLAIMS = new ConcurrentHashMap<>();
 
@@ -37,8 +38,14 @@ public final class Claims {
   /**
    * the claim cache by location.
    */
-  private static final Object2ObjectMap<Location, ParentClaim> CLAIM_CACHE = Object2ObjectMaps.synchronize(
+  private static final Object2ObjectMap<Location, ParentClaim> CLAIM_CACHE_BY_LOCATION = Object2ObjectMaps.synchronize(
     new Object2ObjectOpenHashMap<>());
+
+  /**
+   * the claim cache by owner.
+   */
+  private static final Object2ObjectMap<UUID, Collection<ParentClaim>> CLAIM_CACHE_BY_OWNER =
+    Object2ObjectMaps.synchronize(new Object2ObjectOpenHashMap<>());
 
   /**
    * the invitations.
@@ -112,9 +119,11 @@ public final class Claims {
    */
   @NotNull
   static Optional<ParentClaim> get(@NotNull final Location location) {
-    final var parentClaim = Claims.CLAIM_CACHE.get(location);
-    if (parentClaim != null) {
-      return Optional.of(parentClaim);
+    if (Claims.cacheLevel >= 1) {
+      final var cache = Claims.CLAIM_CACHE_BY_LOCATION.get(location);
+      if (cache != null) {
+        return Optional.of(cache);
+      }
     }
     for (final var claim : Claims.CLAIMS_SET) {
       if (claim.isIn(location)) {
@@ -134,9 +143,17 @@ public final class Claims {
    */
   @NotNull
   static Collection<ParentClaim> getByOwner(@NotNull final UUID uniqueId) {
+    if (Claims.cacheLevel >= 1) {
+      final var cache = Claims.CLAIM_CACHE_BY_OWNER.get(uniqueId);
+      if (cache != null) {
+        return cache;
+      }
+    }
     final var parentClaims = new HashSet<ParentClaim>();
     for (final var claim : Claims.CLAIMS_SET) {
-      if (claim.getOwnerAsUniqueId().equals(uniqueId)) {
+      final var claimOwner = claim.getOwnerAsUniqueId();
+      if (claimOwner.equals(uniqueId)) {
+        Claims.addCache(claimOwner, claim);
         parentClaims.add(claim);
       }
     }
@@ -163,9 +180,10 @@ public final class Claims {
    * @return {@code true} if there is a chunk at the location.
    */
   static boolean hasClaim(@NotNull final Location location) {
-    final var parentClaim = Claims.CLAIM_CACHE.get(location);
-    if (parentClaim != null) {
-      return true;
+    if (Claims.cacheLevel >= 1) {
+      if (Claims.CLAIM_CACHE_BY_LOCATION.containsKey(location)) {
+        return true;
+      }
     }
     for (final var claim : Claims.CLAIMS_SET) {
       if (claim.isIn(location)) {
@@ -256,14 +274,35 @@ public final class Claims {
   }
 
   /**
-   * adds location and claim to {@link #CLAIM_CACHE}.
+   * adds location and claim to {@link #CLAIM_CACHE_BY_OWNER}.
+   * <p>
+   * adds the cache only if the cache level equals to 1 or bigger.
+   *
+   * @param owner the owner to add.
+   * @param claim the claim to add.
+   */
+  private static void addCache(@NotNull final UUID owner, @NotNull final ParentClaim claim) {
+    if (Claims.cacheLevel >= 1) {
+      if (Claims.CLAIM_CACHE_BY_OWNER.computeIfPresent(owner, (uuid, parentClaims) -> {
+        parentClaims.add(claim);
+        return parentClaims;
+      }) == null) {
+        Claims.CLAIM_CACHE_BY_OWNER.put(owner, Arrays.asList(claim));
+      }
+    }
+  }
+
+  /**
+   * adds location and claim to {@link #CLAIM_CACHE_BY_LOCATION}.
+   * <p>
+   * adds the cache only if the cache level equals to 1 or bigger.
    *
    * @param location the location to add.
    * @param claim the claim to add.
    */
   private static void addCache(@NotNull final Location location, @NotNull final ParentClaim claim) {
     if (Claims.cacheLevel >= 1) {
-      Claims.CLAIM_CACHE.put(location, claim);
+      Claims.CLAIM_CACHE_BY_LOCATION.put(location, claim);
     }
   }
 
@@ -326,11 +365,16 @@ public final class Claims {
 
   /**
    * removes the cache.
+   * <p>
+   * removes the cache only if the cache level equals to 1.
    *
    * @param claim the claim to remove.
    */
   private static void removeCache(@NotNull final ParentClaim claim) {
-    Claims.CLAIM_CACHE.entrySet().removeIf(entry -> claim.equals(entry.getValue()));
+    if (Claims.cacheLevel == 1) {
+      Claims.CLAIM_CACHE_BY_LOCATION.entrySet().removeIf(entry -> claim.equals(entry.getValue()));
+      Claims.CLAIM_CACHE_BY_OWNER.entrySet().removeIf(entry -> claim.getOwnerAsUniqueId().equals(entry.getKey()));
+    }
   }
 
   /**
