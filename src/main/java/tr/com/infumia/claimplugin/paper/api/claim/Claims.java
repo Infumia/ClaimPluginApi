@@ -35,7 +35,7 @@ public final class Claims {
   private static final Set<ParentClaim> CLAIMS_SET = ConcurrentHashMap.newKeySet();
 
   /**
-   * the claim cache.
+   * the claim cache by location.
    */
   private static final BiMap<Location, ParentClaim> CLAIM_CACHE = Maps.synchronizedBiMap(HashBiMap.create());
 
