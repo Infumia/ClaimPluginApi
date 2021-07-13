@@ -133,6 +133,11 @@ public final class ControlResult {
   public static final ControlResult SHULKER_ACCESS = new ControlResult("shulker-access");
 
   /**
+   * returns when someone wants to access to storage of the claim.
+   */
+  public static final ControlResult STORAGE_ACCESS = new ControlResult("storage-access");
+
+  /**
    * returns when the actor interact to the claim successfully.
    */
   public static final ControlResult SUCCEED = new ControlResult("succeed", true);
