@@ -1,5 +1,8 @@
 package tr.com.infumia.claimplugin.paper.api.claim;
 
+import com.google.common.collect.BiMap;
+import com.google.common.collect.HashBiMap;
+import com.google.common.collect.Maps;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashSet;
@@ -10,6 +13,8 @@ import java.util.Set;
 import java.util.UUID;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ConcurrentHashMap;
+import lombok.Getter;
+import lombok.Setter;
 import org.bukkit.Location;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -27,7 +32,12 @@ public final class Claims {
   /**
    * the claims.
    */
-  private static final Set<ParentClaim> CLAIMS_SET = new HashSet<>();
+  private static final Set<ParentClaim> CLAIMS_SET = ConcurrentHashMap.newKeySet();
+
+  /**
+   * the claim cache.
+   */
+  private static final BiMap<Location, ParentClaim> CLAIM_CACHE = Maps.synchronizedBiMap(HashBiMap.create());
 
   /**
    * the invitations.
@@ -35,6 +45,13 @@ public final class Claims {
    * id-player unique id,claim unique id.
    */
   private static final Map<String, Map.Entry<UUID, ParentClaim>> INVITATIONS = new ConcurrentHashMap<>();
+
+  /**
+   * the cache level.
+   */
+  @Setter
+  @Getter
+  private static int cacheLevel;
 
   /**
    * the claim serializer.
@@ -81,6 +98,7 @@ public final class Claims {
   static CompletableFuture<Void> delete(@NotNull final ParentClaim claim) {
     Claims.CLAIMS_SET.remove(claim);
     Claims.CLAIMS.remove(claim.getUniqueId());
+    Claims.removeCache(claim);
     return Claims.deleteClaim(claim);
   }
 
@@ -93,8 +111,13 @@ public final class Claims {
    */
   @NotNull
   static Optional<ParentClaim> get(@NotNull final Location location) {
+    final var parentClaim = Claims.CLAIM_CACHE.get(location);
+    if (parentClaim != null) {
+      return Optional.of(parentClaim);
+    }
     for (final var claim : Claims.CLAIMS_SET) {
       if (claim.isIn(location)) {
+        Claims.addCache(location, claim);
         return Optional.of(claim);
       }
     }
@@ -139,6 +162,10 @@ public final class Claims {
    * @return {@code true} if there is a chunk at the location.
    */
   static boolean hasClaim(@NotNull final Location location) {
+    final var parentClaim = Claims.CLAIM_CACHE.get(location);
+    if (parentClaim != null) {
+      return true;
+    }
     for (final var claim : Claims.CLAIMS_SET) {
       if (claim.isIn(location)) {
         return true;
@@ -166,6 +193,7 @@ public final class Claims {
       if (claim != null) {
         Claims.CLAIMS.put(claim.getUniqueId(), claim);
         Claims.CLAIMS_SET.add(claim);
+        Claims.addCache(claim.getClaimBlockLocation(), claim);
       }
     });
   }
@@ -182,11 +210,11 @@ public final class Claims {
         throwable.printStackTrace();
       }
       for (final var claim : claims) {
-        if (Claims.CLAIMS.containsKey(claim.getUniqueId())) {
-          continue;
+        if (!Claims.CLAIMS.containsKey(claim.getUniqueId())) {
+          Claims.CLAIMS.put(claim.getUniqueId(), claim);
+          Claims.CLAIMS_SET.add(claim);
+          Claims.addCache(claim.getClaimBlockLocation(), claim);
         }
-        Claims.CLAIMS.put(claim.getUniqueId(), claim);
-        Claims.CLAIMS_SET.add(claim);
       }
     });
   }
@@ -211,6 +239,7 @@ public final class Claims {
     if (!Claims.CLAIMS.containsKey(uniqueId)) {
       Claims.CLAIMS.put(uniqueId, claim);
       Claims.CLAIMS_SET.add(claim);
+      Claims.addCache(claim.getClaimBlockLocation(), claim);
     }
     return Claims.supplyClaim(claim);
   }
@@ -223,6 +252,18 @@ public final class Claims {
   @NotNull
   static CompletableFuture<Void> saveAll() {
     return Claims.supplyAllClaims(Claims.CLAIMS_SET);
+  }
+
+  /**
+   * adds location and claim to {@link #CLAIM_CACHE}.
+   *
+   * @param location the location to add.
+   * @param claim the claim to add.
+   */
+  private static void addCache(@NotNull final Location location, @NotNull final ParentClaim claim) {
+    if (Claims.cacheLevel >= 1) {
+      Claims.CLAIM_CACHE.put(location, claim);
+    }
   }
 
   /**
@@ -280,6 +321,15 @@ public final class Claims {
   @NotNull
   private static CompletableFuture<@Nullable ParentClaim> provideClaim(@NotNull final UUID uniqueId) {
     return CompletableFuture.supplyAsync(() -> Claims.getClaimSerializer().load(uniqueId));
+  }
+
+  /**
+   * removes the cache.
+   *
+   * @param claim the claim to remove.
+   */
+  private static void removeCache(@NotNull final ParentClaim claim) {
+    Claims.CLAIM_CACHE.inverse().remove(claim);
   }
 
   /**
