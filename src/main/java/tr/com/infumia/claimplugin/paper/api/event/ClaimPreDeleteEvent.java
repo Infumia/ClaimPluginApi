@@ -24,6 +24,6 @@ public final class ClaimPreDeleteEvent extends ClaimEvent implements Cancellable
    * @param claim the claim.
    */
   public ClaimPreDeleteEvent(@NotNull final ParentClaim claim) {
-    super(true, claim);
+    super(claim);
   }
 }

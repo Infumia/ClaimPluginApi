@@ -22,12 +22,11 @@ public abstract class ClaimMemberEvent extends ClaimEvent {
   /**
    * ctor.
    *
-   * @param isAsync the is async.
    * @param claim the claim.
    * @param member the member.
    */
-  ClaimMemberEvent(final boolean isAsync, @NotNull final ParentClaim claim, @NotNull final Member member) {
-    super(isAsync, claim);
+  ClaimMemberEvent(@NotNull final ParentClaim claim, @NotNull final Member member) {
+    super(claim);
     this.member = member;
   }
 }

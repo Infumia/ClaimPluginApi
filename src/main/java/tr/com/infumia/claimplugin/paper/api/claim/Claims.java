@@ -297,6 +297,7 @@ public final class Claims {
         return parentClaims;
       });
     }
+    System.out.println("location cache -> " + Claims.CLAIM_CACHE_BY_LOCATION.size());
   }
 
   /**
@@ -367,6 +368,8 @@ public final class Claims {
     if (Claims.cacheLevel == 1) {
       Claims.CLAIM_CACHE_BY_LOCATION.entrySet().removeIf(entry -> claim.equals(entry.getValue()));
       Claims.CLAIM_CACHE_BY_OWNER.entrySet().removeIf(entry -> claim.getOwnerAsUniqueId().equals(entry.getKey()));
+      System.out.println("location cache -> " + Claims.CLAIM_CACHE_BY_LOCATION.size());
+      System.out.println("owner cache -> " + Claims.CLAIM_CACHE_BY_OWNER.size());
     }
   }
 

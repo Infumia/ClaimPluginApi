@@ -24,6 +24,15 @@ public abstract class ClaimEvent extends Event {
   /**
    * ctor.
    *
+   * @param claim the claim.
+   */
+  ClaimEvent(@NotNull final ParentClaim claim) {
+    this.claim = claim;
+  }
+
+  /**
+   * ctor.
+   *
    * @param isAsync the is async.
    * @param claim the claim.
    */

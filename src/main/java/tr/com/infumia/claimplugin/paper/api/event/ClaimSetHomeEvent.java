@@ -42,18 +42,7 @@ public final class ClaimSetHomeEvent extends ClaimEvent implements Cancellable {
    * @param player the player.
    */
   public ClaimSetHomeEvent(@NotNull final ParentClaim claim, @NotNull final Player player) {
-    this(false, claim, player);
-  }
-
-  /**
-   * ctor.
-   *
-   * @param isAsync the is async.
-   * @param claim the claim.
-   * @param player the player.
-   */
-  public ClaimSetHomeEvent(final boolean isAsync, @NotNull final ParentClaim claim, @NotNull final Player player) {
-    super(isAsync, claim);
+    super(claim);
     this.player = player;
     this.location = player.getLocation();
   }

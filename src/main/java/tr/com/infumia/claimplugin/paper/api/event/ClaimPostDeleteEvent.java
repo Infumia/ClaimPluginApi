@@ -14,6 +14,6 @@ public final class ClaimPostDeleteEvent extends ClaimEvent {
    * @param claim the claim.
    */
   public ClaimPostDeleteEvent(@NotNull final ParentClaim claim) {
-    super(true, claim);
+    super(claim);
   }
 }

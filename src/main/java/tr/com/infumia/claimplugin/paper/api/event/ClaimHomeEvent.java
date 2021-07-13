@@ -43,20 +43,7 @@ public final class ClaimHomeEvent extends ClaimEvent implements Cancellable {
    * @param home the home.
    */
   public ClaimHomeEvent(@NotNull final ParentClaim claim, @NotNull final Player player, @NotNull final Home home) {
-    this(false, claim, player, home);
-  }
-
-  /**
-   * ctor.
-   *
-   * @param isAsync the is async.
-   * @param claim the claim.
-   * @param player the player.
-   * @param home the home.
-   */
-  public ClaimHomeEvent(final boolean isAsync, @NotNull final ParentClaim claim, @NotNull final Player player,
-                        @NotNull final Home home) {
-    super(isAsync, claim);
+    super(claim);
     this.player = player;
     this.home = home;
   }

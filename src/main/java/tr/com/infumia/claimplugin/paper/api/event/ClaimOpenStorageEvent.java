@@ -33,18 +33,7 @@ public final class ClaimOpenStorageEvent extends ClaimEvent implements Cancellab
    * @param player the player.
    */
   public ClaimOpenStorageEvent(@NotNull final ParentClaim claim, @NotNull final Player player) {
-    this(false, claim, player);
-  }
-
-  /**
-   * ctor.
-   *
-   * @param isAsync the is async.
-   * @param claim the claim.
-   * @param player the player.
-   */
-  public ClaimOpenStorageEvent(final boolean isAsync, @NotNull final ParentClaim claim, @NotNull final Player player) {
-    super(isAsync, claim);
+    super(claim);
     this.player = player;
   }
 }
