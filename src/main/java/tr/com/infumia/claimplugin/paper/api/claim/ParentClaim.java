@@ -138,57 +138,12 @@ public interface ParentClaim extends Claim, Permissible {
   void setExpireTime(long expireTime);
 
   /**
-   * obtains the expire time by day.
+   * obtains the expire time by times.
    *
-   * @return expire time by day.
+   * @return expire time by times.
    */
-  default long getExpireTimeByDay() {
-    return Times.byDay(this.getExpireTime());
-  }
-
-  /**
-   * obtains the expire time by hour.
-   *
-   * @return expire time by hour.
-   */
-  default long getExpireTimeByHour() {
-    return Times.byHour(this.getExpireTime());
-  }
-
-  /**
-   * obtains the expire time by minute.
-   *
-   * @return expire time by minute.
-   */
-  default long getExpireTimeByMinute() {
-    return Times.byMinute(this.getExpireTime());
-  }
-
-  /**
-   * obtains the expire time by month.
-   *
-   * @return expire time by month.
-   */
-  default long getExpireTimeByMonth() {
-    return Times.byMonth(this.getExpireTime());
-  }
-
-  /**
-   * obtains the expire time by second.
-   *
-   * @return expire time by second.
-   */
-  default long getExpireTimeBySecond() {
-    return Times.bySecond(this.getExpireTime());
-  }
-
-  /**
-   * obtains the expire time by year.
-   *
-   * @return expire time by year.
-   */
-  default long getExpireTimeByYear() {
-    return Times.byYear(this.getExpireTime());
+  default long[] getExpireTimeByTimes() {
+    return Times.getTimeDifference(this.getExpireTime());
   }
 
   /**
