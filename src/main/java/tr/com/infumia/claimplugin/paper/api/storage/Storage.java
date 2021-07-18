@@ -72,7 +72,7 @@ public interface Storage {
    * @return items at page.
    */
   @NotNull
-  ItemStack @Nullable [] getPage(int page, int itemsPerPage);
+  ItemStack[] getPage(int page, int itemsPerPage);
 
   /**
    * obtains the slot size.
