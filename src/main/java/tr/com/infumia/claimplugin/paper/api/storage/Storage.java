@@ -6,7 +6,6 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
-import tr.com.infumia.infumialib.paper.smartinventory.util.SlotPos;
 
 /**
  * an interface to determine storage.
@@ -34,33 +33,27 @@ public interface Storage {
    * @return storage instance.
    */
   @NotNull
-  static Storage of(final int slotSize, @NotNull final Map<Integer, Map<SlotPos, ItemStack>> items) {
+  static Storage of(final int slotSize, @NotNull final Map<Integer, ItemStack> items) {
     return Storages.of(slotSize, items);
   }
 
   /**
-   * adds the item to the page at pos.
+   * adds the item to the position at index.
    *
-   * @param page the page to add.
-   * @param position the position to add.
+   * @param index the index to add.
    * @param itemStack the item stack to add.
    */
-  default void addItem(final int page, @NotNull final SlotPos position, @NotNull final ItemStack itemStack) {
-    this.getPage(page).ifPresent(map -> map.put(position, itemStack));
-  }
+  void addItem(final int index, @NotNull final ItemStack itemStack);
 
   /**
-   * gets items in page at position.
+   * gets items in position at index.
    *
-   * @param page the page to get.
-   * @param position the position to get.
+   * @param index the index to get.
    *
-   * @return item in page at position.
+   * @return item in index at position.
    */
   @NotNull
-  default Optional<ItemStack> getItem(final int page, @NotNull final SlotPos position) {
-    return this.getPage(page).map(map -> map.get(position));
-  }
+  Optional<ItemStack> getItem(final int index);
 
   /**
    * obtains the items.
@@ -68,17 +61,7 @@ public interface Storage {
    * @return items.
    */
   @NotNull
-  Map<Integer, Map<SlotPos, ItemStack>> getItems();
-
-  /**
-   * gets the items at page.
-   *
-   * @param page the page to get.
-   *
-   * @return items at page.
-   */
-  @NotNull
-  Optional<Map<SlotPos, ItemStack>> getPage(int page);
+  Map<Integer, ItemStack> getItems();
 
   /**
    * obtains the slot size.
@@ -95,19 +78,9 @@ public interface Storage {
   void setSlotSize(int slotSize);
 
   /**
-   * removes the item in page at position.
+   * removes the item in page at index.
    *
-   * @param page the page to remove.
-   * @param position the position to remove.
+   * @param index the index to remove.
    */
-  default void removeItem(final int page, @NotNull final SlotPos position) {
-    this.getPage(page).ifPresent(map -> map.remove(position));
-  }
-
-  /**
-   * removes the page.
-   *
-   * @param page the page to remove.
-   */
-  void removePage(int page);
+  void removeItem(final int index);
 }
