@@ -6,7 +6,6 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
-import tr.com.infumia.infumialib.paper.smartinventory.util.SlotPos;
 
 /**
  * a class that contains utility methods for {@link Storage}.
@@ -46,7 +45,7 @@ public final class Storages {
    * @return storage instance.
    */
   @NotNull
-  static Storage of(final int slotSize, @NotNull final Map<Integer, Map<SlotPos, ItemStack>> items) {
+  static Storage of(final int slotSize, @NotNull final Map<Integer, ItemStack> items) {
     return Storages.getStorageCreator().of(slotSize, items);
   }
 

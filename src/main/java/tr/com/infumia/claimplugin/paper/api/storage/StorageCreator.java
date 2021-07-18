@@ -5,7 +5,6 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
-import tr.com.infumia.infumialib.paper.smartinventory.util.SlotPos;
 
 /**
  * an interface to determine storage creators.
@@ -31,5 +30,5 @@ public interface StorageCreator {
    * @return a newly created storage instance.
    */
   @NotNull
-  Storage of(final int slotSize, @NotNull final Map<Integer, Map<SlotPos, ItemStack>> items);
+  Storage of(final int slotSize, @NotNull final Map<Integer, ItemStack> items);
 }
