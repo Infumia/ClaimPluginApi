@@ -267,6 +267,13 @@ public interface ParentClaim extends Claim, Permissible {
   boolean isClaimBlock(@NotNull Location location);
 
   /**
+   * tries to open claim menu.
+   *
+   * @param player the player to open.
+   */
+  void openPanel(@NotNull Player player);
+
+  /**
    * tries to open storage.
    *
    * @param player the player to open.
