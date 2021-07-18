@@ -64,6 +64,17 @@ public interface Storage {
   Map<Integer, ItemStack> getItems();
 
   /**
+   * gets the items at the page.
+   *
+   * @param page the page to get.
+   * @param itemsPerPage the items pe page to get.
+   *
+   * @return items at page.
+   */
+  @NotNull
+  ItemStack[] getPage(int page, int itemsPerPage);
+
+  /**
    * obtains the slot size.
    *
    * @return slot size.
