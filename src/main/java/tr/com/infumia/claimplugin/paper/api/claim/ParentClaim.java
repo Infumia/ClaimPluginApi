@@ -147,6 +147,20 @@ public interface ParentClaim extends Claim, Permissible {
   }
 
   /**
+   * obtains the home limit.
+   *
+   * @return home limit.
+   */
+  long getHomeLimit();
+
+  /**
+   * sets the home limit.
+   *
+   * @param homeLimit the home limit to set.
+   */
+  void setHomeLimit(long homeLimit);
+
+  /**
    * obtains the homes.
    *
    * @return homes.
