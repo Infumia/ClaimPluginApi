@@ -26,6 +26,66 @@ public interface Permission {
   }
 
   /**
+   * obtains the anvil access permission.
+   *
+   * @return anvil access permission.
+   *
+   * @throws IllegalStateException if anvil access permission not found.
+   */
+  @NotNull
+  static Permission anvilAccess() {
+    return Permission.getOrThrow("anvil-access");
+  }
+
+  /**
+   * obtains the armor stand access permission.
+   *
+   * @return armor stand access permission.
+   *
+   * @throws IllegalStateException if armor stand access permission not found.
+   */
+  @NotNull
+  static Permission armorStandAccess() {
+    return Permission.getOrThrow("armor-stand-access");
+  }
+
+  /**
+   * obtains the barrel access permission.
+   *
+   * @return barrel access permission.
+   *
+   * @throws IllegalStateException if barrel access permission not found.
+   */
+  @NotNull
+  static Permission barrelAccess() {
+    return Permission.getOrThrow("barrel-access");
+  }
+
+  /**
+   * obtains the block break permission.
+   *
+   * @return block break permission.
+   *
+   * @throws IllegalStateException if block break permission not found.
+   */
+  @NotNull
+  static Permission blockBreak() {
+    return Permission.getOrThrow("block-break");
+  }
+
+  /**
+   * obtains the block place permission.
+   *
+   * @return block place permission.
+   *
+   * @throws IllegalStateException if block place permission not found.
+   */
+  @NotNull
+  static Permission blockPlace() {
+    return Permission.getOrThrow("block-place");
+  }
+
+  /**
    * obtains the block protection permission.
    *
    * @return block protection permission.
@@ -35,6 +95,66 @@ public interface Permission {
   @NotNull
   static Permission blockProtection() {
     return Permission.getOrThrow("block-protection");
+  }
+
+  /**
+   * obtains the brewing access permission.
+   *
+   * @return brewing access permission.
+   *
+   * @throws IllegalStateException if brewing access permission not found.
+   */
+  @NotNull
+  static Permission brewingAccess() {
+    return Permission.getOrThrow("brewing-access");
+  }
+
+  /**
+   * obtains the chest access permission.
+   *
+   * @return chest access permission.
+   *
+   * @throws IllegalStateException if chest access permission not found.
+   */
+  @NotNull
+  static Permission chestAccess() {
+    return Permission.getOrThrow("chest-access");
+  }
+
+  /**
+   * obtains the dragon egg touch permission.
+   *
+   * @return dragon egg touch permission.
+   *
+   * @throws IllegalStateException if dragon egg touch permission not found.
+   */
+  @NotNull
+  static Permission dragonEggTouch() {
+    return Permission.getOrThrow("dragon-egg-touch");
+  }
+
+  /**
+   * obtains the edit perm permission.
+   *
+   * @return edit perm permission.
+   *
+   * @throws IllegalStateException if edit perm permission not found.
+   */
+  @NotNull
+  static Permission editPerm() {
+    return Permission.getOrThrow("edit-perm");
+  }
+
+  /**
+   * obtains the furnace access permission.
+   *
+   * @return furnace access permission.
+   *
+   * @throws IllegalStateException if furnace access permission not found.
+   */
+  @NotNull
+  static Permission furnaceAccess() {
+    return Permission.getOrThrow("furnace-access");
   }
 
   /**
@@ -62,6 +182,54 @@ public interface Permission {
   static Permission getOrThrow(@NotNull final String id) {
     return Permission.get(id).orElseThrow(() ->
       new IllegalStateException(String.format("Permission called %s not found!", id)));
+  }
+
+  /**
+   * obtains the home permission.
+   *
+   * @return home permission.
+   *
+   * @throws IllegalStateException if home permission not found.
+   */
+  @NotNull
+  static Permission home() {
+    return Permission.getOrThrow("home");
+  }
+
+  /**
+   * obtains the invite member permission.
+   *
+   * @return invite member permission.
+   *
+   * @throws IllegalStateException if invite member permission not found.
+   */
+  @NotNull
+  static Permission inviteMember() {
+    return Permission.getOrThrow("invite-member");
+  }
+
+  /**
+   * obtains the kick member permission.
+   *
+   * @return kick member permission.
+   *
+   * @throws IllegalStateException if kick member permission not found.
+   */
+  @NotNull
+  static Permission kickMember() {
+    return Permission.getOrThrow("kick-member");
+  }
+
+  /**
+   * obtains the lava placement permission.
+   *
+   * @return lava placement permission.
+   *
+   * @throws IllegalStateException if lava placement permission not found.
+   */
+  @NotNull
+  static Permission lavaPlacement() {
+    return Permission.getOrThrow("lava-placement");
   }
 
   /**
@@ -95,6 +263,54 @@ public interface Permission {
    */
   static void register(@NotNull final Permission permission) {
     Permissions.register(permission);
+  }
+
+  /**
+   * obtains the set home permission.
+   *
+   * @return set home permission.
+   *
+   * @throws IllegalStateException if set home permission not found.
+   */
+  @NotNull
+  static Permission setHome() {
+    return Permission.getOrThrow("set-home");
+  }
+
+  /**
+   * obtains the shulker access permission.
+   *
+   * @return shulker access permission.
+   *
+   * @throws IllegalStateException if shulker access permission not found.
+   */
+  @NotNull
+  static Permission shulkerAccess() {
+    return Permission.getOrThrow("shulker-access");
+  }
+
+  /**
+   * obtains the storage access permission.
+   *
+   * @return storage access permission.
+   *
+   * @throws IllegalStateException if storage access permission not found.
+   */
+  @NotNull
+  static Permission storageAccess() {
+    return Permission.getOrThrow("storage-access");
+  }
+
+  /**
+   * obtains the water placement permission.
+   *
+   * @return water placement permission.
+   *
+   * @throws IllegalStateException if water placement permission not found.
+   */
+  @NotNull
+  static Permission waterPlacement() {
+    return Permission.getOrThrow("water-placement");
   }
 
   /**
