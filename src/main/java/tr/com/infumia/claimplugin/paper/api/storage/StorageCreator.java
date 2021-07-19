@@ -30,5 +30,5 @@ public interface StorageCreator {
    * @return a newly created storage instance.
    */
   @NotNull
-  Storage of(final int slotSize, @NotNull final Map<Integer, ItemStack> items);
+  Storage of(final long slotSize, @NotNull final Map<Long, ItemStack> items);
 }

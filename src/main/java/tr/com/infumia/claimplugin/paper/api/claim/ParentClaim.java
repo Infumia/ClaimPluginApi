@@ -179,6 +179,20 @@ public interface ParentClaim extends Claim, Permissible {
   Optional<Member> getMember(@NotNull UUID uniqueId);
 
   /**
+   * obtains the member limit.
+   *
+   * @return member limit.
+   */
+  long getMemberLimit();
+
+  /**
+   * sets the member limit.
+   *
+   * @param memberLimit the member limit to set.
+   */
+  void setMemberLimit(long memberLimit);
+
+  /**
    * obtains the members of the claim.
    *
    * @return members of the claim.
