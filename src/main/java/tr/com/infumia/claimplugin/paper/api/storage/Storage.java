@@ -2,6 +2,8 @@ package tr.com.infumia.claimplugin.paper.api.storage;
 
 import java.util.Map;
 import java.util.Optional;
+import java.util.stream.IntStream;
+import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.jetbrains.annotations.NotNull;
@@ -72,7 +74,15 @@ public interface Storage {
    * @return items at page.
    */
   @NotNull
-  ItemStack[] getPage(int page, int itemsPerPage);
+  default ItemStack[] getPage(final int page, final int itemsPerPage) {
+    final var items = new ItemStack[itemsPerPage];
+    final var lastIndex = (page + 1) * itemsPerPage;
+    final var firstIndex = lastIndex - itemsPerPage;
+    IntStream.range(firstIndex, lastIndex)
+      .filter(value -> value < this.getSlotSize())
+      .forEach(value -> items[value % itemsPerPage] = this.getItem(value).orElse(new ItemStack(Material.AIR)));
+    return items;
+  }
 
   /**
    * obtains the slot size.
