@@ -1,6 +1,7 @@
 package tr.com.infumia.claimplugin.paper.api.permission;
 
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.Optional;
 import lombok.AccessLevel;
 import lombok.Getter;
@@ -170,6 +171,26 @@ public interface Permission {
   }
 
   /**
+   * obtains global permissions.
+   *
+   * @return global permission.
+   */
+  @NotNull
+  static Collection<Permission> getGlobalPermissions() {
+    return Permissions.getGlobalPermissions();
+  }
+
+  /**
+   * obtains non-global permissions.
+   *
+   * @return non-global permission.
+   */
+  @NotNull
+  static Collection<Permission> getNonGlobalPermissions() {
+    return Permissions.getNonGlobalPermissions();
+  }
+
+  /**
    * gets permission via id.
    *
    * @param id the id to get.
@@ -182,6 +203,16 @@ public interface Permission {
   static Permission getOrThrow(@NotNull final String id) {
     return Permission.get(id).orElseThrow(() ->
       new IllegalStateException(String.format("Permission called %s not found!", id)));
+  }
+
+  /**
+   * obtains permissions.
+   *
+   * @return permission.
+   */
+  @NotNull
+  static Collection<Permission> getPermissions() {
+    return Permissions.getPermissions();
   }
 
   /**

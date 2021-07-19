@@ -1,5 +1,8 @@
 package tr.com.infumia.claimplugin.paper.api.permission;
 
+import java.util.Collection;
+import java.util.Collections;
+import java.util.HashSet;
 import java.util.Map;
 import java.util.Optional;
 import java.util.concurrent.ConcurrentHashMap;
@@ -31,6 +34,48 @@ final class Permissions {
   @NotNull
   static Optional<Permission> get(@NotNull final String id) {
     return Optional.ofNullable(Permissions.PERMISSIONS.get(id));
+  }
+
+  /**
+   * obtains global permissions.
+   *
+   * @return global permission.
+   */
+  @NotNull
+  static Collection<Permission> getGlobalPermissions() {
+    final var set = new HashSet<Permission>();
+    for (final var permission : Permissions.PERMISSIONS.values()) {
+      if (permission.isGlobal()) {
+        set.add(permission);
+      }
+    }
+    return set;
+  }
+
+  /**
+   * obtains non-global permissions.
+   *
+   * @return non-global permission.
+   */
+  @NotNull
+  static Collection<Permission> getNonGlobalPermissions() {
+    final var set = new HashSet<Permission>();
+    for (final var permission : Permissions.PERMISSIONS.values()) {
+      if (!permission.isGlobal()) {
+        set.add(permission);
+      }
+    }
+    return set;
+  }
+
+  /**
+   * obtains permissions.
+   *
+   * @return permission.
+   */
+  @NotNull
+  static Collection<Permission> getPermissions() {
+    return Collections.unmodifiableCollection(Permissions.PERMISSIONS.values());
   }
 
   /**
