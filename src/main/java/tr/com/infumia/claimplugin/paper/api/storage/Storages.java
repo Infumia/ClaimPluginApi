@@ -45,7 +45,7 @@ public final class Storages {
    * @return storage instance.
    */
   @NotNull
-  static Storage of(final long slotSize, @NotNull final Map<Long, ItemStack> items) {
+  static Storage of(final int slotSize, @NotNull final Map<Integer, ItemStack> items) {
     return Storages.getStorageCreator().of(slotSize, items);
   }
 

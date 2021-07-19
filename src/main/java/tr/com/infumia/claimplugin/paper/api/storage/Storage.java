@@ -35,7 +35,7 @@ public interface Storage {
    * @return storage instance.
    */
   @NotNull
-  static Storage of(final long slotSize, @NotNull final Map<Long, ItemStack> items) {
+  static Storage of(final int slotSize, @NotNull final Map<Integer, ItemStack> items) {
     return Storages.of(slotSize, items);
   }
 
@@ -45,7 +45,7 @@ public interface Storage {
    * @param index the index to add.
    * @param itemStack the item stack to add.
    */
-  void addItem(final long index, @NotNull final ItemStack itemStack);
+  void addItem(final int index, @NotNull final ItemStack itemStack);
 
   /**
    * gets items in position at index.
@@ -55,7 +55,7 @@ public interface Storage {
    * @return item in index at position.
    */
   @NotNull
-  Optional<ItemStack> getItem(final long index);
+  Optional<ItemStack> getItem(final int index);
 
   /**
    * obtains the items.
@@ -63,7 +63,7 @@ public interface Storage {
    * @return items.
    */
   @NotNull
-  Map<Long, ItemStack> getItems();
+  Map<Integer, ItemStack> getItems();
 
   /**
    * gets the items at the page.
@@ -89,19 +89,19 @@ public interface Storage {
    *
    * @return slot size.
    */
-  long getSlotSize();
+  int getSlotSize();
 
   /**
    * sets the slot size.
    *
    * @param slotSize the slot size.
    */
-  void setSlotSize(long slotSize);
+  void setSlotSize(int slotSize);
 
   /**
    * removes the item in page at index.
    *
    * @param index the index to remove.
    */
-  void removeItem(final long index);
+  void removeItem(final int index);
 }

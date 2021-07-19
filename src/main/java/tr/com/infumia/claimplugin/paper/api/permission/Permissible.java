@@ -1,6 +1,7 @@
 package tr.com.infumia.claimplugin.paper.api.permission;
 
 import java.util.Map;
+import java.util.Optional;
 import org.jetbrains.annotations.NotNull;
 
 /**
@@ -35,6 +36,18 @@ public interface Permissible {
    * @param status the status to add.
    */
   void addPermission(@NotNull Permission permission, @NotNull Permission.Status status);
+
+  /**
+   * gets the status of the permission.
+   *
+   * @param permission the permission to get.
+   *
+   * @return status of the permission.
+   */
+  @NotNull
+  default Optional<Permission.Status> getPermission(@NotNull final Permission permission) {
+    return Optional.ofNullable(this.getPermissions().get(permission));
+  }
 
   /**
    * obtains permissions.
