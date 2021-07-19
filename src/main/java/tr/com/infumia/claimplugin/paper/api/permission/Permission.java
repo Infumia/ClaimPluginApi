@@ -14,6 +14,30 @@ import tr.com.infumia.claimplugin.paper.api.event.LocationalEvent;
 public interface Permission {
 
   /**
+   * obtains the animal damage permission.
+   *
+   * @return animal damage permission.
+   *
+   * @throws IllegalStateException if animal damage permission not found.
+   */
+  @NotNull
+  static Permission animalDamage() {
+    return Permission.getOrThrow("animal-damage");
+  }
+
+  /**
+   * obtains the block protection permission.
+   *
+   * @return block protection permission.
+   *
+   * @throws IllegalStateException if block protection permission not found.
+   */
+  @NotNull
+  static Permission blockProtection() {
+    return Permission.getOrThrow("block-protection");
+  }
+
+  /**
    * gets permission via id.
    *
    * @param id the id to get.
@@ -31,11 +55,37 @@ public interface Permission {
    * @param id the id to get.
    *
    * @return permission.
+   *
+   * @throws IllegalStateException if the permission not found.
    */
   @NotNull
   static Permission getOrThrow(@NotNull final String id) {
     return Permission.get(id).orElseThrow(() ->
       new IllegalStateException(String.format("Permission called %s not found!", id)));
+  }
+
+  /**
+   * obtains the mob spawning permission.
+   *
+   * @return mob spawning permission.
+   *
+   * @throws IllegalStateException if mob spawning permission not found.
+   */
+  @NotNull
+  static Permission mobSpawning() {
+    return Permission.getOrThrow("mob-spawning");
+  }
+
+  /**
+   * obtains the pvp permission.
+   *
+   * @return pvp permission.
+   *
+   * @throws IllegalStateException if pvp permission not found.
+   */
+  @NotNull
+  static Permission pvp() {
+    return Permission.getOrThrow("pvp");
   }
 
   /**
