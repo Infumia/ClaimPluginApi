@@ -66,6 +66,14 @@ public interface Permission {
   String getId();
 
   /**
+   * obtains the name.
+   *
+   * @return name.
+   */
+  @NotNull
+  String getName();
+
+  /**
    * checks if the permission is global.
    *
    * @return {@code true} if the permission is global.
