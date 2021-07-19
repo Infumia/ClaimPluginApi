@@ -91,6 +91,11 @@ public final class ControlResult {
   public static final ControlResult INVITE_MEMBER = new ControlResult("invite-member");
 
   /**
+   * returns when someone invites to claim itself.
+   */
+  public static final ControlResult INVITE_YOURSELF = new ControlResult("invite-yourself");
+
+  /**
    * returns when someone places lava.
    */
   public static final ControlResult LAVA_PLACEMENT = new ControlResult("lava-placement");

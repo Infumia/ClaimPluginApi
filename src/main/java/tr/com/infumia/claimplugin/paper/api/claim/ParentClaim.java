@@ -253,9 +253,10 @@ public interface ParentClaim extends Claim, Permissible {
   /**
    * invites the player to become a member of the claim.
    *
+   * @param inviter the inviter to invite.
    * @param player the player to invite.
    */
-  void invitePlayer(@NotNull Player player);
+  void invitePlayer(@NotNull Player inviter, @NotNull Player player);
 
   /**
    * checks if block at the location is a claim block.

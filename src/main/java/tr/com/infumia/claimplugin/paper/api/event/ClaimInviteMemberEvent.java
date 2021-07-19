@@ -13,6 +13,13 @@ import tr.com.infumia.claimplugin.paper.api.claim.ParentClaim;
 public final class ClaimInviteMemberEvent extends ClaimEvent implements Cancellable {
 
   /**
+   * the inviter.
+   */
+  @NotNull
+  @Getter
+  private final Player inviter;
+
+  /**
    * the player.
    */
   @NotNull
@@ -38,12 +45,14 @@ public final class ClaimInviteMemberEvent extends ClaimEvent implements Cancella
    * ctor.
    *
    * @param claim the claim.
+   * @param inviter the player.
    * @param player the player.
    * @param id the id.
    */
-  public ClaimInviteMemberEvent(@NotNull final ParentClaim claim, @NotNull final Player player,
-                                @NotNull final String id) {
+  public ClaimInviteMemberEvent(@NotNull final ParentClaim claim, @NotNull final Player inviter,
+                                @NotNull final Player player, @NotNull final String id) {
     super(claim);
+    this.inviter = inviter;
     this.player = player;
     this.id = id;
   }
