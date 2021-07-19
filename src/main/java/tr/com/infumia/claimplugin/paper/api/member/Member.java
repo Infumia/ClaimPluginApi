@@ -77,6 +77,18 @@ public interface Member extends Permissible {
   }
 
   /**
+   * creates the owner via member.
+   *
+   * @param member the member to get.
+   *
+   * @return a newly created member instance.
+   */
+  @NotNull
+  static Member owner(@NotNull final Member member) {
+    return Member.owner(member.getUniqueId());
+  }
+
+  /**
    * creates the owner via unique id.
    *
    * @param uniqueId the unique id to get.

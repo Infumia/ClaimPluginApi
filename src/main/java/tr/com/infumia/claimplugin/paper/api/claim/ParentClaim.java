@@ -147,6 +147,20 @@ public interface ParentClaim extends Claim, Permissible {
   }
 
   /**
+   * obtains the home limit.
+   *
+   * @return home limit.
+   */
+  long getHomeLimit();
+
+  /**
+   * sets the home limit.
+   *
+   * @param homeLimit the home limit to set.
+   */
+  void setHomeLimit(long homeLimit);
+
+  /**
    * obtains the homes.
    *
    * @return homes.
@@ -163,6 +177,20 @@ public interface ParentClaim extends Claim, Permissible {
    */
   @NotNull
   Optional<Member> getMember(@NotNull UUID uniqueId);
+
+  /**
+   * obtains the member limit.
+   *
+   * @return member limit.
+   */
+  long getMemberLimit();
+
+  /**
+   * sets the member limit.
+   *
+   * @param memberLimit the member limit to set.
+   */
+  void setMemberLimit(long memberLimit);
 
   /**
    * obtains the members of the claim.
@@ -253,9 +281,10 @@ public interface ParentClaim extends Claim, Permissible {
   /**
    * invites the player to become a member of the claim.
    *
+   * @param inviter the inviter to invite.
    * @param player the player to invite.
    */
-  void invitePlayer(@NotNull Player player);
+  void invitePlayer(@NotNull Player inviter, @NotNull Player player);
 
   /**
    * checks if block at the location is a claim block.
