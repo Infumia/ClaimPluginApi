@@ -16,6 +16,7 @@ public final class ClaimPanelOpenEvent extends ClaimEvent implements Cancellable
    * the player.
    */
   @NotNull
+  @Getter
   private final Player player;
 
   /**

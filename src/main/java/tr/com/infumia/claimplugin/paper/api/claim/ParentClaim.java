@@ -296,6 +296,29 @@ public interface ParentClaim extends Claim, Permissible {
   boolean isClaimBlock(@NotNull Location location);
 
   /**
+   * checks if the player is the owner of the claim or a member.
+   *
+   * @param uniqueId the unique id to check.
+   *
+   * @return {@code true} if the player is a part of the claim.
+   */
+  default boolean isOwnerOrMember(@NotNull final UUID uniqueId) {
+    return this.getOwnerAsUniqueId().equals(uniqueId) ||
+      this.getMember(uniqueId).isPresent();
+  }
+
+  /**
+   * checks if the player is the owner of the claim or a member.
+   *
+   * @param player the player to check.
+   *
+   * @return {@code true} if the player is a part of the claim.
+   */
+  default boolean isOwnerOrMember(@NotNull final Player player) {
+    return this.isOwnerOrMember(player.getUniqueId());
+  }
+
+  /**
    * tries to open claim menu.
    *
    * @param player the player to open.
