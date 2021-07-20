@@ -126,7 +126,7 @@ public final class ControlResult {
   /**
    * usually uses when a global permission needs more detail to calculate it with member permissions.
    */
-  public static final ControlResult PASS = ControlResult.of("animal-damage", true);
+  public static final ControlResult PASS = ControlResult.of("pass", true);
 
   /**
    * returns when any events happen in a protection claim.
