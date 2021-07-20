@@ -124,6 +124,11 @@ public final class ControlResult {
   public static final ControlResult NOT_MEMBER = ControlResult.of("not-member");
 
   /**
+   * usually uses when a global permission needs more detail to calculate it with member permissions.
+   */
+  public static final ControlResult PASS = ControlResult.of("animal-damage", true);
+
+  /**
    * returns when any events happen in a protection claim.
    */
   public static final ControlResult PROTECTION_CLAIM = ControlResult.of("protection-claim");
