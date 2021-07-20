@@ -367,6 +367,14 @@ public interface Permission {
   ControlResult control(@NotNull LocationalEvent event);
 
   /**
+   * obtains the description.
+   *
+   * @return description.
+   */
+  @NotNull
+  String getDescription();
+
+  /**
    * obtains the id.
    *
    * @return id.
