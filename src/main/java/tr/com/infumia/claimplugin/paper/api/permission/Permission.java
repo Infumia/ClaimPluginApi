@@ -264,6 +264,18 @@ public interface Permission {
   }
 
   /**
+   * obtains the member animal damage permission.
+   *
+   * @return member animal damage permission.
+   *
+   * @throws IllegalStateException if member animal damage permission not found.
+   */
+  @NotNull
+  static Permission memberAnimalDamage() {
+    return Permission.getOrThrow("member-animal-damage");
+  }
+
+  /**
    * obtains the mob spawning permission.
    *
    * @return mob spawning permission.
@@ -353,6 +365,14 @@ public interface Permission {
    */
   @NotNull
   ControlResult control(@NotNull LocationalEvent event);
+
+  /**
+   * obtains the description.
+   *
+   * @return description.
+   */
+  @NotNull
+  String getDescription();
 
   /**
    * obtains the id.
