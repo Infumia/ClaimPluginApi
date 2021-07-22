@@ -104,6 +104,44 @@ public interface Claim {
   }
 
   /**
+   * gets claim of the player.
+   *
+   * @param player the player to get.
+   *
+   * @return claims of the player.
+   */
+  @NotNull
+  static Optional<ParentClaim> getByOwnerAndLocation(@NotNull final Player player) {
+    return Claim.getByOwnerAndLocation(player, player.getLocation());
+  }
+
+  /**
+   * gets claim of the player.
+   *
+   * @param player the player to get.
+   * @param location the location to get.
+   *
+   * @return claims of the player.
+   */
+  @NotNull
+  static Optional<ParentClaim> getByOwnerAndLocation(@NotNull final Player player, @NotNull final Location location) {
+    return Claim.getByOwnerAndLocation(player.getUniqueId(), location);
+  }
+
+  /**
+   * gets claim of the player.
+   *
+   * @param uniqueId the unique id to get.
+   * @param location the location to get.
+   *
+   * @return claims of the player.
+   */
+  @NotNull
+  static Optional<ParentClaim> getByOwnerAndLocation(@NotNull final UUID uniqueId, @NotNull final Location location) {
+    return Claims.getByOwner(uniqueId, location);
+  }
+
+  /**
    * obtains the invited player.
    *
    * @param id the id to get.
