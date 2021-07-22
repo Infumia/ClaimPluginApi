@@ -139,7 +139,7 @@ public final class Claims {
   /**
    * gets claim of the player.
    *
-   * @param player the player to get.
+   * @param uniqueId the unique id to get.
    * @param location the location to get.
    *
    * @return claims of the player.
@@ -198,6 +198,41 @@ public final class Claims {
   @NotNull
   static Optional<Map.Entry<UUID, ParentClaim>> getInvitation(@NotNull final String id) {
     return Optional.ofNullable(Claims.INVITATIONS.get(id));
+  }
+
+  /**
+   * gets claim at the location.
+   *
+   * @param location the location to get.
+   *
+   * @return claim at location.
+   */
+  @NotNull
+  static Optional<Claim> getOrSub(@NotNull final Location location) {
+    if (Claims.cacheLevel >= 1) {
+      final var cache = Claims.CLAIM_CACHE_BY_LOCATION.get(location);
+      if (cache != null) {
+        for (final var subClaim : cache.getSubClaims()) {
+          if (subClaim.isIn(location)) {
+            return Optional.of(subClaim);
+          }
+        }
+        return Optional.of(cache);
+      }
+    }
+    for (final var claim : Claims.CLAIMS_SET) {
+      if (claim.getCuboid().isInXZ(location)) {
+        Claims.addCache(location, claim);
+        return Optional.of(claim);
+      }
+      for (final var subClaim : claim.getSubClaims()) {
+        if (subClaim.isIn(location)) {
+          Claims.addCache(location, claim);
+          return Optional.of(subClaim);
+        }
+      }
+    }
+    return Optional.empty();
   }
 
   /**
