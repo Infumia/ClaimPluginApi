@@ -1,6 +1,5 @@
 package tr.com.infumia.claimplugin.paper.api.claim;
 
-import java.util.Arrays;
 import java.util.Optional;
 import lombok.AccessLevel;
 import lombok.Getter;
@@ -46,8 +45,11 @@ public enum ClaimType {
    */
   @NotNull
   public static Optional<ClaimType> get(@NotNull final String type) {
-    return Arrays.stream(ClaimType.VALUES)
-      .filter(claimType -> claimType.type.equalsIgnoreCase(type))
-      .findFirst();
+    for (final var claimType : ClaimType.VALUES) {
+      if (claimType.type.equalsIgnoreCase(type)) {
+        return Optional.of(claimType);
+      }
+    }
+    return Optional.empty();
   }
 }

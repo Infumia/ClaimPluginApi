@@ -1,6 +1,5 @@
 package tr.com.infumia.claimplugin.paper.api.permission;
 
-import java.util.Arrays;
 import java.util.Collection;
 import java.util.Optional;
 import lombok.AccessLevel;
@@ -422,6 +421,11 @@ public interface Permission {
     DISABLED("off");
 
     /**
+     * the values.
+     */
+    private static final Status[] VALUES = Status.values();
+
+    /**
      * the id.
      */
     @NotNull
@@ -436,10 +440,12 @@ public interface Permission {
      */
     @NotNull
     public static Status getById(@NotNull final String id) {
-      return Arrays.stream(Status.values())
-        .filter(status -> status.getId().equalsIgnoreCase(id))
-        .findFirst()
-        .orElse(Status.ENABLED);
+      for (final var status : Status.VALUES) {
+        if (status.getId().equalsIgnoreCase(id)) {
+          return status;
+        }
+      }
+      return Status.ENABLED;
     }
   }
 }
