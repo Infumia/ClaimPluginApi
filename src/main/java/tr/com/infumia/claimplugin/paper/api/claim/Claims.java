@@ -358,16 +358,12 @@ public final class Claims {
 
   /**
    * removes the cache.
-   * <p>
-   * removes the cache only if the cache level equals to 1.
    *
    * @param claim the claim to remove.
    */
   private static void removeCache(@NotNull final ParentClaim claim) {
-    if (Claims.cacheLevel == 1) {
-      Claims.CLAIM_CACHE_BY_LOCATION.entrySet().removeIf(entry -> claim.equals(entry.getValue()));
-      Claims.CLAIM_CACHE_BY_OWNER.entrySet().removeIf(entry -> claim.getOwnerAsUniqueId().equals(entry.getKey()));
-    }
+    Claims.CLAIM_CACHE_BY_LOCATION.entrySet().removeIf(entry -> claim.equals(entry.getValue()));
+    Claims.CLAIM_CACHE_BY_OWNER.entrySet().removeIf(entry -> claim.getOwnerAsUniqueId().equals(entry.getKey()));
   }
 
   /**
