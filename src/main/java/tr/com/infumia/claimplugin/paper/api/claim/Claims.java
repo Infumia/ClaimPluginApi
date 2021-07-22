@@ -139,6 +139,32 @@ public final class Claims {
   /**
    * gets claim of the player.
    *
+   * @param player the player to get.
+   * @param location the location to get.
+   *
+   * @return claims of the player.
+   */
+  @NotNull
+  static Optional<ParentClaim> getByOwner(@NotNull final UUID uniqueId, @NotNull final Location location) {
+    if (Claims.cacheLevel >= 1) {
+      final var cache = Claims.CLAIM_CACHE_BY_LOCATION.get(location);
+      if (cache != null && cache.getOwnerAsUniqueId().equals(uniqueId)) {
+        return Optional.of(cache);
+      }
+    }
+    for (final var claim : Claims.CLAIMS_SET) {
+      final var claimOwner = claim.getOwnerAsUniqueId();
+      if (claimOwner.equals(uniqueId) && claim.isIn(location)) {
+        Claims.addCache(claim.getClaimBlockLocation(), claim);
+        return Optional.of(claim);
+      }
+    }
+    return Optional.empty();
+  }
+
+  /**
+   * gets claim of the player.
+   *
    * @param uniqueId the unique id to get.
    *
    * @return claims of the player.
@@ -358,16 +384,12 @@ public final class Claims {
 
   /**
    * removes the cache.
-   * <p>
-   * removes the cache only if the cache level equals to 1.
    *
    * @param claim the claim to remove.
    */
   private static void removeCache(@NotNull final ParentClaim claim) {
-    if (Claims.cacheLevel == 1) {
-      Claims.CLAIM_CACHE_BY_LOCATION.entrySet().removeIf(entry -> claim.equals(entry.getValue()));
-      Claims.CLAIM_CACHE_BY_OWNER.entrySet().removeIf(entry -> claim.getOwnerAsUniqueId().equals(entry.getKey()));
-    }
+    Claims.CLAIM_CACHE_BY_LOCATION.entrySet().removeIf(entry -> claim.equals(entry.getValue()));
+    Claims.CLAIM_CACHE_BY_OWNER.entrySet().removeIf(entry -> claim.getOwnerAsUniqueId().equals(entry.getKey()));
   }
 
   /**
