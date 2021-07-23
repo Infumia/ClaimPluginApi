@@ -16,7 +16,7 @@
   <properties>
     <java.version>11</java.version>
     <minimize.jar>false</minimize.jar>
-    <infumia.version>2.2.31</infumia.version>
+    <infumia.version>2.3.1</infumia.version>
     <paper.version>1.16.5-R0.1-SNAPSHOT</paper.version>
   </properties>
   <build>
