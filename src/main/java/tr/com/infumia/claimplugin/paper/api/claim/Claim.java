@@ -68,18 +68,6 @@ public interface Claim {
   }
 
   /**
-   * gets claim at the location.
-   *
-   * @param location the location to get.
-   *
-   * @return claim at location.
-   */
-  @NotNull
-  static Optional<Claim> getOrSub(@NotNull final Location location) {
-    return Claims.getOrSub(location);
-  }
-
-  /**
    * gets claim of the player.
    *
    * @param uniqueId the unique id to get.
@@ -163,6 +151,18 @@ public interface Claim {
   @NotNull
   static Optional<Map.Entry<UUID, ParentClaim>> getInvitation(@NotNull final String id) {
     return Claims.getInvitation(id);
+  }
+
+  /**
+   * gets claim at the location.
+   *
+   * @param location the location to get.
+   *
+   * @return claim at location.
+   */
+  @NotNull
+  static Optional<Claim> getOrSub(@NotNull final Location location) {
+    return Claims.getOrSub(location);
   }
 
   /**
