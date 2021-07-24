@@ -19,18 +19,18 @@ public final class ClaimInviteMemberEvent extends ClaimEvent implements Cancella
   private static final HandlerList handlerList = new HandlerList();
 
   /**
-   * the inviter.
-   */
-  @NotNull
-  @Getter
-  private final Player inviter;
-
-  /**
    * the invited.
    */
   @NotNull
   @Getter
   private final Player invited;
+
+  /**
+   * the inviter.
+   */
+  @NotNull
+  @Getter
+  private final Player inviter;
 
   /**
    * the cancelled.
