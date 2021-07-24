@@ -2,6 +2,7 @@ package tr.com.infumia.claimplugin.paper.api.event;
 
 import lombok.Getter;
 import lombok.Setter;
+import org.bukkit.entity.Player;
 import org.bukkit.event.Cancellable;
 import org.bukkit.event.HandlerList;
 import org.jetbrains.annotations.NotNull;
@@ -19,6 +20,13 @@ public final class ClaimRemoveMemberEvent extends ClaimMemberEvent implements Ca
   private static final HandlerList handlerList = new HandlerList();
 
   /**
+   * the kicker.
+   */
+  @NotNull
+  @Getter
+  private final Player kicker;
+
+  /**
    * the cancelled.
    */
   @Getter
@@ -31,8 +39,10 @@ public final class ClaimRemoveMemberEvent extends ClaimMemberEvent implements Ca
    * @param claim the claim.
    * @param member the member.
    */
-  public ClaimRemoveMemberEvent(@NotNull final ParentClaim claim, @NotNull final Member member) {
+  public ClaimRemoveMemberEvent(@NotNull final ParentClaim claim, @NotNull final Member member,
+                                @NotNull final Player kicker) {
     super(claim, member);
+    this.kicker = kicker;
   }
 
   /**
