@@ -82,6 +82,11 @@ public final class ControlResult {
   public static final ControlResult HOME = ControlResult.of("home");
 
   /**
+   * returns when someone tries to set home and it's succeed
+   */
+  public static final ControlResult SET_HOME_SUCCEED = ControlResult.of("set-home-succeed", true);
+
+  /**
    * returns when the control isn't related to the event.
    */
   public static final ControlResult INVALID = ControlResult.of("invalid", true);
@@ -142,6 +147,11 @@ public final class ControlResult {
    * returns when someone tries to set home.
    */
   public static final ControlResult SET_HOME = ControlResult.of("set-home");
+
+  /**
+   * returns when someone tries to set home but it reached the home limit.
+   */
+  public static final ControlResult SET_HOME_LIMIT = ControlResult.of("set-home-limit");
 
   /**
    * returns when someone interacts with shulkers.
