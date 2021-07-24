@@ -233,12 +233,11 @@ public interface Claim {
    * controls all the permissions.
    *
    * @param event the event to control.
-   * @param actor the actor to control.
    *
    * @return {@code true} if the event passes the control.
    */
   @NotNull
-  ControlResult control(@NotNull LocationalEvent event, @Nullable Player actor);
+  ControlResult control(@NotNull LocationalEvent event);
 
   /**
    * obtains the cuboid.
