@@ -3,6 +3,7 @@ package tr.com.infumia.claimplugin.paper.api.event;
 import lombok.Getter;
 import lombok.Setter;
 import org.bukkit.event.Cancellable;
+import org.bukkit.event.HandlerList;
 import org.jetbrains.annotations.NotNull;
 import tr.com.infumia.claimplugin.paper.api.claim.ParentClaim;
 
@@ -12,6 +13,11 @@ import tr.com.infumia.claimplugin.paper.api.claim.ParentClaim;
  * the event calls in async.
  */
 public final class ClaimExpiredEvent extends ClaimEvent implements Cancellable {
+
+  /**
+   * the handler list.
+   */
+  private static final HandlerList handlerList = new HandlerList();
 
   /**
    * the cancelled.
@@ -27,5 +33,21 @@ public final class ClaimExpiredEvent extends ClaimEvent implements Cancellable {
    */
   public ClaimExpiredEvent(@NotNull final ParentClaim claim) {
     super(true, claim);
+  }
+
+  /**
+   * the handler list.
+   *
+   * @return handler list.
+   */
+  @NotNull
+  public static HandlerList getHandlerList() {
+    return ClaimExpiredEvent.handlerList;
+  }
+
+  @NotNull
+  @Override
+  public final HandlerList getHandlers() {
+    return ClaimExpiredEvent.handlerList;
   }
 }

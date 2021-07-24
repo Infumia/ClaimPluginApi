@@ -4,6 +4,7 @@ import lombok.Getter;
 import lombok.Setter;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Cancellable;
+import org.bukkit.event.HandlerList;
 import org.jetbrains.annotations.NotNull;
 import tr.com.infumia.claimplugin.paper.api.claim.ParentClaim;
 
@@ -11,6 +12,11 @@ import tr.com.infumia.claimplugin.paper.api.claim.ParentClaim;
  * a class that represents claim home events that fire when claim owners tries to invite someone to their claims.
  */
 public final class ClaimInviteMemberEvent extends ClaimEvent implements Cancellable {
+
+  /**
+   * the handler list.
+   */
+  private static final HandlerList handlerList = new HandlerList();
 
   /**
    * the inviter.
@@ -55,5 +61,21 @@ public final class ClaimInviteMemberEvent extends ClaimEvent implements Cancella
     this.inviter = inviter;
     this.player = player;
     this.id = id;
+  }
+
+  /**
+   * the handler list.
+   *
+   * @return handler list.
+   */
+  @NotNull
+  public static HandlerList getHandlerList() {
+    return ClaimInviteMemberEvent.handlerList;
+  }
+
+  @NotNull
+  @Override
+  public final HandlerList getHandlers() {
+    return ClaimInviteMemberEvent.handlerList;
   }
 }
