@@ -250,6 +250,7 @@ public final class Claims {
     }
     for (final var claim : Claims.CLAIMS_SET) {
       if (claim.isIn(location)) {
+        Claims.addCache(location, claim);
         return true;
       }
     }

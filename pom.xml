@@ -16,7 +16,7 @@
   <properties>
     <java.version>11</java.version>
     <minimize.jar>false</minimize.jar>
-    <infumia.version>2.2.31</infumia.version>
+    <infumia.version>2.3.1</infumia.version>
     <paper.version>1.16.5-R0.1-SNAPSHOT</paper.version>
   </properties>
   <build>
@@ -39,6 +39,11 @@
       <groupId>com.destroystokyo.paper</groupId>
       <artifactId>paper-api</artifactId>
       <version>${paper.version}</version>
+      <scope>provided</scope>
+    </dependency>
+    <dependency>
+      <groupId>it.unimi.dsi</groupId>
+      <artifactId>fastutil</artifactId>
       <scope>provided</scope>
     </dependency>
     <dependency>
