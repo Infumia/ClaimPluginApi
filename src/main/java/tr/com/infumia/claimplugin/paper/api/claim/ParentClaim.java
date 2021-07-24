@@ -319,20 +319,6 @@ public interface ParentClaim extends Claim, Permissible {
   }
 
   /**
-   * tries to open claim menu.
-   *
-   * @param player the player to open.
-   */
-  void openPanel(@NotNull Player player);
-
-  /**
-   * tries to open storage.
-   *
-   * @param player the player to open.
-   */
-  void openStorage(@NotNull Player player);
-
-  /**
    * sends quit message/title to the player.
    *
    * @param player the player to send.
