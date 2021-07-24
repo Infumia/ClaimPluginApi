@@ -26,11 +26,11 @@ public final class ClaimInviteMemberEvent extends ClaimEvent implements Cancella
   private final Player inviter;
 
   /**
-   * the player.
+   * the invited.
    */
   @NotNull
   @Getter
-  private final Player player;
+  private final Player invited;
 
   /**
    * the cancelled.
@@ -51,15 +51,15 @@ public final class ClaimInviteMemberEvent extends ClaimEvent implements Cancella
    * ctor.
    *
    * @param claim the claim.
-   * @param inviter the player.
-   * @param player the player.
+   * @param inviter the inviter.
+   * @param invited the invited.
    * @param id the id.
    */
   public ClaimInviteMemberEvent(@NotNull final ParentClaim claim, @NotNull final Player inviter,
-                                @NotNull final Player player, @NotNull final String id) {
+                                @NotNull final Player invited, @NotNull final String id) {
     super(claim);
     this.inviter = inviter;
-    this.player = player;
+    this.invited = invited;
     this.id = id;
   }
 

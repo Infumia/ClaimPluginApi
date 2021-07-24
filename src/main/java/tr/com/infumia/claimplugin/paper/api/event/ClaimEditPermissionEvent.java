@@ -3,6 +3,7 @@ package tr.com.infumia.claimplugin.paper.api.event;
 import lombok.Getter;
 import lombok.Setter;
 import org.bukkit.command.CommandSender;
+import org.bukkit.entity.Player;
 import org.bukkit.event.Cancellable;
 import org.bukkit.event.HandlerList;
 import org.jetbrains.annotations.NotNull;
@@ -26,7 +27,7 @@ public final class ClaimEditPermissionEvent extends ClaimEvent implements Cancel
    */
   @NotNull
   @Getter
-  private final CommandSender editor;
+  private final Player editor;
 
   /**
    * the cancelled.
@@ -59,7 +60,7 @@ public final class ClaimEditPermissionEvent extends ClaimEvent implements Cancel
    * @param permission the permission.
    * @param status the status.
    */
-  public ClaimEditPermissionEvent(@NotNull final ParentClaim claim, @NotNull final CommandSender editor,
+  public ClaimEditPermissionEvent(@NotNull final ParentClaim claim, @NotNull final Player editor,
                                   @NotNull final Permission permission, @NotNull final Permission.Status status) {
     super(claim);
     this.editor = editor;
