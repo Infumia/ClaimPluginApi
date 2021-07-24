@@ -124,6 +124,11 @@ public final class ControlResult {
   public static final ControlResult NOT_MEMBER = ControlResult.of("not-member");
 
   /**
+   * returns when the permissions check the owner of the claim.
+   */
+  public static final ControlResult OWNER = ControlResult.of("owner", true);
+
+  /**
    * usually uses when a global permission needs more detail to calculate it with member permissions.
    */
   public static final ControlResult PASS = ControlResult.of("pass", true);
@@ -142,6 +147,16 @@ public final class ControlResult {
    * returns when someone tries to set home.
    */
   public static final ControlResult SET_HOME = ControlResult.of("set-home");
+
+  /**
+   * returns when someone tries to set home but it reached the home limit.
+   */
+  public static final ControlResult SET_HOME_LIMIT = ControlResult.of("set-home-limit");
+
+  /**
+   * returns when someone tries to set home and it's succeed
+   */
+  public static final ControlResult SET_HOME_SUCCEED = ControlResult.of("set-home-succeed", true);
 
   /**
    * returns when someone interacts with shulkers.

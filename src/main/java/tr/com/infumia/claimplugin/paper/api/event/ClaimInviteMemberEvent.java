@@ -4,6 +4,7 @@ import lombok.Getter;
 import lombok.Setter;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Cancellable;
+import org.bukkit.event.HandlerList;
 import org.jetbrains.annotations.NotNull;
 import tr.com.infumia.claimplugin.paper.api.claim.ParentClaim;
 
@@ -13,18 +14,23 @@ import tr.com.infumia.claimplugin.paper.api.claim.ParentClaim;
 public final class ClaimInviteMemberEvent extends ClaimEvent implements Cancellable {
 
   /**
+   * the handler list.
+   */
+  private static final HandlerList handlerList = new HandlerList();
+
+  /**
+   * the invited.
+   */
+  @NotNull
+  @Getter
+  private final Player invited;
+
+  /**
    * the inviter.
    */
   @NotNull
   @Getter
   private final Player inviter;
-
-  /**
-   * the player.
-   */
-  @NotNull
-  @Getter
-  private final Player player;
 
   /**
    * the cancelled.
@@ -45,15 +51,31 @@ public final class ClaimInviteMemberEvent extends ClaimEvent implements Cancella
    * ctor.
    *
    * @param claim the claim.
-   * @param inviter the player.
-   * @param player the player.
+   * @param inviter the inviter.
+   * @param invited the invited.
    * @param id the id.
    */
   public ClaimInviteMemberEvent(@NotNull final ParentClaim claim, @NotNull final Player inviter,
-                                @NotNull final Player player, @NotNull final String id) {
+                                @NotNull final Player invited, @NotNull final String id) {
     super(claim);
     this.inviter = inviter;
-    this.player = player;
+    this.invited = invited;
     this.id = id;
+  }
+
+  /**
+   * the handler list.
+   *
+   * @return handler list.
+   */
+  @NotNull
+  public static HandlerList getHandlerList() {
+    return ClaimInviteMemberEvent.handlerList;
+  }
+
+  @NotNull
+  @Override
+  public final HandlerList getHandlers() {
+    return ClaimInviteMemberEvent.handlerList;
   }
 }

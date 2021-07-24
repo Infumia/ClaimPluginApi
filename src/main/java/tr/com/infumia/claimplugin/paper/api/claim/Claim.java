@@ -68,18 +68,6 @@ public interface Claim {
   }
 
   /**
-   * gets claim at the location.
-   *
-   * @param location the location to get.
-   *
-   * @return claim at location.
-   */
-  @NotNull
-  static Optional<Claim> getOrSub(@NotNull final Location location) {
-    return Claims.getOrSub(location);
-  }
-
-  /**
    * gets claim of the player.
    *
    * @param uniqueId the unique id to get.
@@ -166,6 +154,18 @@ public interface Claim {
   }
 
   /**
+   * gets claim at the location.
+   *
+   * @param location the location to get.
+   *
+   * @return claim at location.
+   */
+  @NotNull
+  static Optional<Claim> getOrSub(@NotNull final Location location) {
+    return Claims.getOrSub(location);
+  }
+
+  /**
    * checks if there is a chunk at the location.
    *
    * @param location the location to check.
@@ -233,12 +233,11 @@ public interface Claim {
    * controls all the permissions.
    *
    * @param event the event to control.
-   * @param actor the actor to control.
    *
    * @return {@code true} if the event passes the control.
    */
   @NotNull
-  ControlResult control(@NotNull LocationalEvent event, @Nullable Player actor);
+  ControlResult control(@NotNull LocationalEvent event);
 
   /**
    * obtains the cuboid.

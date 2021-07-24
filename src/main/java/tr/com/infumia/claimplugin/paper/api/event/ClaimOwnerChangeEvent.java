@@ -2,6 +2,7 @@ package tr.com.infumia.claimplugin.paper.api.event;
 
 import lombok.Getter;
 import lombok.Setter;
+import org.bukkit.event.HandlerList;
 import org.jetbrains.annotations.NotNull;
 import tr.com.infumia.claimplugin.paper.api.claim.ParentClaim;
 import tr.com.infumia.claimplugin.paper.api.member.Member;
@@ -10,6 +11,11 @@ import tr.com.infumia.claimplugin.paper.api.member.Member;
  * a class that represents claim owner changes events that fire when the claim's owner change.
  */
 public final class ClaimOwnerChangeEvent extends ClaimEvent {
+
+  /**
+   * the handler list.
+   */
+  private static final HandlerList handlerList = new HandlerList();
 
   /**
    * the old owner.
@@ -38,6 +44,22 @@ public final class ClaimOwnerChangeEvent extends ClaimEvent {
     super(claim);
     this.oldOwner = oldOwner;
     this.newOwner = newOwner;
+  }
+
+  /**
+   * the handler list.
+   *
+   * @return handler list.
+   */
+  @NotNull
+  public static HandlerList getHandlerList() {
+    return ClaimOwnerChangeEvent.handlerList;
+  }
+
+  @NotNull
+  @Override
+  public final HandlerList getHandlers() {
+    return ClaimOwnerChangeEvent.handlerList;
   }
 
   /**
