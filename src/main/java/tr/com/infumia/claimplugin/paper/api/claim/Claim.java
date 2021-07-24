@@ -58,6 +58,18 @@ public interface Claim {
   /**
    * gets claim at the location.
    *
+   * @param uniqueId the unique id to get.
+   *
+   * @return claim at location.
+   */
+  @NotNull
+  static Optional<ParentClaim> get(@NotNull final UUID uniqueId) {
+    return Claims.get(uniqueId);
+  }
+
+  /**
+   * gets claim at the location.
+   *
    * @param location the location to get.
    *
    * @return claim at location.
@@ -238,6 +250,13 @@ public interface Claim {
    */
   @NotNull
   ControlResult control(@NotNull LocationalEvent event);
+
+  /**
+   * obtains the creation time of the claim.
+   *
+   * @return creation time of the claim.
+   */
+  long getCreationTime();
 
   /**
    * obtains the cuboid.

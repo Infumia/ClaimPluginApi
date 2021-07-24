@@ -115,6 +115,18 @@ public final class Claims {
   /**
    * gets claim at the location.
    *
+   * @param uniqueId the unique id to get.
+   *
+   * @return claim at location.
+   */
+  @NotNull
+  static Optional<ParentClaim> get(@NotNull final UUID uniqueId) {
+    return Optional.ofNullable(Claims.CLAIMS.get(uniqueId));
+  }
+
+  /**
+   * gets claim at the location.
+   *
    * @param location the location to get.
    *
    * @return claim at location.
