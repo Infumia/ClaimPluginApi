@@ -350,17 +350,19 @@ public interface ParentClaim extends Claim, Permissible {
    * removes the member from the claim.
    *
    * @param uniqueId the unique id to remove.
+   * @param kicker the kicker to remove.
    */
-  default void removeMember(@NotNull final UUID uniqueId) {
-    this.removeMember(Member.member(uniqueId));
+  default void removeMember(@NotNull final UUID uniqueId, @NotNull final Player kicker) {
+    this.removeMember(Member.member(uniqueId), kicker);
   }
 
   /**
    * removes the member from the claim.
    *
    * @param member the member to remove.
+   * @param kicker the kicker to remove.
    */
-  void removeMember(@NotNull Member member);
+  void removeMember(@NotNull Member member, @NotNull final Player kicker);
 
   /**
    * removes the sub claim.
