@@ -124,7 +124,7 @@ public interface Claim {
    */
   @NotNull
   static Optional<ParentClaim> getByOwnerAndLocation(@NotNull final Player player) {
-    return Claim.getByOwnerAndLocation(player, player.getLocation());
+    return Claim.getByOwnerAndLocation(player, player.getLocation().getBlock().getLocation());
   }
 
   /**
