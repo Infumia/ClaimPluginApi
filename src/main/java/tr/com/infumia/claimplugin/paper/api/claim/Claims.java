@@ -415,7 +415,7 @@ public final class Claims {
    */
   @NotNull
   private static CompletableFuture<Collection<ParentClaim>> provideAllClaims() {
-    return CompletableFuture.supplyAsync(() -> Claims.getClaimSerializer().all());
+    return CompletableFuture.supplyAsync(() -> Claims.getClaimSerializer().loadAll());
   }
 
   /**

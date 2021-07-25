@@ -11,14 +11,6 @@ import org.jetbrains.annotations.Nullable;
 public interface ClaimSerializer {
 
   /**
-   * gets all claims.
-   *
-   * @return all claims.
-   */
-  @NotNull
-  Collection<ParentClaim> all();
-
-  /**
    * deletes the claim from database.
    *
    * @param claim claim to delete.
@@ -34,6 +26,14 @@ public interface ClaimSerializer {
    */
   @Nullable
   ParentClaim load(@NotNull UUID uniqueId);
+
+  /**
+   * loads all claims.
+   *
+   * @return all claims.
+   */
+  @NotNull
+  Collection<ParentClaim> loadAll();
 
   /**
    * saves the claim to database.
