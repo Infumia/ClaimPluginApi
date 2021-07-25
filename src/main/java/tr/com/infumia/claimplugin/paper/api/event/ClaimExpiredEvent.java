@@ -9,8 +9,6 @@ import tr.com.infumia.claimplugin.paper.api.claim.ParentClaim;
 
 /**
  * a class that represents claim expire events that fire when a claim expired.
- * <p>
- * the event calls in async.
  */
 public final class ClaimExpiredEvent extends ClaimEvent implements Cancellable {
 
@@ -32,7 +30,7 @@ public final class ClaimExpiredEvent extends ClaimEvent implements Cancellable {
    * @param claim the claim.
    */
   public ClaimExpiredEvent(@NotNull final ParentClaim claim) {
-    super(true, claim);
+    super(claim);
   }
 
   /**
