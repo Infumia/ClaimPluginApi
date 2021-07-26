@@ -358,19 +358,20 @@ public final class Claims {
    * @param claim the claim to add.
    */
   private static void addCache(@NotNull final Location location, @NotNull final ParentClaim claim) {
-    if (Claims.cacheLevel >= 1) {
-      Claims.CLAIM_CACHE_BY_LOCATION.putIfAbsent(location, claim);
-      final var owner = claim.getOwnerAsUniqueId();
-      Claims.CLAIM_CACHE_BY_OWNER.compute(owner, (uuid, parentClaims) -> {
-        if (parentClaims == null) {
-          return Arrays.asList(claim);
-        }
-        if (!parentClaims.contains(claim)) {
-          parentClaims.add(claim);
-        }
-        return parentClaims;
-      });
+    if (Claims.cacheLevel < 1) {
+      return;
     }
+    Claims.CLAIM_CACHE_BY_LOCATION.putIfAbsent(location, claim);
+    final var owner = claim.getOwnerAsUniqueId();
+    Claims.CLAIM_CACHE_BY_OWNER.compute(owner, (uuid, parentClaims) -> {
+      if (parentClaims == null) {
+        return Arrays.asList(claim);
+      }
+      if (!parentClaims.contains(claim)) {
+        parentClaims.add(claim);
+      }
+      return parentClaims;
+    });
   }
 
   /**
