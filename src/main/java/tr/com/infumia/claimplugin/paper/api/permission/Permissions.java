@@ -25,6 +25,16 @@ final class Permissions {
   }
 
   /**
+   * obtains all registered permissions.
+   *
+   * @return all registered permissions
+   */
+  @NotNull
+  static Collection<Permission> all() {
+    return Permissions.PERMISSIONS.values();
+  }
+
+  /**
    * gets the permission by id.
    *
    * @param id the id to get.
