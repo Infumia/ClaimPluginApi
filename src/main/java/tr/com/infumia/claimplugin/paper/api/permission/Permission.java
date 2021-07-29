@@ -14,6 +14,16 @@ import tr.com.infumia.claimplugin.paper.api.event.LocationalEvent;
 public interface Permission {
 
   /**
+   * obtains all registered permissions.
+   *
+   * @return all registered permissions
+   */
+  @NotNull
+  static Collection<Permission> all() {
+    return Permissions.all();
+  }
+
+  /**
    * obtains the animal damage permission.
    *
    * @return animal damage permission.
