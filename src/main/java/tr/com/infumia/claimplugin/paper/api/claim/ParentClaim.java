@@ -17,6 +17,8 @@ import tr.com.infumia.claimplugin.paper.api.event.ClaimOwnerChangeEvent;
 import tr.com.infumia.claimplugin.paper.api.event.ClaimPostDeleteEvent;
 import tr.com.infumia.claimplugin.paper.api.event.ClaimPreDeleteEvent;
 import tr.com.infumia.claimplugin.paper.api.event.ClaimRemoveMemberEvent;
+import tr.com.infumia.claimplugin.paper.api.event.ClaimSetHomeEvent;
+import tr.com.infumia.claimplugin.paper.api.event.ClaimTeleportHomeEvent;
 import tr.com.infumia.claimplugin.paper.api.home.Home;
 import tr.com.infumia.claimplugin.paper.api.member.Member;
 import tr.com.infumia.claimplugin.paper.api.message.ClaimMessage;
@@ -32,11 +34,29 @@ public interface ParentClaim extends Claim, Permissible {
   /**
    * adds the home.
    *
-   * @param location the location to add.
+   * @param home the home to add.
    */
-  default void addHome(@NotNull final Location location) {
+  void addHome(@NotNull Home home);
+
+  /**
+   * adds the home.
+   *
+   * @param adder the adder to add.
+   */
+  default boolean addHomeWithEvent(@NotNull final Player adder) {
+    return this.addHomeWithEvent(adder.getLocation(), adder);
+  }
+
+  /**
+   * adds the home.
+   *
+   * @param location the location to add.
+   * @param adder the adder to add.
+   */
+  default boolean addHomeWithEvent(@NotNull final Location location,
+                                   @NotNull final Player adder) {
     final var id = UUID.randomUUID();
-    this.addHome(id, id.toString(), location);
+    return this.addHomeWithEvent(id, id.toString(), location, adder);
   }
 
   /**
@@ -44,9 +64,11 @@ public interface ParentClaim extends Claim, Permissible {
    *
    * @param name the name to add.
    * @param location the location to add.
+   * @param adder the adder to add.
    */
-  default void addHome(@NotNull final String name, @NotNull final Location location) {
-    this.addHome(UUID.randomUUID(), name, location);
+  default boolean addHomeWithEvent(@NotNull final String name, @NotNull final Location location,
+                                   @NotNull final Player adder) {
+    return this.addHomeWithEvent(UUID.randomUUID(), name, location, adder);
   }
 
   /**
@@ -55,17 +77,29 @@ public interface ParentClaim extends Claim, Permissible {
    * @param id the id to add.
    * @param name the name to add.
    * @param location the location to add.
+   * @param adder the adder to add.
    */
-  default void addHome(@NotNull final UUID id, @NotNull final String name, @NotNull final Location location) {
-    this.addHome(Home.of(id, name, location));
+  default boolean addHomeWithEvent(@NotNull final UUID id, @NotNull final String name, @NotNull final Location location,
+                                   @NotNull final Player adder) {
+    return this.addHomeWithEvent(Home.of(id, name, location), adder);
   }
 
   /**
    * adds the home.
    *
    * @param home the home to add.
+   * @param adder the adder to add.
+   *
+   * @return {@code true} if the home added successfully.
    */
-  void addHome(@NotNull Home home);
+  default boolean addHomeWithEvent(@NotNull final Home home, @NotNull final Player adder) {
+    final var event = new ClaimSetHomeEvent(this, home, adder);
+    if (event.callEvent()) {
+      this.addHome(event.getHome());
+      return true;
+    }
+    return false;
+  }
 
   /**
    * adds the member to the claim.
@@ -467,6 +501,38 @@ public interface ParentClaim extends Claim, Permissible {
         this.setOwner(event.getNewOwner());
         return true;
       }
+    }
+    return false;
+  }
+
+  /**
+   * teleports the player to the home.
+   *
+   * @param home the home to teleport.
+   * @param player the player to teleport.
+   */
+  default void teleportHome(@NotNull final Home home, @NotNull final Player player) {
+    final var location = home.getLocation();
+    try {
+      player.teleportAsync(location);
+    } catch (final Exception e) {
+      player.teleport(location);
+    }
+  }
+
+  /**
+   * teleports the player to the home.
+   *
+   * @param home the home to teleport.
+   * @param player the player to teleport.
+   *
+   * @return {@code true} if the teleportation succeed.
+   */
+  default boolean teleportHomeWithEvent(@NotNull final Home home, @NotNull final Player player) {
+    final var event = new ClaimTeleportHomeEvent(this, home, player);
+    if (event.callEvent()) {
+      this.teleportHome(event.getHome(), player);
+      return true;
     }
     return false;
   }
