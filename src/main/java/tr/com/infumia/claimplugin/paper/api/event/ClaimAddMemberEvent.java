@@ -16,6 +16,7 @@ public final class ClaimAddMemberEvent extends ClaimMemberEvent implements Cance
   /**
    * the handler list.
    */
+  @Getter
   private static final HandlerList handlerList = new HandlerList();
 
   /**
@@ -33,16 +34,6 @@ public final class ClaimAddMemberEvent extends ClaimMemberEvent implements Cance
    */
   public ClaimAddMemberEvent(@NotNull final ParentClaim claim, @NotNull final Member member) {
     super(claim, member);
-  }
-
-  /**
-   * the handler list.
-   *
-   * @return handler list.
-   */
-  @NotNull
-  public static HandlerList getHandlerList() {
-    return ClaimAddMemberEvent.handlerList;
   }
 
   @NotNull

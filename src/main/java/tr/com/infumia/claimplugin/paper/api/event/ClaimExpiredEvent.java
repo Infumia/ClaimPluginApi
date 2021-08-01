@@ -15,6 +15,7 @@ public final class ClaimExpiredEvent extends ClaimEvent implements Cancellable {
   /**
    * the handler list.
    */
+  @Getter
   private static final HandlerList handlerList = new HandlerList();
 
   /**
@@ -31,16 +32,6 @@ public final class ClaimExpiredEvent extends ClaimEvent implements Cancellable {
    */
   public ClaimExpiredEvent(@NotNull final ParentClaim claim) {
     super(claim);
-  }
-
-  /**
-   * the handler list.
-   *
-   * @return handler list.
-   */
-  @NotNull
-  public static HandlerList getHandlerList() {
-    return ClaimExpiredEvent.handlerList;
   }
 
   @NotNull

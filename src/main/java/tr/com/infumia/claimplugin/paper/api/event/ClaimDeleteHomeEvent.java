@@ -7,12 +7,12 @@ import org.bukkit.event.Cancellable;
 import org.bukkit.event.HandlerList;
 import org.jetbrains.annotations.NotNull;
 import tr.com.infumia.claimplugin.paper.api.claim.ParentClaim;
-import tr.com.infumia.claimplugin.paper.api.member.Member;
+import tr.com.infumia.claimplugin.paper.api.home.Home;
 
 /**
- * a class that represents claim remove member events that fire when a member remove from a claim, a.k.a. kick.
+ * a class that represents claim home events that fire when someone tries to set home home.
  */
-public final class ClaimRemoveMemberEvent extends ClaimMemberEvent implements Cancellable {
+public final class ClaimDeleteHomeEvent extends ClaimHomeEvent implements Cancellable {
 
   /**
    * the handler list.
@@ -21,11 +21,11 @@ public final class ClaimRemoveMemberEvent extends ClaimMemberEvent implements Ca
   private static final HandlerList handlerList = new HandlerList();
 
   /**
-   * the kicker.
+   * the player.
    */
   @NotNull
   @Getter
-  private final Player kicker;
+  private final Player player;
 
   /**
    * the cancelled.
@@ -38,17 +38,18 @@ public final class ClaimRemoveMemberEvent extends ClaimMemberEvent implements Ca
    * ctor.
    *
    * @param claim the claim.
-   * @param member the member.
+   * @param home the home.
+   * @param player the player.
    */
-  public ClaimRemoveMemberEvent(@NotNull final ParentClaim claim, @NotNull final Member member,
-                                @NotNull final Player kicker) {
-    super(claim, member);
-    this.kicker = kicker;
+  public ClaimDeleteHomeEvent(@NotNull final ParentClaim claim, @NotNull final Home home,
+                              @NotNull final Player player) {
+    super(claim, home);
+    this.player = player;
   }
 
   @NotNull
   @Override
   public HandlerList getHandlers() {
-    return ClaimRemoveMemberEvent.handlerList;
+    return ClaimDeleteHomeEvent.handlerList;
   }
 }

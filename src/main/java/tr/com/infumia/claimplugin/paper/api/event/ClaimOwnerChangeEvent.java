@@ -15,6 +15,7 @@ public final class ClaimOwnerChangeEvent extends ClaimEvent {
   /**
    * the handler list.
    */
+  @Getter
   private static final HandlerList handlerList = new HandlerList();
 
   /**
@@ -47,25 +48,15 @@ public final class ClaimOwnerChangeEvent extends ClaimEvent {
   }
 
   /**
-   * the handler list.
-   *
-   * @return handler list.
+   * changes the new owner with {@link #oldOwner}.
    */
-  @NotNull
-  public static HandlerList getHandlerList() {
-    return ClaimOwnerChangeEvent.handlerList;
+  public void dontChangeOwner() {
+    this.setNewOwner(this.getOldOwner());
   }
 
   @NotNull
   @Override
   public HandlerList getHandlers() {
     return ClaimOwnerChangeEvent.handlerList;
-  }
-
-  /**
-   * changes the new owner with {@link #oldOwner}.
-   */
-  public void dontChangeOwner() {
-    this.setNewOwner(this.getOldOwner());
   }
 }

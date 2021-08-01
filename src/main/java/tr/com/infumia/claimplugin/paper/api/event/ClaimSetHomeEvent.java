@@ -12,11 +12,12 @@ import tr.com.infumia.claimplugin.paper.api.home.Home;
 /**
  * a class that represents claim home events that fire when someone tries to set home home.
  */
-public final class ClaimSetHomeEvent extends ClaimEvent implements Cancellable {
+public final class ClaimSetHomeEvent extends ClaimHomeEvent implements Cancellable {
 
   /**
    * the handler list.
    */
+  @Getter
   private static final HandlerList handlerList = new HandlerList();
 
   /**
@@ -34,35 +35,15 @@ public final class ClaimSetHomeEvent extends ClaimEvent implements Cancellable {
   private boolean cancelled;
 
   /**
-   * the location.
-   */
-  @NotNull
-  @Getter
-  @Setter
-  private Home home;
-
-  /**
    * ctor.
    *
    * @param claim the claim.
-   * @param player the player.
    * @param home the home.
+   * @param player the player.
    */
-  public ClaimSetHomeEvent(@NotNull final ParentClaim claim, @NotNull final Player player,
-                           @NotNull final Home home) {
-    super(claim);
+  public ClaimSetHomeEvent(@NotNull final ParentClaim claim, @NotNull final Home home, @NotNull final Player player) {
+    super(claim, home);
     this.player = player;
-    this.home = home;
-  }
-
-  /**
-   * the handler list.
-   *
-   * @return handler list.
-   */
-  @NotNull
-  public static HandlerList getHandlerList() {
-    return ClaimSetHomeEvent.handlerList;
   }
 
   @NotNull

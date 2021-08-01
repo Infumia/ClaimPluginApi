@@ -19,6 +19,7 @@ public final class ClaimEditPermissionEvent extends ClaimEvent implements Cancel
   /**
    * the handler list.
    */
+  @Getter
   private static final HandlerList handlerList = new HandlerList();
 
   /**
@@ -65,16 +66,6 @@ public final class ClaimEditPermissionEvent extends ClaimEvent implements Cancel
     this.editor = editor;
     this.permission = permission;
     this.status = status;
-  }
-
-  /**
-   * the handler list.
-   *
-   * @return handler list.
-   */
-  @NotNull
-  public static HandlerList getHandlerList() {
-    return ClaimEditPermissionEvent.handlerList;
   }
 
   @NotNull
