@@ -7,14 +7,13 @@ import org.bukkit.OfflinePlayer;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
-import tr.com.infumia.claimplugin.paper.api.event.LocationalEvent;
-import tr.com.infumia.claimplugin.paper.api.permission.ControlResult;
+import tr.com.infumia.claimplugin.paper.api.permission.Control;
 import tr.com.infumia.claimplugin.paper.api.permission.Permissible;
 
 /**
  * an interface to determine claim members.
  */
-public interface Member extends Permissible {
+public interface Member extends Permissible, Control {
 
   /**
    * creates a new member.
@@ -99,16 +98,6 @@ public interface Member extends Permissible {
   static Member owner(@NotNull final UUID uniqueId) {
     return Members.createOwner(uniqueId);
   }
-
-  /**
-   * controls all the permissions.
-   *
-   * @param event the event to control.
-   *
-   * @return {@code true} if the event passes the control.
-   */
-  @NotNull
-  ControlResult control(@NotNull LocationalEvent event);
 
   /**
    * obtains the member as offline player.
