@@ -6,9 +6,7 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Optional;
 import java.util.concurrent.ConcurrentHashMap;
-import java.util.function.Consumer;
 import org.jetbrains.annotations.NotNull;
-import tr.com.infumia.claimplugin.paper.api.event.LocationalEvent;
 
 /**
  * a class that contains default permissions for Claim plugin.
@@ -18,7 +16,7 @@ final class Permissions {
   /**
    * the actions.
    */
-  private static final Map<ControlResult, Collection<Consumer<LocationalEvent>>> ACTIONS = new ConcurrentHashMap<>();
+  private static final Map<ControlResult, Collection<Action>> ACTIONS = new ConcurrentHashMap<>();
 
   /**
    * the permissions.
@@ -61,7 +59,7 @@ final class Permissions {
    * @return action.
    */
   @NotNull
-  static Optional<Collection<Consumer<LocationalEvent>>> get(@NotNull final ControlResult result) {
+  static Optional<Collection<Action>> get(@NotNull final ControlResult result) {
     return Optional.ofNullable(Permissions.ACTIONS.get(result));
   }
 
@@ -122,7 +120,7 @@ final class Permissions {
    * @param result the result to register.
    * @param action the action to register.
    */
-  static void register(@NotNull final ControlResult result, @NotNull final Consumer<LocationalEvent> action) {
+  static void register(@NotNull final ControlResult result, @NotNull final Action action) {
     final var actions = Permissions.ACTIONS.getOrDefault(result, new HashSet<>());
     actions.add(action);
     Permissions.ACTIONS.put(result, actions);

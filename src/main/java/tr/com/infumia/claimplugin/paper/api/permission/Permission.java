@@ -2,7 +2,6 @@ package tr.com.infumia.claimplugin.paper.api.permission;
 
 import java.util.Collection;
 import java.util.Optional;
-import java.util.function.Consumer;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
@@ -188,7 +187,7 @@ public interface Permission {
    * @return action.
    */
   @NotNull
-  static Optional<Collection<Consumer<LocationalEvent>>> get(@NotNull final ControlResult result) {
+  static Optional<Collection<Action>> get(@NotNull final ControlResult result) {
     return Permissions.get(result);
   }
 
@@ -336,7 +335,7 @@ public interface Permission {
    * @param result the result to register.
    * @param action the action to register.
    */
-  static void register(@NotNull final ControlResult result, @NotNull final Consumer<LocationalEvent> action) {
+  static void register(@NotNull final ControlResult result, @NotNull final Action action) {
     Permissions.register(result, action);
   }
 
