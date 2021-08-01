@@ -55,7 +55,7 @@ public final class ClaimOpenStorageEvent extends ClaimEvent implements Cancellab
 
   @NotNull
   @Override
-  public final HandlerList getHandlers() {
+  public HandlerList getHandlers() {
     return ClaimOpenStorageEvent.handlerList;
   }
 }

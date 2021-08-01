@@ -45,7 +45,7 @@ public final class ClaimExpiredEvent extends ClaimEvent implements Cancellable {
 
   @NotNull
   @Override
-  public final HandlerList getHandlers() {
+  public HandlerList getHandlers() {
     return ClaimExpiredEvent.handlerList;
   }
 }

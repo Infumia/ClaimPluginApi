@@ -35,7 +35,7 @@ public final class ClaimPostDeleteEvent extends ClaimEvent {
 
   @NotNull
   @Override
-  public final HandlerList getHandlers() {
+  public HandlerList getHandlers() {
     return ClaimPostDeleteEvent.handlerList;
   }
 }

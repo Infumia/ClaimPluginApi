@@ -79,7 +79,7 @@ public final class ClaimEditPermissionEvent extends ClaimEvent implements Cancel
 
   @NotNull
   @Override
-  public final HandlerList getHandlers() {
+  public HandlerList getHandlers() {
     return ClaimEditPermissionEvent.handlerList;
   }
 }

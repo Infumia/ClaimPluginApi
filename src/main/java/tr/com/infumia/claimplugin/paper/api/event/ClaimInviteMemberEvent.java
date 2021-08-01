@@ -75,7 +75,7 @@ public final class ClaimInviteMemberEvent extends ClaimEvent implements Cancella
 
   @NotNull
   @Override
-  public final HandlerList getHandlers() {
+  public HandlerList getHandlers() {
     return ClaimInviteMemberEvent.handlerList;
   }
 }

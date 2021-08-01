@@ -47,7 +47,7 @@ public final class ClaimAddMemberEvent extends ClaimMemberEvent implements Cance
 
   @NotNull
   @Override
-  public final HandlerList getHandlers() {
+  public HandlerList getHandlers() {
     return ClaimAddMemberEvent.handlerList;
   }
 }

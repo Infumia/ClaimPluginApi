@@ -66,7 +66,7 @@ public final class ClaimHomeEvent extends ClaimEvent implements Cancellable {
 
   @NotNull
   @Override
-  public final HandlerList getHandlers() {
+  public HandlerList getHandlers() {
     return ClaimHomeEvent.handlerList;
   }
 }

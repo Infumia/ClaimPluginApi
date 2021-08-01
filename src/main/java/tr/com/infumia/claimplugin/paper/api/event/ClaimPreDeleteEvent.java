@@ -45,7 +45,7 @@ public final class ClaimPreDeleteEvent extends ClaimEvent implements Cancellable
 
   @NotNull
   @Override
-  public final HandlerList getHandlers() {
+  public HandlerList getHandlers() {
     return ClaimPreDeleteEvent.handlerList;
   }
 }

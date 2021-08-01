@@ -57,7 +57,7 @@ public final class ClaimRemoveMemberEvent extends ClaimMemberEvent implements Ca
 
   @NotNull
   @Override
-  public final HandlerList getHandlers() {
+  public HandlerList getHandlers() {
     return ClaimRemoveMemberEvent.handlerList;
   }
 }
