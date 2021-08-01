@@ -34,6 +34,23 @@ import tr.com.infumia.infumialib.time.Times;
 public interface ParentClaim extends Claim, Permissible {
 
   /**
+   * calls the given event then, if it's succeed runs the consumer.
+   *
+   * @param event the event to call.
+   * @param consumer the consumer to call.
+   * @param <E> type of the event.
+   *
+   * @return {@code true} if the event called successfully.
+   */
+  private static <E extends Event> boolean callEvent(@NotNull final E event, @NotNull final Consumer<E> consumer) {
+    if (event.callEvent()) {
+      consumer.accept(event);
+      return true;
+    }
+    return false;
+  }
+
+  /**
    * adds the home.
    *
    * @param home the home to add.
@@ -95,7 +112,7 @@ public interface ParentClaim extends Claim, Permissible {
    * @return {@code true} if the home added successfully.
    */
   default boolean addHomeWithEvent(@NotNull final Home home, @NotNull final Player adder) {
-    return this.callEvent(new ClaimSetHomeEvent(this, home, adder), event ->
+    return ParentClaim.callEvent(new ClaimSetHomeEvent(this, home, adder), event ->
       this.addHome(event.getHome()));
   }
 
@@ -121,7 +138,7 @@ public interface ParentClaim extends Claim, Permissible {
    * @param member the member to add.
    */
   default boolean addMemberWithEvent(@NotNull final Member member) {
-    return this.callEvent(new ClaimAddMemberEvent(this, member), event ->
+    return ParentClaim.callEvent(new ClaimAddMemberEvent(this, member), event ->
       this.addMember(event.getMember()));
   }
 
@@ -131,23 +148,6 @@ public interface ParentClaim extends Claim, Permissible {
    * @param subClaim the sub claim to add.
    */
   void addSubClaim(@NotNull Claim subClaim);
-
-  /**
-   * calls the given event then, if it's succeed runs the consumer.
-   *
-   * @param event the event to call.
-   * @param consumer the consumer to call.
-   * @param <E> type of the event.
-   *
-   * @return {@code true} if the event called successfully.
-   */
-  default <E extends Event> boolean callEvent(@NotNull final E event, @NotNull final Consumer<E> consumer) {
-    if (event.callEvent()) {
-      consumer.accept(event);
-      return true;
-    }
-    return false;
-  }
 
   /**
    * decreases the expire time.
@@ -167,9 +167,9 @@ public interface ParentClaim extends Claim, Permissible {
    * @return {@code true} if the claim deleted successfully.
    */
   default boolean deleteWithEvent() {
-    return this.callEvent(new ClaimPreDeleteEvent(this), e -> {
+    return ParentClaim.callEvent(new ClaimPreDeleteEvent(this), e -> {
       this.delete();
-      this.callEvent(new ClaimPostDeleteEvent(this), x -> {
+      ParentClaim.callEvent(new ClaimPostDeleteEvent(this), x -> {
       });
     });
   }
@@ -374,7 +374,7 @@ public interface ParentClaim extends Claim, Permissible {
    * @return {@code true} if the invite succeed.
    */
   default boolean inviteWithEvent(@NotNull final Invite invite) {
-    return this.callEvent(new ClaimInviteMemberEvent(this, invite), event ->
+    return ParentClaim.callEvent(new ClaimInviteMemberEvent(this, invite), event ->
       this.invite(event.getInvite()));
   }
 
@@ -433,7 +433,7 @@ public interface ParentClaim extends Claim, Permissible {
    * @return {@code true} if the home removed successfully.
    */
   default boolean removeHomeWithEvent(@NotNull final Home home, @NotNull final Player remover) {
-    return this.callEvent(new ClaimDeleteHomeEvent(this, home, remover), event ->
+    return ParentClaim.callEvent(new ClaimDeleteHomeEvent(this, home, remover), event ->
       this.removeHome(event.getHome()));
   }
 
@@ -465,7 +465,7 @@ public interface ParentClaim extends Claim, Permissible {
    * @return {@code true} if the member kicked successfully.
    */
   default boolean removeMemberWithEvent(@NotNull final Member member, @NotNull final Player kicker) {
-    return this.callEvent(new ClaimRemoveMemberEvent(this, member, kicker), event ->
+    return ParentClaim.callEvent(new ClaimRemoveMemberEvent(this, member, kicker), event ->
       this.removeMember(event.getMember()));
   }
 
@@ -494,7 +494,7 @@ public interface ParentClaim extends Claim, Permissible {
    */
   default boolean setOwnerWithEvent(@NotNull final Member owner, @NotNull final Player changer) {
     if (this.removeMemberWithEvent(owner, changer)) {
-      return this.callEvent(new ClaimOwnerChangeEvent(this, this.getOwner(), owner), event ->
+      return ParentClaim.callEvent(new ClaimOwnerChangeEvent(this, this.getOwner(), owner), event ->
         this.setOwner(event.getNewOwner()));
     }
     return false;
@@ -524,7 +524,7 @@ public interface ParentClaim extends Claim, Permissible {
    * @return {@code true} if the teleportation succeed.
    */
   default boolean teleportHomeWithEvent(@NotNull final Home home, @NotNull final Player player) {
-    return this.callEvent(new ClaimTeleportHomeEvent(this, home, player), event ->
+    return ParentClaim.callEvent(new ClaimTeleportHomeEvent(this, home, player), event ->
       this.teleportHome(event.getHome(), event.getPlayer()));
   }
 }
