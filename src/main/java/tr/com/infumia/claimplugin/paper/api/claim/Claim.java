@@ -27,8 +27,7 @@ public interface Claim extends Control {
    * @param player the player to add.
    * @param claim the claim to add.
    */
-  static void addInvitation(@NotNull final String id, @NotNull final UUID player,
-                            @NotNull final ParentClaim claim) {
+  static void addInvitation(@NotNull final String id, @NotNull final UUID player, @NotNull final ParentClaim claim) {
     Claims.addInvitation(id, player, claim);
   }
 

@@ -81,8 +81,7 @@ public final class Claims {
    * @param player the player to add.
    * @param claim the claim to add.
    */
-  static void addInvitation(@NotNull final String id, @NotNull final UUID player,
-                            @NotNull final ParentClaim claim) {
+  static void addInvitation(@NotNull final String id, @NotNull final UUID player, @NotNull final ParentClaim claim) {
     Claims.INVITATIONS.put(id, Map.entry(player, claim));
   }
 

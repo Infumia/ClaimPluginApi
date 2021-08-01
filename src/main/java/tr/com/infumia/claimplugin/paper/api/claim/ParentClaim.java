@@ -10,6 +10,13 @@ import org.bukkit.OfflinePlayer;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+import tr.com.infumia.claimplugin.paper.api.event.ClaimAddMemberEvent;
+import tr.com.infumia.claimplugin.paper.api.event.ClaimDeleteHomeEvent;
+import tr.com.infumia.claimplugin.paper.api.event.ClaimInviteMemberEvent;
+import tr.com.infumia.claimplugin.paper.api.event.ClaimOwnerChangeEvent;
+import tr.com.infumia.claimplugin.paper.api.event.ClaimPostDeleteEvent;
+import tr.com.infumia.claimplugin.paper.api.event.ClaimPreDeleteEvent;
+import tr.com.infumia.claimplugin.paper.api.event.ClaimRemoveMemberEvent;
 import tr.com.infumia.claimplugin.paper.api.home.Home;
 import tr.com.infumia.claimplugin.paper.api.member.Member;
 import tr.com.infumia.claimplugin.paper.api.message.ClaimMessage;
@@ -63,10 +70,17 @@ public interface ParentClaim extends Claim, Permissible {
   /**
    * adds the member to the claim.
    *
-   * @param uniqueId the unique id to add.
+   * @param member the member to add.
    */
-  default void addMember(@NotNull final UUID uniqueId) {
-    this.addMember(Member.member(uniqueId));
+  void addMember(@NotNull Member member);
+
+  /**
+   * adds the member to the claim.
+   *
+   * @param member the member to add.
+   */
+  default boolean addMemberWithEvent(@NotNull final UUID member) {
+    return this.addMemberWithEvent(Member.member(member));
   }
 
   /**
@@ -74,7 +88,14 @@ public interface ParentClaim extends Claim, Permissible {
    *
    * @param member the member to add.
    */
-  void addMember(@NotNull Member member);
+  default boolean addMemberWithEvent(@NotNull final Member member) {
+    final var event = new ClaimAddMemberEvent(this, member);
+    if (event.callEvent()) {
+      this.addMember(event.getMember());
+      return true;
+    }
+    return false;
+  }
 
   /**
    * adds the sub claim.
@@ -91,7 +112,23 @@ public interface ParentClaim extends Claim, Permissible {
   /**
    * deletes the claim.
    */
-  void delete();
+  default void delete() {
+    Claim.delete(this);
+  }
+
+  /**
+   * deletes the claim.
+   *
+   * @return {@code true} if the claim deleted successfully.
+   */
+  default boolean deleteWithEvent() {
+    if (new ClaimPreDeleteEvent(this).callEvent()) {
+      this.delete();
+      new ClaimPostDeleteEvent(this).callEvent();
+      return true;
+    }
+    return false;
+  }
 
   /**
    * sends enter message/title to the player.
@@ -281,10 +318,25 @@ public interface ParentClaim extends Claim, Permissible {
   /**
    * invites the player to become a member of the claim.
    *
-   * @param inviter the inviter to invite.
-   * @param player the player to invite.
+   * @param invite the invite to invite.
    */
-  void invitePlayer(@NotNull Player inviter, @NotNull Player player);
+  void invite(@NotNull Invite invite);
+
+  /**
+   * invites the player to become a member of the claim.
+   *
+   * @param invite the invite to invite.
+   *
+   * @return {@code true} if the invite succeed.
+   */
+  default boolean inviteWithEvent(@NotNull final Invite invite) {
+    final var event = new ClaimInviteMemberEvent(this, invite);
+    if (event.callEvent()) {
+      this.invite(invite);
+      return true;
+    }
+    return false;
+  }
 
   /**
    * checks if block at the location is a claim block.
@@ -333,13 +385,39 @@ public interface ParentClaim extends Claim, Permissible {
   void removeHome(@NotNull Home home);
 
   /**
+   * removes the home.
+   *
+   * @param home the home to remove.
+   * @param remover the remover to remove.
+   *
+   * @return {@code true} if the home removed successfully.
+   */
+  default boolean removeHomeWithEvent(@NotNull final Home home, @NotNull final Player remover) {
+    final var claimDeleteHomeEvent = new ClaimDeleteHomeEvent(this, home, remover);
+    if (claimDeleteHomeEvent.callEvent()) {
+      claimDeleteHomeEvent.getClaim().removeHome(claimDeleteHomeEvent.getHome());
+      return true;
+    }
+    return false;
+  }
+
+  /**
    * removes the member from the claim.
    *
-   * @param uniqueId the unique id to remove.
-   * @param kicker the kicker to remove.
+   * @param member the member to remove.
    */
-  default void removeMember(@NotNull final UUID uniqueId, @NotNull final Player kicker) {
-    this.removeMember(Member.member(uniqueId), kicker);
+  void removeMember(@NotNull Member member);
+
+  /**
+   * removes the member from the claim.
+   *
+   * @param member the member to remove.
+   * @param kicker the kicker to remove.
+   *
+   * @return {@code true} if the member kicked successfully.
+   */
+  default boolean removeMemberWithEvent(@NotNull final UUID member, @NotNull final Player kicker) {
+    return this.removeMemberWithEvent(Member.member(member), kicker);
   }
 
   /**
@@ -347,8 +425,17 @@ public interface ParentClaim extends Claim, Permissible {
    *
    * @param member the member to remove.
    * @param kicker the kicker to remove.
+   *
+   * @return {@code true} if the member kicked successfully.
    */
-  void removeMember(@NotNull Member member, @NotNull final Player kicker);
+  default boolean removeMemberWithEvent(@NotNull final Member member, @NotNull final Player kicker) {
+    final var event = new ClaimRemoveMemberEvent(this, member, kicker);
+    if (event.callEvent()) {
+      this.removeMember(member);
+      return true;
+    }
+    return false;
+  }
 
   /**
    * removes the sub claim.
@@ -368,7 +455,19 @@ public interface ParentClaim extends Claim, Permissible {
   }
 
   /**
-   * updates if the claim block not exist.
+   * sets the owner.
+   *
+   * @param owner the owner to set.
+   * @param changer the changer to set.
    */
-  void updateClaimBlock();
+  default boolean setOwnerWithEvent(@NotNull final Member owner, @NotNull final Player changer) {
+    if (this.removeMemberWithEvent(owner, changer)) {
+      final var event = new ClaimOwnerChangeEvent(this, this.getOwner(), owner);
+      if (event.callEvent()) {
+        this.setOwner(event.getNewOwner());
+        return true;
+      }
+    }
+    return false;
+  }
 }
