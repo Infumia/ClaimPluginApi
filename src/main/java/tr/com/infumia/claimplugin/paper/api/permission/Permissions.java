@@ -16,7 +16,7 @@ final class Permissions {
   /**
    * the actions.
    */
-  private static final Map<ControlResult, Collection<Action>> ACTIONS = new ConcurrentHashMap<>();
+  private static final Collection<Action> ACTIONS = new HashSet<>();
 
   /**
    * the permissions.
@@ -40,6 +40,16 @@ final class Permissions {
   }
 
   /**
+   * gets all the actions.
+   *
+   * @return actions.
+   */
+  @NotNull
+  static Collection<Action> allActions() {
+    return Collections.unmodifiableCollection(Permissions.ACTIONS);
+  }
+
+  /**
    * gets the permission by id.
    *
    * @param id the id to get.
@@ -49,18 +59,6 @@ final class Permissions {
   @NotNull
   static Optional<Permission> get(@NotNull final String id) {
     return Optional.ofNullable(Permissions.PERMISSIONS.get(id));
-  }
-
-  /**
-   * gets action via result.
-   *
-   * @param result the result to get.
-   *
-   * @return action.
-   */
-  @NotNull
-  static Optional<Collection<Action>> get(@NotNull final ControlResult result) {
-    return Optional.ofNullable(Permissions.ACTIONS.get(result));
   }
 
   /**
@@ -117,12 +115,9 @@ final class Permissions {
   /**
    * registers the actions.
    *
-   * @param result the result to register.
    * @param action the action to register.
    */
-  static void register(@NotNull final ControlResult result, @NotNull final Action action) {
-    final var actions = Permissions.ACTIONS.getOrDefault(result, new HashSet<>());
-    actions.add(action);
-    Permissions.ACTIONS.put(result, actions);
+  static void register(@NotNull final Action action) {
+    Permissions.ACTIONS.add(action);
   }
 }

@@ -9,4 +9,10 @@ import tr.com.infumia.claimplugin.paper.api.event.LocationalEvent;
  */
 public interface Action extends Consumer<@NotNull LocationalEvent> {
 
+  /**
+   * registers the action.
+   */
+  default void register() {
+    Permission.register(this);
+  }
 }

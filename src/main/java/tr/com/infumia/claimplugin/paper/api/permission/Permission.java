@@ -24,6 +24,16 @@ public interface Permission {
   }
 
   /**
+   * gets action via result.
+   *
+   * @return action.
+   */
+  @NotNull
+  static Collection<Action> allActions() {
+    return Permissions.allActions();
+  }
+
+  /**
    * obtains the animal damage permission.
    *
    * @return animal damage permission.
@@ -180,18 +190,6 @@ public interface Permission {
   }
 
   /**
-   * gets action via result.
-   *
-   * @param result the result to get.
-   *
-   * @return action.
-   */
-  @NotNull
-  static Optional<Collection<Action>> get(@NotNull final ControlResult result) {
-    return Permissions.get(result);
-  }
-
-  /**
    * obtains global permissions.
    *
    * @return global permission.
@@ -332,11 +330,10 @@ public interface Permission {
   /**
    * registers the actions.
    *
-   * @param result the result to register.
    * @param action the action to register.
    */
-  static void register(@NotNull final ControlResult result, @NotNull final Action action) {
-    Permissions.register(result, action);
+  static void register(@NotNull final Action action) {
+    Permissions.register(action);
   }
 
   /**
