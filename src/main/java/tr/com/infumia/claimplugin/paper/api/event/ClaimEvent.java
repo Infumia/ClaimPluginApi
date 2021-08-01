@@ -7,7 +7,7 @@ import tr.com.infumia.claimplugin.paper.api.claim.ParentClaim;
 /**
  * an abstract class that helps to create custom events.
  */
-public abstract class ClaimEvent extends Event {
+abstract class ClaimEvent extends Event {
 
   /**
    * the claim.

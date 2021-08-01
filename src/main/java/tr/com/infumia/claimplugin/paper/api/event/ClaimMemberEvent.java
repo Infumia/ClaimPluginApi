@@ -9,7 +9,7 @@ import tr.com.infumia.claimplugin.paper.api.member.Member;
 /**
  * an abstract class that represents claim member events.
  */
-public abstract class ClaimMemberEvent extends ClaimEvent {
+abstract class ClaimMemberEvent extends ClaimEvent {
 
   /**
    * the member.

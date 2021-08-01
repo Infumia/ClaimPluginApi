@@ -1,6 +1,7 @@
 package tr.com.infumia.claimplugin.paper.api.claim;
 
 import java.util.Collection;
+import java.util.Map;
 import java.util.Optional;
 import java.util.UUID;
 import java.util.concurrent.CompletableFuture;
@@ -169,8 +170,7 @@ public interface ParentClaim extends Claim, Permissible {
   default boolean deleteWithEvent() {
     return ParentClaim.callEvent(new ClaimPreDeleteEvent(this), e -> {
       this.delete();
-      ParentClaim.callEvent(new ClaimPostDeleteEvent(this), x -> {
-      });
+      new ClaimPostDeleteEvent(this).callEvent();
     });
   }
 
@@ -179,7 +179,19 @@ public interface ParentClaim extends Claim, Permissible {
    *
    * @param player the player to send.
    */
-  void enterClaim(Player player);
+  default void enterClaim(@NotNull final Player player) {
+    final var claimMessage = this.getClaimMessage();
+    if (claimMessage.isEnterQuitMessageEnabled()) {
+      player.sendMessage(claimMessage.getEnterMessage().build(
+        Map.entry("%claim_name%", this::getName),
+        Map.entry("%claim_member_count%", () -> 1 + this.getMembers().size())));
+    }
+    if (claimMessage.isEnterQuitTitleEnabled()) {
+      claimMessage.getEnterTitle().send(player,
+        Map.entry("%claim_name%", this::getName),
+        Map.entry("%claim_member_count%", () -> 1 + this.getMembers().size()));
+    }
+  }
 
   /**
    * obtains the claim block location.
@@ -415,7 +427,19 @@ public interface ParentClaim extends Claim, Permissible {
    *
    * @param player the player to send.
    */
-  void quitClaim(Player player);
+  default void quitClaim(@NotNull final Player player) {
+    final var claimMessage = this.getClaimMessage();
+    if (this.getClaimMessage().isEnterQuitMessageEnabled()) {
+      player.sendMessage(claimMessage.getQuitMessage().build(
+        Map.entry("%claim_name%", this::getName),
+        Map.entry("%claim_member_count%", () -> 1 + this.getMembers().size())));
+    }
+    if (claimMessage.isEnterQuitTitleEnabled()) {
+      claimMessage.getQuitTitle().send(player,
+        Map.entry("%claim_name%", this::getName),
+        Map.entry("%claim_member_count%", () -> 1 + this.getMembers().size()));
+    }
+  }
 
   /**
    * removes the home.

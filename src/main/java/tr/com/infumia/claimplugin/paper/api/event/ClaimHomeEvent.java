@@ -9,7 +9,7 @@ import tr.com.infumia.claimplugin.paper.api.home.Home;
 /**
  * an abstract class that represents claim home events.
  */
-public abstract class ClaimHomeEvent extends ClaimEvent {
+abstract class ClaimHomeEvent extends ClaimEvent {
 
   /**
    * the home.
@@ -25,7 +25,7 @@ public abstract class ClaimHomeEvent extends ClaimEvent {
    * @param claim the claim.
    * @param home the home.
    */
-  protected ClaimHomeEvent(@NotNull final ParentClaim claim, @NotNull final Home home) {
+  ClaimHomeEvent(@NotNull final ParentClaim claim, @NotNull final Home home) {
     super(claim);
     this.home = home;
   }
