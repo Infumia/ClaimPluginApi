@@ -154,11 +154,6 @@ public final class ControlResult {
   public static final ControlResult SET_HOME_LIMIT = ControlResult.of("set-home-limit");
 
   /**
-   * returns when someone tries to set home and it's succeed
-   */
-  public static final ControlResult SET_HOME_SUCCEED = ControlResult.of("set-home-succeed", true);
-
-  /**
    * returns when someone interacts with shulkers.
    */
   public static final ControlResult SHULKER_ACCESS = ControlResult.of("shulker-access");
