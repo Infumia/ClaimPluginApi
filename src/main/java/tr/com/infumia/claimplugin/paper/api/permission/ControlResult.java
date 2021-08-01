@@ -37,6 +37,16 @@ public final class ControlResult {
   public static final ControlResult BARREL_ACCESS = ControlResult.failed("barrel-access");
 
   /**
+   * returns when someone interacts with the beacon.
+   */
+  public static final ControlResult BEACON_ACCESS = ControlResult.failed("beacon-access");
+
+  /**
+   * returns when someone interacts with the beacon's effect.
+   */
+  public static final ControlResult BEACON_EFFECT_ACCESS = ControlResult.failed("beacon-effect-access");
+
+  /**
    * returns when someone breaks a block.
    */
   public static final ControlResult BLOCK_BREAK = ControlResult.failed("block-break");
@@ -77,6 +87,11 @@ public final class ControlResult {
   public static final ControlResult EDIT_PERM = ControlResult.failed("edit-perm");
 
   /**
+   * returns when someone interacts with the enchanting table.
+   */
+  public static final ControlResult ENCHANTING_TABLE_ACCESS = ControlResult.failed("enchanting-table-access");
+
+  /**
    * returns when someone interacts with the furnace.
    */
   public static final ControlResult FURNACE_ACCESS = ControlResult.failed("furnace-access");
@@ -100,6 +115,11 @@ public final class ControlResult {
    * returns when someone invites to claim itself.
    */
   public static final ControlResult INVITE_YOURSELF = ControlResult.failed("invite-yourself");
+
+  /**
+   * returns when someone interacts with the item frame.
+   */
+  public static final ControlResult ITEM_FRAME_ACCESS = ControlResult.failed("item-frame-access");
 
   /**
    * returns when someone kicks the member from the claim.
