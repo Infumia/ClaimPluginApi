@@ -62,6 +62,11 @@ public final class ControlResult {
   public static final ControlResult CHEST_ACCESS = ControlResult.of("chest-access");
 
   /**
+   * returns when someone wants to delete the home.
+   */
+  public static final ControlResult DELETE_HOME = ControlResult.of("delete-home");
+
+  /**
    * returns when someone touches to the dragon egg.
    */
   public static final ControlResult DRAGON_EGG_TOUCH = ControlResult.of("dragon-egg-touch");
