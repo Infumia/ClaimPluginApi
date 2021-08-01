@@ -2,10 +2,10 @@ package tr.com.infumia.claimplugin.paper.api.event;
 
 import lombok.Getter;
 import lombok.Setter;
-import org.bukkit.entity.Player;
 import org.bukkit.event.Cancellable;
 import org.bukkit.event.HandlerList;
 import org.jetbrains.annotations.NotNull;
+import tr.com.infumia.claimplugin.paper.api.claim.Invite;
 import tr.com.infumia.claimplugin.paper.api.claim.ParentClaim;
 
 /**
@@ -20,20 +20,6 @@ public final class ClaimInviteMemberEvent extends ClaimEvent implements Cancella
   private static final HandlerList handlerList = new HandlerList();
 
   /**
-   * the invited.
-   */
-  @NotNull
-  @Getter
-  private final Player invited;
-
-  /**
-   * the inviter.
-   */
-  @NotNull
-  @Getter
-  private final Player inviter;
-
-  /**
    * the cancelled.
    */
   @Getter
@@ -41,27 +27,22 @@ public final class ClaimInviteMemberEvent extends ClaimEvent implements Cancella
   private boolean cancelled;
 
   /**
-   * the id.
+   * the invite.
    */
-  @NotNull
-  @Getter
   @Setter
-  private String id;
+  @Getter
+  @NotNull
+  private Invite invite;
 
   /**
    * ctor.
    *
    * @param claim the claim.
-   * @param inviter the inviter.
-   * @param invited the invited.
-   * @param id the id.
+   * @param invite the invite.
    */
-  public ClaimInviteMemberEvent(@NotNull final ParentClaim claim, @NotNull final Player inviter,
-                                @NotNull final Player invited, @NotNull final String id) {
+  public ClaimInviteMemberEvent(@NotNull final ParentClaim claim, @NotNull final Invite invite) {
     super(claim);
-    this.inviter = inviter;
-    this.invited = invited;
-    this.id = id;
+    this.invite = invite;
   }
 
   @NotNull

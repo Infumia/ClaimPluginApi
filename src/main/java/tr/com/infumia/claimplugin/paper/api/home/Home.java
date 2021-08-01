@@ -25,7 +25,7 @@ public interface Home {
   @NotNull
   static Home of(@NotNull final Location location) {
     final var id = UUID.randomUUID();
-    return Home.of(id, id.toString().substring(0, 7), location);
+    return Home.of(id, id.toString(), location);
   }
 
   /**
@@ -39,7 +39,7 @@ public interface Home {
    */
   @NotNull
   static Home of(@NotNull final UUID id, @NotNull final String name, @NotNull final Location location) {
-    return new Impl(id, location, name);
+    return new Impl(id, location, name.substring(0, 7));
   }
 
   /**

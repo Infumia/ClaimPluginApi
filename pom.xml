@@ -31,6 +31,12 @@
   <dependencies>
     <dependency>
       <groupId>com.github.Infumia.InfumiaLib</groupId>
+      <artifactId>InfumiaCommon</artifactId>
+      <version>${infumia.version}</version>
+      <scope>provided</scope>
+    </dependency>
+    <dependency>
+      <groupId>com.github.Infumia.InfumiaLib</groupId>
       <artifactId>InfumiaPaper</artifactId>
       <version>${infumia.version}</version>
       <scope>provided</scope>

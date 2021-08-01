@@ -10,8 +10,7 @@ import org.bukkit.OfflinePlayer;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
-import tr.com.infumia.claimplugin.paper.api.event.LocationalEvent;
-import tr.com.infumia.claimplugin.paper.api.permission.ControlResult;
+import tr.com.infumia.claimplugin.paper.api.permission.Control;
 import tr.com.infumia.infumialib.paper.location.Cuboid;
 
 /**
@@ -19,7 +18,7 @@ import tr.com.infumia.infumialib.paper.location.Cuboid;
  *
  * @todo #1:15m Add throws tag for each method if needed.
  */
-public interface Claim {
+public interface Claim extends Control {
 
   /**
    * adds the id to invitation.
@@ -28,8 +27,7 @@ public interface Claim {
    * @param player the player to add.
    * @param claim the claim to add.
    */
-  static void addInvitation(@NotNull final String id, @NotNull final UUID player,
-                            @NotNull final ParentClaim claim) {
+  static void addInvitation(@NotNull final String id, @NotNull final UUID player, @NotNull final ParentClaim claim) {
     Claims.addInvitation(id, player, claim);
   }
 
@@ -240,16 +238,6 @@ public interface Claim {
   static CompletableFuture<Void> saveAll() {
     return Claims.saveAll();
   }
-
-  /**
-   * controls all the permissions.
-   *
-   * @param event the event to control.
-   *
-   * @return {@code true} if the event passes the control.
-   */
-  @NotNull
-  ControlResult control(@NotNull LocationalEvent event);
 
   /**
    * obtains the creation time of the claim.
