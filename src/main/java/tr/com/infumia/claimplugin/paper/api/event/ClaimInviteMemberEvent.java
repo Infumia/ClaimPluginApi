@@ -16,6 +16,7 @@ public final class ClaimInviteMemberEvent extends ClaimEvent implements Cancella
   /**
    * the handler list.
    */
+  @Getter
   private static final HandlerList handlerList = new HandlerList();
 
   /**
@@ -63,19 +64,9 @@ public final class ClaimInviteMemberEvent extends ClaimEvent implements Cancella
     this.id = id;
   }
 
-  /**
-   * the handler list.
-   *
-   * @return handler list.
-   */
-  @NotNull
-  public static HandlerList getHandlerList() {
-    return ClaimInviteMemberEvent.handlerList;
-  }
-
   @NotNull
   @Override
-  public final HandlerList getHandlers() {
+  public HandlerList getHandlers() {
     return ClaimInviteMemberEvent.handlerList;
   }
 }

@@ -16,6 +16,7 @@ public final class ClaimOpenStorageEvent extends ClaimEvent implements Cancellab
   /**
    * the handler list.
    */
+  @Getter
   private static final HandlerList handlerList = new HandlerList();
 
   /**
@@ -43,19 +44,9 @@ public final class ClaimOpenStorageEvent extends ClaimEvent implements Cancellab
     this.player = player;
   }
 
-  /**
-   * the handler list.
-   *
-   * @return handler list.
-   */
-  @NotNull
-  public static HandlerList getHandlerList() {
-    return ClaimOpenStorageEvent.handlerList;
-  }
-
   @NotNull
   @Override
-  public final HandlerList getHandlers() {
+  public HandlerList getHandlers() {
     return ClaimOpenStorageEvent.handlerList;
   }
 }

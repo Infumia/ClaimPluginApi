@@ -180,6 +180,18 @@ public interface Permission {
   }
 
   /**
+   * gets action via result.
+   *
+   * @param result the result to get.
+   *
+   * @return action.
+   */
+  @NotNull
+  static Optional<Collection<Action>> get(@NotNull final ControlResult result) {
+    return Permissions.get(result);
+  }
+
+  /**
    * obtains global permissions.
    *
    * @return global permission.
@@ -315,6 +327,16 @@ public interface Permission {
    */
   static void register(@NotNull final Permission permission) {
     Permissions.register(permission);
+  }
+
+  /**
+   * registers the actions.
+   *
+   * @param result the result to register.
+   * @param action the action to register.
+   */
+  static void register(@NotNull final ControlResult result, @NotNull final Action action) {
+    Permissions.register(result, action);
   }
 
   /**

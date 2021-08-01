@@ -1,4 +1,4 @@
-package tr.com.infumia.claimplugin.paper.api.messages;
+package tr.com.infumia.claimplugin.paper.api.message;
 
 import java.util.Objects;
 import org.jetbrains.annotations.NotNull;

@@ -1,4 +1,4 @@
-package tr.com.infumia.claimplugin.paper.api.messages;
+package tr.com.infumia.claimplugin.paper.api.message;
 
 import org.jetbrains.annotations.NotNull;
 import tr.com.infumia.infumialib.paper.transformer.serializers.SentTitle;

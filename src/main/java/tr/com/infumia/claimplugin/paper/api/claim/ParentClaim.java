@@ -12,7 +12,7 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import tr.com.infumia.claimplugin.paper.api.home.Home;
 import tr.com.infumia.claimplugin.paper.api.member.Member;
-import tr.com.infumia.claimplugin.paper.api.messages.ClaimMessage;
+import tr.com.infumia.claimplugin.paper.api.message.ClaimMessage;
 import tr.com.infumia.claimplugin.paper.api.permission.Permissible;
 import tr.com.infumia.claimplugin.paper.api.storage.Storage;
 import tr.com.infumia.infumialib.time.Times;

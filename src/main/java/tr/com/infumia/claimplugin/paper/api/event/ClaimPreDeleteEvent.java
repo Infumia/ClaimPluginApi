@@ -15,6 +15,7 @@ public final class ClaimPreDeleteEvent extends ClaimEvent implements Cancellable
   /**
    * the handler list.
    */
+  @Getter
   private static final HandlerList handlerList = new HandlerList();
 
   /**
@@ -33,19 +34,9 @@ public final class ClaimPreDeleteEvent extends ClaimEvent implements Cancellable
     super(claim);
   }
 
-  /**
-   * the handler list.
-   *
-   * @return handler list.
-   */
-  @NotNull
-  public static HandlerList getHandlerList() {
-    return ClaimPreDeleteEvent.handlerList;
-  }
-
   @NotNull
   @Override
-  public final HandlerList getHandlers() {
+  public HandlerList getHandlers() {
     return ClaimPreDeleteEvent.handlerList;
   }
 }

@@ -16,6 +16,7 @@ public final class ClaimPanelOpenEvent extends ClaimEvent implements Cancellable
   /**
    * the handler list.
    */
+  @Getter
   private static final HandlerList handlerList = new HandlerList();
 
   /**
@@ -43,19 +44,9 @@ public final class ClaimPanelOpenEvent extends ClaimEvent implements Cancellable
     this.player = player;
   }
 
-  /**
-   * the handler list.
-   *
-   * @return handler list.
-   */
-  @NotNull
-  public static HandlerList getHandlerList() {
-    return ClaimPanelOpenEvent.handlerList;
-  }
-
   @NotNull
   @Override
-  public final HandlerList getHandlers() {
+  public HandlerList getHandlers() {
     return ClaimPanelOpenEvent.handlerList;
   }
 }

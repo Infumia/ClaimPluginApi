@@ -1,5 +1,6 @@
 package tr.com.infumia.claimplugin.paper.api.event;
 
+import lombok.Getter;
 import org.bukkit.event.HandlerList;
 import org.jetbrains.annotations.NotNull;
 import tr.com.infumia.claimplugin.paper.api.claim.ParentClaim;
@@ -12,6 +13,7 @@ public final class ClaimPostDeleteEvent extends ClaimEvent {
   /**
    * the handler list.
    */
+  @Getter
   private static final HandlerList handlerList = new HandlerList();
 
   /**
@@ -23,19 +25,9 @@ public final class ClaimPostDeleteEvent extends ClaimEvent {
     super(claim);
   }
 
-  /**
-   * the handler list.
-   *
-   * @return handler list.
-   */
-  @NotNull
-  public static HandlerList getHandlerList() {
-    return ClaimPostDeleteEvent.handlerList;
-  }
-
   @NotNull
   @Override
-  public final HandlerList getHandlers() {
+  public HandlerList getHandlers() {
     return ClaimPostDeleteEvent.handlerList;
   }
 }
