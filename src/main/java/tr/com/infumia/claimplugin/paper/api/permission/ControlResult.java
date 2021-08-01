@@ -57,11 +57,6 @@ public final class ControlResult {
   public static final ControlResult BLOCK_PLACE = ControlResult.failed("block-place");
 
   /**
-   * returns when someone or something access to a block where is in a claim..
-   */
-  public static final ControlResult BLOCK_PROTECTION = ControlResult.failed("block-protection");
-
-  /**
    * returns when someone interacts with the brewing.
    */
   public static final ControlResult BREWING_ACCESS = ControlResult.failed("brewing-access");
@@ -157,6 +152,11 @@ public final class ControlResult {
    * usually uses when a global permission needs more detail to calculate it with member permissions.
    */
   public static final ControlResult PASS = ControlResult.succeed("pass");
+
+  /**
+   * returns when someone or something interacts with a thing which is in a claim.
+   */
+  public static final ControlResult PROTECTION = ControlResult.failed("protection");
 
   /**
    * returns when any events happen in a protection claim.
