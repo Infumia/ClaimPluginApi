@@ -77,8 +77,7 @@ public interface Storage {
     final var items = new ItemStack[itemsPerPage];
     final var lastIndex = (page + 1) * itemsPerPage;
     final var firstIndex = lastIndex - itemsPerPage;
-    final var bound = lastIndex;
-    for (var value = firstIndex; value < bound; value++) {
+    for (var value = firstIndex; value < lastIndex; value++) {
       if (value < this.getSlotSize()) {
         items[value % itemsPerPage] = this.getItem(value).orElse(new ItemStack(Material.AIR));
       }

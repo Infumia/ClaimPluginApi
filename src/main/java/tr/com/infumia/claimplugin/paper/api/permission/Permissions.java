@@ -6,28 +6,24 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Optional;
 import java.util.concurrent.ConcurrentHashMap;
+import lombok.experimental.UtilityClass;
 import org.jetbrains.annotations.NotNull;
 
 /**
  * a class that contains default permissions for Claim plugin.
  */
-final class Permissions {
+@UtilityClass
+class Permissions {
 
   /**
    * the actions.
    */
-  private static final Collection<Action> ACTIONS = new HashSet<>();
+  private final Collection<Action> ACTIONS = new HashSet<>();
 
   /**
    * the permissions.
    */
-  private static final Map<String, Permission> PERMISSIONS = new ConcurrentHashMap<>();
-
-  /**
-   * ctor.
-   */
-  private Permissions() {
-  }
+  private final Map<String, Permission> PERMISSIONS = new ConcurrentHashMap<>();
 
   /**
    * obtains all registered permissions.
@@ -35,7 +31,7 @@ final class Permissions {
    * @return all registered permissions
    */
   @NotNull
-  static Collection<Permission> all() {
+  Collection<Permission> all() {
     return Permissions.PERMISSIONS.values();
   }
 
@@ -45,7 +41,7 @@ final class Permissions {
    * @return actions.
    */
   @NotNull
-  static Collection<Action> allActions() {
+  Collection<Action> allActions() {
     return Collections.unmodifiableCollection(Permissions.ACTIONS);
   }
 
@@ -57,7 +53,7 @@ final class Permissions {
    * @return permission.
    */
   @NotNull
-  static Optional<Permission> get(@NotNull final String id) {
+  Optional<Permission> get(@NotNull final String id) {
     return Optional.ofNullable(Permissions.PERMISSIONS.get(id));
   }
 
@@ -67,7 +63,7 @@ final class Permissions {
    * @return global permission.
    */
   @NotNull
-  static Collection<Permission> getGlobalPermissions() {
+  Collection<Permission> getGlobalPermissions() {
     final var set = new HashSet<Permission>();
     for (final var permission : Permissions.PERMISSIONS.values()) {
       if (permission.isGlobal()) {
@@ -83,7 +79,7 @@ final class Permissions {
    * @return non-global permission.
    */
   @NotNull
-  static Collection<Permission> getNonGlobalPermissions() {
+  Collection<Permission> getNonGlobalPermissions() {
     final var set = new HashSet<Permission>();
     for (final var permission : Permissions.PERMISSIONS.values()) {
       if (!permission.isGlobal()) {
@@ -99,7 +95,7 @@ final class Permissions {
    * @return permission.
    */
   @NotNull
-  static Collection<Permission> getPermissions() {
+  Collection<Permission> getPermissions() {
     return Collections.unmodifiableCollection(Permissions.PERMISSIONS.values());
   }
 
@@ -108,7 +104,7 @@ final class Permissions {
    *
    * @param permission the permission to register.
    */
-  static void register(@NotNull final Permission permission) {
+  void register(@NotNull final Permission permission) {
     Permissions.PERMISSIONS.put(permission.getId(), permission);
   }
 
@@ -117,7 +113,7 @@ final class Permissions {
    *
    * @param action the action to register.
    */
-  static void register(@NotNull final Action action) {
+  void register(@NotNull final Action action) {
     Permissions.ACTIONS.add(action);
   }
 }
