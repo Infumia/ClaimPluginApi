@@ -39,6 +39,7 @@ public final class ClaimRemoveMemberEvent extends ClaimMemberEvent implements Ca
    *
    * @param claim the claim.
    * @param member the member.
+   * @param kicker the kicker.
    */
   public ClaimRemoveMemberEvent(@NotNull final ParentClaim claim, @NotNull final Member member,
                                 @NotNull final Player kicker) {

@@ -127,6 +127,8 @@ public interface ParentClaim extends Claim, Permissible {
    * adds the member to the claim.
    *
    * @param member the member to add.
+   *
+   * @return {@code this} if the adding member succeed.
    */
   default boolean addMemberWithEvent(@NotNull final UUID member) {
     return this.addMemberWithEvent(Member.member(member));
@@ -514,6 +516,8 @@ public interface ParentClaim extends Claim, Permissible {
    *
    * @param owner the owner to set.
    * @param changer the changer to set.
+   *
+   * @return {@code true} if the changing owner succeed.
    */
   default boolean setOwnerWithEvent(@NotNull final Member owner, @NotNull final Player changer) {
     if (this.removeMemberWithEvent(owner, changer)) {
