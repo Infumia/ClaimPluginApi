@@ -10,9 +10,9 @@ import tr.com.infumia.claimplugin.paper.api.claim.ParentClaim;
 import tr.com.infumia.claimplugin.paper.api.home.Home;
 
 /**
- * a class that represents claim home events that fire when someone use home for teleporting to claims.
+ * a class that represents claim pre teleport home events that fire when someone wants to teleport to a home.
  */
-public final class ClaimTeleportHomeEvent extends ClaimHomeEvent implements Cancellable {
+public final class ClaimPreTeleportHomeEvent extends ClaimHomeEvent implements Cancellable {
 
   /**
    * the handler list.
@@ -41,8 +41,8 @@ public final class ClaimTeleportHomeEvent extends ClaimHomeEvent implements Canc
    * @param home the home.
    * @param player the player.
    */
-  public ClaimTeleportHomeEvent(@NotNull final ParentClaim claim, @NotNull final Home home,
-                                @NotNull final Player player) {
+  public ClaimPreTeleportHomeEvent(@NotNull final ParentClaim claim, @NotNull final Home home,
+                                   @NotNull final Player player) {
     super(claim, home);
     this.player = player;
   }
@@ -50,6 +50,6 @@ public final class ClaimTeleportHomeEvent extends ClaimHomeEvent implements Canc
   @NotNull
   @Override
   public HandlerList getHandlers() {
-    return ClaimTeleportHomeEvent.handlerList;
+    return ClaimPreTeleportHomeEvent.handlerList;
   }
 }

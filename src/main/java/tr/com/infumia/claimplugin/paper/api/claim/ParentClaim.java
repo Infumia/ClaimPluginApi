@@ -21,7 +21,6 @@ import tr.com.infumia.claimplugin.paper.api.event.ClaimPostDeleteEvent;
 import tr.com.infumia.claimplugin.paper.api.event.ClaimPreDeleteEvent;
 import tr.com.infumia.claimplugin.paper.api.event.ClaimRemoveMemberEvent;
 import tr.com.infumia.claimplugin.paper.api.event.ClaimSetHomeEvent;
-import tr.com.infumia.claimplugin.paper.api.event.ClaimTeleportHomeEvent;
 import tr.com.infumia.claimplugin.paper.api.home.Home;
 import tr.com.infumia.claimplugin.paper.api.member.Member;
 import tr.com.infumia.claimplugin.paper.api.message.ClaimMessage;
@@ -43,7 +42,7 @@ public interface ParentClaim extends Claim, Permissible {
    *
    * @return {@code true} if the event called successfully.
    */
-  private static <E extends Event> boolean callEvent(@NotNull final E event, @NotNull final Consumer<E> consumer) {
+  static <E extends Event> boolean callEvent(@NotNull final E event, @NotNull final Consumer<E> consumer) {
     if (event.callEvent()) {
       consumer.accept(event);
       return true;
@@ -547,8 +546,5 @@ public interface ParentClaim extends Claim, Permissible {
    *
    * @return {@code true} if the teleportation succeed.
    */
-  default boolean teleportHomeWithEvent(@NotNull final Home home, @NotNull final Player player) {
-    return ParentClaim.callEvent(new ClaimTeleportHomeEvent(this, home, player), event ->
-      this.teleportHome(event.getHome(), event.getPlayer()));
-  }
+  boolean teleportHomeWithEvent(@NotNull final Home home, @NotNull final Player player);
 }
