@@ -16,6 +16,7 @@ import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ConcurrentHashMap;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.experimental.UtilityClass;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.jetbrains.annotations.NotNull;
@@ -24,28 +25,29 @@ import org.jetbrains.annotations.Nullable;
 /**
  * a class that contains utility methods for {@link Claim}.
  */
-public final class Claims {
+@UtilityClass
+public class Claims {
 
   /**
    * the claims by unique id.
    */
-  private static final Map<UUID, ParentClaim> CLAIMS = new ConcurrentHashMap<>();
+  private final Map<UUID, ParentClaim> CLAIMS = new ConcurrentHashMap<>();
 
   /**
    * the claims.
    */
-  private static final Set<ParentClaim> CLAIMS_SET = ConcurrentHashMap.newKeySet();
+  private final Set<ParentClaim> CLAIMS_SET = ConcurrentHashMap.newKeySet();
 
   /**
    * the claim cache by location.
    */
-  private static final Object2ObjectMap<Location, ParentClaim> CLAIM_CACHE_BY_LOCATION = Object2ObjectMaps.synchronize(
+  private final Object2ObjectMap<Location, ParentClaim> CLAIM_CACHE_BY_LOCATION = Object2ObjectMaps.synchronize(
     new Object2ObjectOpenHashMap<>());
 
   /**
    * the claim cache by owner.
    */
-  private static final Object2ObjectMap<UUID, Collection<ParentClaim>> CLAIM_CACHE_BY_OWNER =
+  private final Object2ObjectMap<UUID, Collection<ParentClaim>> CLAIM_CACHE_BY_OWNER =
     Object2ObjectMaps.synchronize(new Object2ObjectOpenHashMap<>());
 
   /**
@@ -53,26 +55,20 @@ public final class Claims {
    * <p>
    * id-player unique id,claim unique id.
    */
-  private static final Map<String, Map.Entry<UUID, ParentClaim>> INVITATIONS = new ConcurrentHashMap<>();
+  private final Map<String, Map.Entry<UUID, ParentClaim>> INVITATIONS = new ConcurrentHashMap<>();
 
   /**
    * the cache level.
    */
   @Setter
   @Getter
-  private static int cacheLevel;
+  private int cacheLevel;
 
   /**
    * the claim serializer.
    */
   @Nullable
-  private static ClaimSerializer claimSerializer;
-
-  /**
-   * ctor.
-   */
-  private Claims() {
-  }
+  private ClaimSerializer claimSerializer;
 
   /**
    * adds the id to invitation.
@@ -81,7 +77,7 @@ public final class Claims {
    * @param player the player to add.
    * @param claim the claim to add.
    */
-  static void addInvitation(@NotNull final String id, @NotNull final UUID player, @NotNull final ParentClaim claim) {
+  void addInvitation(@NotNull final String id, @NotNull final UUID player, @NotNull final ParentClaim claim) {
     Claims.INVITATIONS.put(id, Map.entry(player, claim));
   }
 
@@ -91,7 +87,7 @@ public final class Claims {
    * @return all claims.
    */
   @NotNull
-  static Collection<ParentClaim> all() {
+  Collection<ParentClaim> all() {
     return Collections.unmodifiableSet(Claims.CLAIMS_SET);
   }
 
@@ -103,7 +99,7 @@ public final class Claims {
    * @return completable future.
    */
   @NotNull
-  static CompletableFuture<Void> delete(@NotNull final ParentClaim claim) {
+  CompletableFuture<Void> delete(@NotNull final ParentClaim claim) {
     Claims.CLAIMS_SET.remove(claim);
     Claims.CLAIMS.remove(claim.getUniqueId());
     Claims.removeCache(claim);
@@ -119,7 +115,7 @@ public final class Claims {
    * @return claim at location.
    */
   @NotNull
-  static Optional<ParentClaim> get(@NotNull final UUID uniqueId) {
+  Optional<ParentClaim> get(@NotNull final UUID uniqueId) {
     return Optional.ofNullable(Claims.CLAIMS.get(uniqueId));
   }
 
@@ -131,7 +127,7 @@ public final class Claims {
    * @return claim at location.
    */
   @NotNull
-  static Optional<ParentClaim> get(@NotNull final Location location) {
+  Optional<ParentClaim> get(@NotNull final Location location) {
     if (Claims.cacheLevel >= 1) {
       final var cache = Claims.CLAIM_CACHE_BY_LOCATION.get(location);
       if (cache != null) {
@@ -156,7 +152,7 @@ public final class Claims {
    * @return claims of the player.
    */
   @NotNull
-  static Optional<ParentClaim> getByOwner(@NotNull final UUID uniqueId, @NotNull final Location location) {
+  Optional<ParentClaim> getByOwner(@NotNull final UUID uniqueId, @NotNull final Location location) {
     if (Claims.cacheLevel >= 1) {
       final var cache = Claims.CLAIM_CACHE_BY_LOCATION.get(location);
       if (cache != null && cache.getOwnerAsUniqueId().equals(uniqueId)) {
@@ -181,7 +177,7 @@ public final class Claims {
    * @return claims of the player.
    */
   @NotNull
-  static Collection<ParentClaim> getByOwner(@NotNull final UUID uniqueId) {
+  Collection<ParentClaim> getByOwner(@NotNull final UUID uniqueId) {
     if (Claims.cacheLevel >= 1) {
       final var cache = Claims.CLAIM_CACHE_BY_OWNER.get(uniqueId);
       if (cache != null) {
@@ -207,7 +203,7 @@ public final class Claims {
    * @return invited player's unique id.
    */
   @NotNull
-  static Optional<Map.Entry<UUID, ParentClaim>> getInvitation(@NotNull final String id) {
+  Optional<Map.Entry<UUID, ParentClaim>> getInvitation(@NotNull final String id) {
     return Optional.ofNullable(Claims.INVITATIONS.get(id));
   }
 
@@ -219,7 +215,7 @@ public final class Claims {
    * @return claim at location.
    */
   @NotNull
-  static Optional<Claim> getOrSub(@NotNull final Location location) {
+  Optional<Claim> getOrSub(@NotNull final Location location) {
     if (Claims.cacheLevel >= 1) {
       final var cache = Claims.CLAIM_CACHE_BY_LOCATION.get(location);
       if (cache != null) {
@@ -253,7 +249,7 @@ public final class Claims {
    *
    * @return {@code true} if there is a chunk at the location.
    */
-  static boolean hasClaim(@NotNull final Location location) {
+  boolean hasClaim(@NotNull final Location location) {
     if (Claims.cacheLevel >= 1) {
       if (Claims.CLAIM_CACHE_BY_LOCATION.containsKey(location)) {
         return true;
@@ -276,7 +272,7 @@ public final class Claims {
    * @return completable future for claim.
    */
   @NotNull
-  static CompletableFuture<@Nullable ParentClaim> load(@NotNull final UUID uniqueId) {
+  CompletableFuture<@Nullable ParentClaim> load(@NotNull final UUID uniqueId) {
     if (Claims.CLAIMS.containsKey(uniqueId)) {
       return CompletableFuture.completedFuture(Claims.CLAIMS.get(uniqueId));
     }
@@ -298,7 +294,7 @@ public final class Claims {
    * @return all loaded claims.
    */
   @NotNull
-  static CompletableFuture<Collection<ParentClaim>> loadAll() {
+  CompletableFuture<Collection<ParentClaim>> loadAll() {
     return Claims.provideAllClaims().whenComplete((claims, throwable) -> {
       if (throwable != null) {
         throwable.printStackTrace();
@@ -318,7 +314,7 @@ public final class Claims {
    *
    * @param id the id to remove.
    */
-  static void removeInvitation(@NotNull final String id) {
+  void removeInvitation(@NotNull final String id) {
     Claims.INVITATIONS.remove(id);
   }
 
@@ -328,7 +324,7 @@ public final class Claims {
    * @param claim the claim to save.
    */
   @NotNull
-  static CompletableFuture<Void> save(@NotNull final ParentClaim claim) {
+  CompletableFuture<Void> save(@NotNull final ParentClaim claim) {
     final var uniqueId = claim.getUniqueId();
     if (!Claims.CLAIMS.containsKey(uniqueId)) {
       Claims.CLAIMS.put(uniqueId, claim);
@@ -344,7 +340,7 @@ public final class Claims {
    * @return completable future.
    */
   @NotNull
-  static CompletableFuture<Void> saveAll() {
+  CompletableFuture<Void> saveAll() {
     return Claims.supplyAllClaims(Claims.CLAIMS_SET);
   }
 
@@ -356,7 +352,7 @@ public final class Claims {
    * @param location the location to add.
    * @param claim the claim to add.
    */
-  private static void addCache(@NotNull final Location location, @NotNull final ParentClaim claim) {
+  private void addCache(@NotNull final Location location, @NotNull final ParentClaim claim) {
     if (Claims.cacheLevel < 1) {
       return;
     }
@@ -381,7 +377,7 @@ public final class Claims {
    * @return completable future for delete.
    */
   @NotNull
-  private static CompletableFuture<Void> deleteClaim(@NotNull final ParentClaim claim) {
+  private CompletableFuture<Void> deleteClaim(@NotNull final ParentClaim claim) {
     return CompletableFuture.runAsync(() -> Claims.getClaimSerializer().delete(claim));
   }
 
@@ -393,7 +389,7 @@ public final class Claims {
    * @throws NullPointerException if {@link #claimSerializer} is {@code null}.
    */
   @NotNull
-  private static ClaimSerializer getClaimSerializer() {
+  private ClaimSerializer getClaimSerializer() {
     return Objects.requireNonNull(Claims.claimSerializer, "claim serializer");
   }
 
@@ -402,7 +398,7 @@ public final class Claims {
    *
    * @param claimSerializer the claim serializer to set.
    */
-  public static void setClaimSerializer(@NotNull final ClaimSerializer claimSerializer) {
+  public void setClaimSerializer(@NotNull final ClaimSerializer claimSerializer) {
     if (Claims.claimSerializer == null) {
       Claims.claimSerializer = claimSerializer;
     }
@@ -414,7 +410,7 @@ public final class Claims {
    * @return all claims.
    */
   @NotNull
-  private static CompletableFuture<Collection<ParentClaim>> provideAllClaims() {
+  private CompletableFuture<Collection<ParentClaim>> provideAllClaims() {
     return CompletableFuture.supplyAsync(() -> Claims.getClaimSerializer().loadAll());
   }
 
@@ -426,7 +422,7 @@ public final class Claims {
    * @return claim.
    */
   @NotNull
-  private static CompletableFuture<@Nullable ParentClaim> provideClaim(@NotNull final UUID uniqueId) {
+  private CompletableFuture<@Nullable ParentClaim> provideClaim(@NotNull final UUID uniqueId) {
     return CompletableFuture.supplyAsync(() -> Claims.getClaimSerializer().load(uniqueId));
   }
 
@@ -435,7 +431,7 @@ public final class Claims {
    *
    * @param claim the claim to remove.
    */
-  private static void removeCache(@NotNull final ParentClaim claim) {
+  private void removeCache(@NotNull final ParentClaim claim) {
     Claims.CLAIM_CACHE_BY_LOCATION.entrySet().removeIf(entry -> claim.equals(entry.getValue()));
     Claims.CLAIM_CACHE_BY_OWNER.entrySet().removeIf(entry -> claim.getOwnerAsUniqueId().equals(entry.getKey()));
   }
@@ -448,7 +444,7 @@ public final class Claims {
    * @return completable future.
    */
   @NotNull
-  private static CompletableFuture<Void> supplyAllClaims(@NotNull final Collection<ParentClaim> claims) {
+  private CompletableFuture<Void> supplyAllClaims(@NotNull final Collection<ParentClaim> claims) {
     return CompletableFuture.runAsync(() -> Claims.getClaimSerializer().saveAll(claims));
   }
 
@@ -460,7 +456,7 @@ public final class Claims {
    * @return completable future.
    */
   @NotNull
-  private static CompletableFuture<Void> supplyClaim(@NotNull final ParentClaim claim) {
+  private CompletableFuture<Void> supplyClaim(@NotNull final ParentClaim claim) {
     return CompletableFuture.runAsync(() -> Claims.getClaimSerializer().save(claim));
   }
 }

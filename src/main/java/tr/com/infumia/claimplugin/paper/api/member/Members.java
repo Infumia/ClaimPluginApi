@@ -2,25 +2,21 @@ package tr.com.infumia.claimplugin.paper.api.member;
 
 import java.util.Objects;
 import java.util.UUID;
+import lombok.experimental.UtilityClass;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 /**
  * a class that contains utility methods for members.
  */
-public final class Members {
+@UtilityClass
+public class Members {
 
   /**
    * the member creator.
    */
   @Nullable
-  private static MemberCreator memberCreator;
-
-  /**
-   * ctor.
-   */
-  private Members() {
-  }
+  private MemberCreator memberCreator;
 
   /**
    * creates the member via unique id.
@@ -30,7 +26,7 @@ public final class Members {
    * @return a newly created member instance.
    */
   @NotNull
-  static Member createMember(@NotNull final UUID uniqueId) {
+  Member createMember(@NotNull final UUID uniqueId) {
     return Members.getMemberCreator().createMember(uniqueId);
   }
 
@@ -42,7 +38,7 @@ public final class Members {
    * @return a newly created member instance.
    */
   @NotNull
-  static Member createOwner(@NotNull final UUID uniqueId) {
+  Member createOwner(@NotNull final UUID uniqueId) {
     return Members.getMemberCreator().createOwner(uniqueId);
   }
 
@@ -52,7 +48,7 @@ public final class Members {
    * @return member creator.
    */
   @NotNull
-  private static MemberCreator getMemberCreator() {
+  private MemberCreator getMemberCreator() {
     return Objects.requireNonNull(Members.memberCreator, "member provider");
   }
 
@@ -61,7 +57,7 @@ public final class Members {
    *
    * @param memberCreator the member creator to set.
    */
-  public static void setMemberCreator(@NotNull final MemberCreator memberCreator) {
+  public void setMemberCreator(@NotNull final MemberCreator memberCreator) {
     if (Members.memberCreator == null) {
       Members.memberCreator = memberCreator;
     }

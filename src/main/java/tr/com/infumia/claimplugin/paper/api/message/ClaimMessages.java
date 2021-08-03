@@ -1,6 +1,7 @@
 package tr.com.infumia.claimplugin.paper.api.message;
 
 import java.util.Objects;
+import lombok.experimental.UtilityClass;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import tr.com.infumia.infumialib.paper.transformer.serializers.SentTitle;
@@ -9,13 +10,14 @@ import tr.com.infumia.infumialib.replaceable.RpString;
 /**
  * a class that contains utility methods for {@link ClaimMessage}.
  */
-public final class ClaimMessages {
+@UtilityClass
+public class ClaimMessages {
 
   /**
    * claim message creator.
    */
   @Nullable
-  private static ClaimMessageCreator claimMessageCreator;
+  private ClaimMessageCreator claimMessageCreator;
 
   /**
    * creates an empty claim message instance.
@@ -23,7 +25,7 @@ public final class ClaimMessages {
    * @return a newly created claim message instance.
    */
   @NotNull
-  static ClaimMessage empty() {
+  ClaimMessage empty() {
     return ClaimMessages.getClaimMessageCreator().empty();
   }
 
@@ -40,9 +42,9 @@ public final class ClaimMessages {
    * @return a newly created claim message instance.
    */
   @NotNull
-  static ClaimMessage of(@NotNull final RpString enterMessage, final boolean enterQuitMessageEnabled,
-                         final boolean enterQuitTitleEnabled, @NotNull final SentTitle enterTitle,
-                         @NotNull final RpString quitMessage, @NotNull final SentTitle quitTitle) {
+  ClaimMessage of(@NotNull final RpString enterMessage, final boolean enterQuitMessageEnabled,
+                  final boolean enterQuitTitleEnabled, @NotNull final SentTitle enterTitle,
+                  @NotNull final RpString quitMessage, @NotNull final SentTitle quitTitle) {
     return ClaimMessages.getClaimMessageCreator().of(enterMessage, enterQuitMessageEnabled, enterQuitTitleEnabled,
       enterTitle, quitMessage, quitTitle);
   }
@@ -55,7 +57,7 @@ public final class ClaimMessages {
    * @throws NullPointerException if {@link #claimMessageCreator} is {@code null}.
    */
   @NotNull
-  private static ClaimMessageCreator getClaimMessageCreator() {
+  private ClaimMessageCreator getClaimMessageCreator() {
     return Objects.requireNonNull(ClaimMessages.claimMessageCreator, "claim message creator");
   }
 
@@ -64,7 +66,7 @@ public final class ClaimMessages {
    *
    * @param claimMessageCreator the claim message creator to set.
    */
-  public static void setClaimMessageCreator(@NotNull final ClaimMessageCreator claimMessageCreator) {
+  public void setClaimMessageCreator(@NotNull final ClaimMessageCreator claimMessageCreator) {
     if (ClaimMessages.claimMessageCreator == null) {
       ClaimMessages.claimMessageCreator = claimMessageCreator;
     }

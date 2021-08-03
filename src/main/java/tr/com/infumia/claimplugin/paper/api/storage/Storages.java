@@ -2,6 +2,7 @@ package tr.com.infumia.claimplugin.paper.api.storage;
 
 import java.util.Map;
 import java.util.Objects;
+import lombok.experimental.UtilityClass;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.jetbrains.annotations.NotNull;
@@ -10,19 +11,14 @@ import org.jetbrains.annotations.Nullable;
 /**
  * a class that contains utility methods for {@link Storage}.
  */
-public final class Storages {
+@UtilityClass
+public class Storages {
 
   /**
    * the storage creator.
    */
   @Nullable
-  private static StorageCreator storageCreator;
-
-  /**
-   * ctor.
-   */
-  private Storages() {
-  }
+  private StorageCreator storageCreator;
 
   /**
    * creates an empty storage instance.
@@ -32,7 +28,7 @@ public final class Storages {
    * @return storage instance.
    */
   @NotNull
-  static Storage empty(@Nullable final Player player) {
+  Storage empty(@Nullable final Player player) {
     return Storages.getStorageCreator().empty(player);
   }
 
@@ -45,7 +41,7 @@ public final class Storages {
    * @return storage instance.
    */
   @NotNull
-  static Storage of(final int slotSize, @NotNull final Map<Integer, ItemStack> items) {
+  Storage of(final int slotSize, @NotNull final Map<Integer, ItemStack> items) {
     return Storages.getStorageCreator().of(slotSize, items);
   }
 
@@ -57,7 +53,7 @@ public final class Storages {
    * @throws NullPointerException if {@link #storageCreator} is {@code null}.
    */
   @NotNull
-  private static StorageCreator getStorageCreator() {
+  private StorageCreator getStorageCreator() {
     return Objects.requireNonNull(Storages.storageCreator, "storage creator");
   }
 
@@ -66,7 +62,7 @@ public final class Storages {
    *
    * @param storageCreator the storage creator to set.
    */
-  public static void setStorageCreator(@NotNull final StorageCreator storageCreator) {
+  public void setStorageCreator(@NotNull final StorageCreator storageCreator) {
     if (Storages.storageCreator == null) {
       Storages.storageCreator = storageCreator;
     }
