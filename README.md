@@ -7,7 +7,7 @@
 
 ## Build your self
 
-`mvn clean install`
+`./gradlew publishToMavenLocal`
 
 ## How to Use
 
