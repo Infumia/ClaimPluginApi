@@ -61,6 +61,8 @@ public interface ParentClaim extends Claim, Permissible {
    * adds the home.
    *
    * @param adder the adder to add.
+   *
+   * @return {@code true} if home added successfully.
    */
   default boolean addHomeWithEvent(@NotNull final Player adder) {
     return this.addHomeWithEvent(adder.getLocation(), adder);
@@ -71,6 +73,8 @@ public interface ParentClaim extends Claim, Permissible {
    *
    * @param location the location to add.
    * @param adder the adder to add.
+   *
+   * @return {@code true} if home added successfully.
    */
   default boolean addHomeWithEvent(@NotNull final Location location,
                                    @NotNull final Player adder) {
@@ -84,6 +88,8 @@ public interface ParentClaim extends Claim, Permissible {
    * @param name the name to add.
    * @param location the location to add.
    * @param adder the adder to add.
+   *
+   * @return {@code true} if home added successfully.
    */
   default boolean addHomeWithEvent(@NotNull final String name, @NotNull final Location location,
                                    @NotNull final Player adder) {
@@ -97,6 +103,8 @@ public interface ParentClaim extends Claim, Permissible {
    * @param name the name to add.
    * @param location the location to add.
    * @param adder the adder to add.
+   *
+   * @return {@code true} if home added successfully.
    */
   default boolean addHomeWithEvent(@NotNull final UUID id, @NotNull final String name, @NotNull final Location location,
                                    @NotNull final Player adder) {
@@ -138,6 +146,8 @@ public interface ParentClaim extends Claim, Permissible {
    * adds the member to the claim.
    *
    * @param member the member to add.
+   *
+   * @return {@code true} if member added successfully.
    */
   default boolean addMemberWithEvent(@NotNull final Member member) {
     return ParentClaim.callEvent(new ClaimAddMemberEvent(this, member), event ->
