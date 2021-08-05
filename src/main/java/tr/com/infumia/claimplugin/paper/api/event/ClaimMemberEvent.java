@@ -1,7 +1,5 @@
 package tr.com.infumia.claimplugin.paper.api.event;
 
-import lombok.Getter;
-import lombok.Setter;
 import org.jetbrains.annotations.NotNull;
 import tr.com.infumia.claimplugin.paper.api.claim.ParentClaim;
 import tr.com.infumia.claimplugin.paper.api.member.Member;
@@ -15,8 +13,6 @@ abstract class ClaimMemberEvent extends ClaimEvent {
    * the member.
    */
   @NotNull
-  @Getter
-  @Setter
   private Member member;
 
   /**
@@ -27,6 +23,25 @@ abstract class ClaimMemberEvent extends ClaimEvent {
    */
   ClaimMemberEvent(@NotNull final ParentClaim claim, @NotNull final Member member) {
     super(claim);
+    this.member = member;
+  }
+
+  /**
+   * obtains the member.
+   *
+   * @return member.
+   */
+  @NotNull
+  public final Member getMember() {
+    return this.member;
+  }
+
+  /**
+   * sets the member.
+   *
+   * @param member the member to set.
+   */
+  public final void setMember(@NotNull final Member member) {
     this.member = member;
   }
 }

@@ -65,7 +65,20 @@ public interface ParentClaim extends Claim, Permissible {
    * @return {@code true} if home added successfully.
    */
   default boolean addHomeWithEvent(@NotNull final Player adder) {
-    return this.addHomeWithEvent(adder.getLocation(), adder);
+    return this.addHomeWithEvent(adder, event -> {
+    });
+  }
+
+  /**
+   * adds the home.
+   *
+   * @param adder the adder to add.
+   * @param consumer the consumer to add.
+   *
+   * @return {@code true} if home added successfully.
+   */
+  default boolean addHomeWithEvent(@NotNull final Player adder, @NotNull final Consumer<ClaimSetHomeEvent> consumer) {
+    return this.addHomeWithEvent(adder.getLocation(), adder, consumer);
   }
 
   /**
@@ -77,8 +90,23 @@ public interface ParentClaim extends Claim, Permissible {
    * @return {@code true} if home added successfully.
    */
   default boolean addHomeWithEvent(@NotNull final Location location, @NotNull final Player adder) {
+    return this.addHomeWithEvent(location, adder, event -> {
+    });
+  }
+
+  /**
+   * adds the home.
+   *
+   * @param location the location to add.
+   * @param adder the adder to add.
+   * @param consumer the consumer to add.
+   *
+   * @return {@code true} if home added successfully.
+   */
+  default boolean addHomeWithEvent(@NotNull final Location location, @NotNull final Player adder,
+                                   @NotNull final Consumer<ClaimSetHomeEvent> consumer) {
     final var id = UUID.randomUUID();
-    return this.addHomeWithEvent(id, id.toString(), location, adder);
+    return this.addHomeWithEvent(id, id.toString(), location, adder, consumer);
   }
 
   /**
@@ -92,7 +120,23 @@ public interface ParentClaim extends Claim, Permissible {
    */
   default boolean addHomeWithEvent(@NotNull final String name, @NotNull final Location location,
                                    @NotNull final Player adder) {
-    return this.addHomeWithEvent(UUID.randomUUID(), name, location, adder);
+    return this.addHomeWithEvent(name, location, adder, event -> {
+    });
+  }
+
+  /**
+   * adds the home.
+   *
+   * @param name the name to add.
+   * @param location the location to add.
+   * @param adder the adder to add.
+   * @param consumer the consumer to add.
+   *
+   * @return {@code true} if home added successfully.
+   */
+  default boolean addHomeWithEvent(@NotNull final String name, @NotNull final Location location,
+                                   @NotNull final Player adder, @NotNull final Consumer<ClaimSetHomeEvent> consumer) {
+    return this.addHomeWithEvent(UUID.randomUUID(), name, location, adder, consumer);
   }
 
   /**
@@ -107,6 +151,23 @@ public interface ParentClaim extends Claim, Permissible {
    */
   default boolean addHomeWithEvent(@NotNull final UUID id, @NotNull final String name, @NotNull final Location location,
                                    @NotNull final Player adder) {
+    return this.addHomeWithEvent(id, name, location, adder, event -> {
+    });
+  }
+
+  /**
+   * adds the home.
+   *
+   * @param id the id to add.
+   * @param name the name to add.
+   * @param location the location to add.
+   * @param adder the adder to add.
+   * @param consumer the consumer to add.
+   *
+   * @return {@code true} if home added successfully.
+   */
+  default boolean addHomeWithEvent(@NotNull final UUID id, @NotNull final String name, @NotNull final Location location,
+                                   @NotNull final Player adder, @NotNull final Consumer<ClaimSetHomeEvent> consumer) {
     return this.addHomeWithEvent(Home.of(id, name, location), adder);
   }
 
@@ -120,7 +181,24 @@ public interface ParentClaim extends Claim, Permissible {
    */
   default boolean addHomeWithEvent(@NotNull final Home home, @NotNull final Player adder) {
     return ParentClaim.callEvent(new ClaimSetHomeEvent(this, home, adder), event ->
-      this.addHome(event.getHome()));
+      event.getClaim().addHome(event.getHome()));
+  }
+
+  /**
+   * adds the home.
+   *
+   * @param home the home to add.
+   * @param adder the adder to add.
+   * @param consumer the consumer to add.
+   *
+   * @return {@code true} if the home added successfully.
+   */
+  default boolean addHomeWithEvent(@NotNull final Home home, @NotNull final Player adder,
+                                   @NotNull final Consumer<ClaimSetHomeEvent> consumer) {
+    return ParentClaim.callEvent(new ClaimSetHomeEvent(this, home, adder), event -> {
+      event.getClaim().addHome(event.getHome());
+      consumer.accept(event);
+    });
   }
 
   /**
@@ -138,7 +216,21 @@ public interface ParentClaim extends Claim, Permissible {
    * @return {@code this} if the adding member succeed.
    */
   default boolean addMemberWithEvent(@NotNull final UUID member) {
-    return this.addMemberWithEvent(Member.member(member));
+    return this.addMemberWithEvent(member, event -> {
+    });
+  }
+
+  /**
+   * adds the member to the claim.
+   *
+   * @param member the member to add.
+   * @param consumer the consumer to add.
+   *
+   * @return {@code this} if the adding member succeed.
+   */
+  default boolean addMemberWithEvent(@NotNull final UUID member,
+                                     @NotNull final Consumer<ClaimAddMemberEvent> consumer) {
+    return this.addMemberWithEvent(Member.member(member), consumer);
   }
 
   /**
@@ -149,8 +241,24 @@ public interface ParentClaim extends Claim, Permissible {
    * @return {@code true} if member added successfully.
    */
   default boolean addMemberWithEvent(@NotNull final Member member) {
-    return ParentClaim.callEvent(new ClaimAddMemberEvent(this, member), event ->
-      this.addMember(event.getMember()));
+    return this.addMemberWithEvent(member, event -> {
+    });
+  }
+
+  /**
+   * adds the member to the claim.
+   *
+   * @param member the member to add.
+   * @param consumer the consumer to add.
+   *
+   * @return {@code true} if member added successfully.
+   */
+  default boolean addMemberWithEvent(@NotNull final Member member,
+                                     @NotNull final Consumer<ClaimAddMemberEvent> consumer) {
+    return ParentClaim.callEvent(new ClaimAddMemberEvent(this, member), event -> {
+      event.getClaim().addMember(event.getMember());
+      consumer.accept(event);
+    });
   }
 
   /**
@@ -396,8 +504,24 @@ public interface ParentClaim extends Claim, Permissible {
    * @return {@code true} if the invite succeed.
    */
   default boolean inviteWithEvent(@NotNull final Invite invite) {
-    return ParentClaim.callEvent(new ClaimInviteMemberEvent(this, invite), event ->
-      this.invite(event.getInvite()));
+    return this.inviteWithEvent(invite, event -> {
+    });
+  }
+
+  /**
+   * invites the player to become a member of the claim.
+   *
+   * @param invite the invite to invite.
+   * @param consumer the consumer to invite.
+   *
+   * @return {@code true} if the invite succeed.
+   */
+  default boolean inviteWithEvent(@NotNull final Invite invite,
+                                  @NotNull final Consumer<ClaimInviteMemberEvent> consumer) {
+    return ParentClaim.callEvent(new ClaimInviteMemberEvent(this, invite), event -> {
+      event.getClaim().invite(event.getInvite());
+      consumer.accept(event);
+    });
   }
 
   /**
@@ -467,8 +591,25 @@ public interface ParentClaim extends Claim, Permissible {
    * @return {@code true} if the home removed successfully.
    */
   default boolean removeHomeWithEvent(@NotNull final Home home, @NotNull final Player remover) {
-    return ParentClaim.callEvent(new ClaimDeleteHomeEvent(this, home, remover), event ->
-      this.removeHome(event.getHome()));
+    return this.removeHomeWithEvent(home, remover, event -> {
+    });
+  }
+
+  /**
+   * removes the home.
+   *
+   * @param home the home to remove.
+   * @param remover the remover to remove.
+   * @param consumer the consumer to remove.
+   *
+   * @return {@code true} if the home removed successfully.
+   */
+  default boolean removeHomeWithEvent(@NotNull final Home home, @NotNull final Player remover,
+                                      @NotNull final Consumer<ClaimDeleteHomeEvent> consumer) {
+    return ParentClaim.callEvent(new ClaimDeleteHomeEvent(this, home, remover), event -> {
+      event.getClaim().removeHome(event.getHome());
+      consumer.accept(event);
+    });
   }
 
   /**
@@ -487,7 +628,22 @@ public interface ParentClaim extends Claim, Permissible {
    * @return {@code true} if the member kicked successfully.
    */
   default boolean removeMemberWithEvent(@NotNull final UUID member, @NotNull final Player kicker) {
-    return this.removeMemberWithEvent(Member.member(member), kicker);
+    return this.removeMemberWithEvent(member, kicker, event -> {
+    });
+  }
+
+  /**
+   * removes the member from the claim.
+   *
+   * @param member the member to remove.
+   * @param kicker the kicker to remove.
+   * @param consumer the consumer to remove.
+   *
+   * @return {@code true} if the member kicked successfully.
+   */
+  default boolean removeMemberWithEvent(@NotNull final UUID member, @NotNull final Player kicker,
+                                        @NotNull final Consumer<ClaimRemoveMemberEvent> consumer) {
+    return this.removeMemberWithEvent(Member.member(member), kicker, consumer);
   }
 
   /**
@@ -499,8 +655,25 @@ public interface ParentClaim extends Claim, Permissible {
    * @return {@code true} if the member kicked successfully.
    */
   default boolean removeMemberWithEvent(@NotNull final Member member, @NotNull final Player kicker) {
-    return ParentClaim.callEvent(new ClaimRemoveMemberEvent(this, member, kicker), event ->
-      this.removeMember(event.getMember()));
+    return this.removeMemberWithEvent(member, kicker, event -> {
+    });
+  }
+
+  /**
+   * removes the member from the claim.
+   *
+   * @param member the member to remove.
+   * @param kicker the kicker to remove.
+   * @param consumer the consumer to remove.
+   *
+   * @return {@code true} if the member kicked successfully.
+   */
+  default boolean removeMemberWithEvent(@NotNull final Member member, @NotNull final Player kicker,
+                                        @NotNull final Consumer<ClaimRemoveMemberEvent> consumer) {
+    return ParentClaim.callEvent(new ClaimRemoveMemberEvent(this, member, kicker), event -> {
+      event.getClaim().removeMember(event.getMember());
+      consumer.accept(event);
+    });
   }
 
   /**
@@ -529,9 +702,44 @@ public interface ParentClaim extends Claim, Permissible {
    * @return {@code true} if the changing owner succeed.
    */
   default boolean setOwnerWithEvent(@NotNull final Member owner, @NotNull final Player changer) {
-    if (this.removeMemberWithEvent(owner, changer)) {
-      return ParentClaim.callEvent(new ClaimOwnerChangeEvent(this, this.getOwner(), owner), event ->
-        this.setOwner(event.getNewOwner()));
+    return this.setOwnerWithEvent(owner, changer, event -> {
+    }, event -> {
+    });
+  }
+
+  /**
+   * sets the owner.
+   *
+   * @param owner the owner to set.
+   * @param changer the changer to set.
+   * @param consumer the consumer to set.
+   *
+   * @return {@code true} if the changing owner succeed.
+   */
+  default boolean setOwnerWithEvent(@NotNull final Member owner, @NotNull final Player changer,
+                                    @NotNull final Consumer<ClaimOwnerChangeEvent> consumer) {
+    return this.setOwnerWithEvent(owner, changer, event -> {
+    }, consumer);
+  }
+
+  /**
+   * sets the owner.
+   *
+   * @param owner the owner to set.
+   * @param changer the changer to set.
+   * @param claimRemoveMemberEventConsumer the claim remove member event consumer to set.
+   * @param claimOwnerChangeEventConsumer the claim owner change event consumer to set.
+   *
+   * @return {@code true} if the changing owner succeed.
+   */
+  default boolean setOwnerWithEvent(@NotNull final Member owner, @NotNull final Player changer,
+                                    @NotNull final Consumer<ClaimRemoveMemberEvent> claimRemoveMemberEventConsumer,
+                                    @NotNull final Consumer<ClaimOwnerChangeEvent> claimOwnerChangeEventConsumer) {
+    if (this.removeMemberWithEvent(owner, changer, claimRemoveMemberEventConsumer)) {
+      return ParentClaim.callEvent(new ClaimOwnerChangeEvent(this, this.getOwner(), owner), event -> {
+        event.getClaim().setOwner(event.getNewOwner());
+        claimOwnerChangeEventConsumer.accept(event);
+      });
     }
     return false;
   }

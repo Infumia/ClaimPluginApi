@@ -55,7 +55,7 @@ public class Claims {
    * <p>
    * id-player unique id,claim unique id.
    */
-  private final Map<String, Map.Entry<UUID, ParentClaim>> INVITATIONS = new ConcurrentHashMap<>();
+  private final Map<String, Invite> INVITATIONS = new ConcurrentHashMap<>();
 
   /**
    * the cache level.
@@ -73,12 +73,10 @@ public class Claims {
   /**
    * adds the id to invitation.
    *
-   * @param id the id to add.
-   * @param player the player to add.
-   * @param claim the claim to add.
+   * @param invite the invite to add.
    */
-  void addInvitation(@NotNull final String id, @NotNull final UUID player, @NotNull final ParentClaim claim) {
-    Claims.INVITATIONS.put(id, Map.entry(player, claim));
+  static void addInvitation(@NotNull final Invite invite) {
+    Claims.INVITATIONS.put(invite.getId(), invite);
   }
 
   /**
@@ -203,7 +201,7 @@ public class Claims {
    * @return invited player's unique id.
    */
   @NotNull
-  Optional<Map.Entry<UUID, ParentClaim>> getInvitation(@NotNull final String id) {
+  Optional<Invite> getInvitation(@NotNull final String id) {
     return Optional.ofNullable(Claims.INVITATIONS.get(id));
   }
 

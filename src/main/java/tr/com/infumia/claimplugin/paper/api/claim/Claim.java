@@ -1,7 +1,6 @@
 package tr.com.infumia.claimplugin.paper.api.claim;
 
 import java.util.Collection;
-import java.util.Map;
 import java.util.Optional;
 import java.util.UUID;
 import java.util.concurrent.CompletableFuture;
@@ -23,12 +22,10 @@ public interface Claim extends Control {
   /**
    * adds the id to invitation.
    *
-   * @param id the id to add.
-   * @param player the player to add.
-   * @param claim the claim to add.
+   * @param invite the invite to add.
    */
-  static void addInvitation(@NotNull final String id, @NotNull final UUID player, @NotNull final ParentClaim claim) {
-    Claims.addInvitation(id, player, claim);
+  static void addInvitation(@NotNull final Invite invite) {
+    Claims.addInvitation(invite);
   }
 
   /**
@@ -159,7 +156,7 @@ public interface Claim extends Control {
    * @return invited player's unique id.
    */
   @NotNull
-  static Optional<Map.Entry<UUID, ParentClaim>> getInvitation(@NotNull final String id) {
+  static Optional<Invite> getInvitation(@NotNull final String id) {
     return Claims.getInvitation(id);
   }
 
