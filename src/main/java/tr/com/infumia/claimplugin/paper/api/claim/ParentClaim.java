@@ -76,8 +76,7 @@ public interface ParentClaim extends Claim, Permissible {
    *
    * @return {@code true} if home added successfully.
    */
-  default boolean addHomeWithEvent(@NotNull final Location location,
-                                   @NotNull final Player adder) {
+  default boolean addHomeWithEvent(@NotNull final Location location, @NotNull final Player adder) {
     final var id = UUID.randomUUID();
     return this.addHomeWithEvent(id, id.toString(), location, adder);
   }
