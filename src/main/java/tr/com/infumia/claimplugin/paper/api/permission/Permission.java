@@ -113,8 +113,8 @@ public interface Permission {
    * @throws IllegalStateException if block protection permission not found.
    */
   @NotNull
-  static Permission blockProtection() {
-    return Permission.getOrThrow("block-protection");
+  static Permission protection() {
+    return Permission.getOrThrow("protection");
   }
 
   /**
