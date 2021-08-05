@@ -114,7 +114,7 @@ public interface Permission {
    */
   @NotNull
   static Permission blockProtection() {
-    return Permission.getOrThrow("block-protection");
+    return Permission.getOrThrow("protection");
   }
 
   /**
