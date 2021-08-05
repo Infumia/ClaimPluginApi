@@ -106,18 +106,6 @@ public interface Permission {
   }
 
   /**
-   * obtains the block protection permission.
-   *
-   * @return block protection permission.
-   *
-   * @throws IllegalStateException if block protection permission not found.
-   */
-  @NotNull
-  static Permission protection() {
-    return Permission.getOrThrow("protection");
-  }
-
-  /**
    * obtains the brewing access permission.
    *
    * @return brewing access permission.
@@ -304,6 +292,18 @@ public interface Permission {
   @NotNull
   static Permission mobSpawning() {
     return Permission.getOrThrow("mob-spawning");
+  }
+
+  /**
+   * obtains the block protection permission.
+   *
+   * @return block protection permission.
+   *
+   * @throws IllegalStateException if block protection permission not found.
+   */
+  @NotNull
+  static Permission protection() {
+    return Permission.getOrThrow("protection");
   }
 
   /**

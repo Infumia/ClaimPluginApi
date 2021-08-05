@@ -1,12 +1,11 @@
 package tr.com.infumia.claimplugin.paper.api.member;
 
-import java.util.Objects;
+import java.util.Optional;
 import java.util.UUID;
 import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 import tr.com.infumia.claimplugin.paper.api.permission.Control;
 import tr.com.infumia.claimplugin.paper.api.permission.Permissible;
 
@@ -114,9 +113,9 @@ public interface Member extends Permissible, Control {
    *
    * @return member as player.
    */
-  @Nullable
-  default Player getAsPlayer() {
-    return Bukkit.getPlayer(this.getUniqueId());
+  @NotNull
+  default Optional<Player> getAsPlayer() {
+    return Optional.ofNullable(Bukkit.getPlayer(this.getUniqueId()));
   }
 
   /**
@@ -126,7 +125,19 @@ public interface Member extends Permissible, Control {
    */
   @NotNull
   default Player getAsPlayerOrThrow() {
-    return Objects.requireNonNull(this.getAsPlayer(), String.format("Player %s not found!", this.getUniqueId()));
+    return this.getAsPlayer().orElseThrow(() ->
+      new IllegalStateException(String.format("Player called %s not found!", this.getUniqueId())));
+  }
+
+  /**
+   * obtains name or unique id of the member.
+   *
+   * @return name or uniqeu id.
+   */
+  @NotNull
+  default String getName() {
+    final var name = this.getAsOfflinePlayer().getName();
+    return name == null ? this.getUniqueId().toString() : name;
   }
 
   /**

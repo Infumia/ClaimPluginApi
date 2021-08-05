@@ -20,12 +20,14 @@ public interface Invite {
    *
    * @param inviter the inviter to create.
    * @param invited the invited to create.
+   * @param invitedClaim the invited claim to create.
    *
    * @return a newly created invite.
    */
   @NotNull
-  static Invite of(@NotNull final Player inviter, @NotNull final Player invited) {
-    return Invite.of(inviter.getUniqueId(), invited.getUniqueId());
+  static Invite of(@NotNull final Player inviter, @NotNull final Player invited,
+                   @NotNull final ParentClaim invitedClaim) {
+    return Invite.of(inviter.getUniqueId(), invited.getUniqueId(), invitedClaim);
   }
 
   /**
@@ -33,26 +35,13 @@ public interface Invite {
    *
    * @param inviter the inviter to create.
    * @param invited the invited to create.
+   * @param invitedClaim the invited claim to create.
    *
    * @return a newly created invite.
    */
   @NotNull
-  static Invite of(@NotNull final UUID inviter, @NotNull final UUID invited) {
-    return Invite.of(inviter, invited, UUID.randomUUID().toString());
-  }
-
-  /**
-   * creates a simple invite.
-   *
-   * @param inviter the inviter to create.
-   * @param invited the invited to create.
-   * @param id the id to create.
-   *
-   * @return a newly created invite.
-   */
-  @NotNull
-  static Invite of(@NotNull final Player inviter, @NotNull final Player invited, @NotNull final String id) {
-    return Invite.of(inviter.getUniqueId(), invited.getUniqueId(), id);
+  static Invite of(@NotNull final UUID inviter, @NotNull final UUID invited, @NotNull final ParentClaim invitedClaim) {
+    return Invite.of(inviter, invited, UUID.randomUUID().toString(), invitedClaim);
   }
 
   /**
@@ -61,12 +50,30 @@ public interface Invite {
    * @param inviter the inviter to create.
    * @param invited the invited to create.
    * @param id the id to create.
+   * @param invitedClaim the invited claim to create.
    *
    * @return a newly created invite.
    */
   @NotNull
-  static Invite of(@NotNull final UUID inviter, @NotNull final UUID invited, @NotNull final String id) {
-    return new Impl(id, invited, inviter);
+  static Invite of(@NotNull final Player inviter, @NotNull final Player invited, @NotNull final String id,
+                   @NotNull final ParentClaim invitedClaim) {
+    return Invite.of(inviter.getUniqueId(), invited.getUniqueId(), id, invitedClaim);
+  }
+
+  /**
+   * creates a simple invite.
+   *
+   * @param inviter the inviter to create.
+   * @param invited the invited to create.
+   * @param id the id to create.
+   * @param invitedClaim the invited claim to create.
+   *
+   * @return a newly created invite.
+   */
+  @NotNull
+  static Invite of(@NotNull final UUID inviter, @NotNull final UUID invited, @NotNull final String id,
+                   @NotNull final ParentClaim invitedClaim) {
+    return new Impl(id, invited, invitedClaim, inviter);
   }
 
   /**
@@ -86,12 +93,30 @@ public interface Invite {
   UUID getInvited();
 
   /**
+   * obtains the invited claim.
+   *
+   * @return invited claim.
+   */
+  @NotNull
+  ParentClaim getInvitedClaim();
+
+  /**
    * obtains the inviter.
    *
    * @return inviter.
    */
   @NotNull
   UUID getInviter();
+
+  /**
+   * obtains the inviter as player.
+   *
+   * @return inviter as player.
+   */
+  @NotNull
+  default Optional<Player> getInviterAsPlayer() {
+    return Optional.ofNullable(Bukkit.getPlayer(this.getInviter()));
+  }
 
   /**
    * gets name of the inviter.
@@ -136,6 +161,12 @@ public interface Invite {
      */
     @NotNull
     private final UUID invited;
+
+    /**
+     * the invited claim.
+     */
+    @NotNull
+    private final ParentClaim invitedClaim;
 
     /**
      * the inviter.
