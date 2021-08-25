@@ -390,6 +390,16 @@ public interface ParentClaim extends Claim, Permissible {
   Optional<Member> getMember(@NotNull UUID uniqueId);
 
   /**
+   * gets the member via name.
+   *
+   * @param name the name to get.
+   *
+   * @return member.
+   */
+  @NotNull
+  Optional<Member> getMemberByName(@NotNull String name);
+
+  /**
    * obtains the member limit.
    *
    * @return member limit.
