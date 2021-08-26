@@ -149,8 +149,8 @@ public interface Permission {
    * @throws IllegalStateException if edit perm permission not found.
    */
   @NotNull
-  static Permission editPerm() {
-    return Permission.getOrThrow("edit-perm");
+  static Permission editPermission() {
+    return Permission.getOrThrow("edit-permission");
   }
 
   /**
