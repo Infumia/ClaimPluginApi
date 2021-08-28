@@ -173,6 +173,19 @@ public interface Claim extends Control {
   }
 
   /**
+   * gets claim at the location.
+   *
+   * @param location the location to get.
+   *
+   * @return claim at location.
+   */
+  @NotNull
+  static ParentClaim getOrThrow(@NotNull final Location location) {
+    return Claim.get(location).orElseThrow(() ->
+      new IllegalStateException(String.format("Claim at %s not found!", location)));
+  }
+
+  /**
    * checks if there is a chunk at the location.
    *
    * @param location the location to check.

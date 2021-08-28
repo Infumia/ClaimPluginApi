@@ -484,6 +484,16 @@ public interface ParentClaim extends Claim, Permissible {
   }
 
   /**
+   * obtains the owner's unique id.
+   *
+   * @return owner's unique id as string.
+   */
+  @NotNull
+  default String getOwnerAsUniqueIdAsString() {
+    return this.getOwnerAsUniqueId().toString();
+  }
+
+  /**
    * obtains the storage.
    *
    * @return storage.
