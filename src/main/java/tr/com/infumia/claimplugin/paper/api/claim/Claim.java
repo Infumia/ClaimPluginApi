@@ -182,7 +182,7 @@ public interface Claim extends Control {
   @NotNull
   static ParentClaim getOrThrow(@NotNull final Location location) {
     return Claim.get(location).orElseThrow(() ->
-      new IllegalStateException(String.format("Claim at %s not found!", location)));
+      new NullPointerException(String.format("Claim at %s not found!", location)));
   }
 
   /**
