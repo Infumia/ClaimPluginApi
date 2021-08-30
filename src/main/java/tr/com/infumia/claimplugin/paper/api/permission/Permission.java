@@ -82,6 +82,30 @@ public interface Permission {
   }
 
   /**
+   * obtains the beacon access permission.
+   *
+   * @return beacon access permission.
+   *
+   * @throws IllegalStateException if beacon access permission not found.
+   */
+  @NotNull
+  static Permission beaconAccess() {
+    return Permission.getOrThrow("beacon-access");
+  }
+
+  /**
+   * obtains the beacon effect access permission.
+   *
+   * @return beacon effect access permission.
+   *
+   * @throws IllegalStateException if beacon effect access permission not found.
+   */
+  @NotNull
+  static Permission beaconEffectAccess() {
+    return Permission.getOrThrow("beacon-effect-access");
+  }
+
+  /**
    * obtains the block break permission.
    *
    * @return block break permission.
@@ -130,6 +154,18 @@ public interface Permission {
   }
 
   /**
+   * obtains the delete home permission.
+   *
+   * @return delete home permission.
+   *
+   * @throws IllegalStateException if delete home permission not found.
+   */
+  @NotNull
+  static Permission deleteHome() {
+    return Permission.getOrThrow("delete-home");
+  }
+
+  /**
    * obtains the dragon egg touch permission.
    *
    * @return dragon egg touch permission.
@@ -151,6 +187,18 @@ public interface Permission {
   @NotNull
   static Permission editPermission() {
     return Permission.getOrThrow("edit-permission");
+  }
+
+  /**
+   * obtains the enchanting table access permission.
+   *
+   * @return enchanting table access permission.
+   *
+   * @throws IllegalStateException if enchanting table access permission not found.
+   */
+  @NotNull
+  static Permission enchantingTableAccess() {
+    return Permission.getOrThrow("enchanting-table-access");
   }
 
   /**
@@ -244,6 +292,18 @@ public interface Permission {
   @NotNull
   static Permission inviteMember() {
     return Permission.getOrThrow("invite-member");
+  }
+
+  /**
+   * obtains the item frame access permission.
+   *
+   * @return item frame access permission.
+   *
+   * @throws IllegalStateException if item frame access permission not found.
+   */
+  @NotNull
+  static Permission itemFrameAccess() {
+    return Permission.getOrThrow("item-frame-access");
   }
 
   /**
