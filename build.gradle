@@ -15,7 +15,7 @@ tasks.withType(JavaCompile) {
 
 dependencyManagement {
 	imports {
-		mavenBom "io.github.parentpom:ppom:3.4.94"
+		mavenBom "io.github.parentpom:ppom:3.5.30"
 	}
 }
 
@@ -47,8 +47,8 @@ task javadocJar(type: Jar, dependsOn: javadoc) {
 dependencies {
 	compileOnly "org.projectlombok:lombok"
 	compileOnly "org.jetbrains:annotations"
-    compileOnly "com.github.Infumia.InfumiaLib:InfumiaPaper:2.4.4"
-	compileOnly "com.github.Infumia.InfumiaLib:InfumiaCommon:2.4.4"
+    compileOnly "com.github.Infumia.InfumiaLib:InfumiaPaper:2.4.5"
+	compileOnly "com.github.Infumia.InfumiaLib:InfumiaCommon:2.4.5"
 	compileOnly "com.destroystokyo.paper:paper-api:1.16.5-R0.1-SNAPSHOT"
     compileOnly "it.unimi.dsi:fastutil"
 
